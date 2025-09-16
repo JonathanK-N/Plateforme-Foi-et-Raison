@@ -119,13 +119,18 @@ async function loadRecentContents() {
             `;
         });
         
-        // Si aucun contenu, afficher un message d'encouragement
+        // Si aucun contenu, afficher un message de préparation
         if (contents.length === 0) {
             recentGrid.innerHTML = `
                 <div class="col-12 text-center py-5">
                     <i class="fas fa-cross text-primary" style="font-size: 4rem; margin-bottom: 1rem;"></i>
-                    <h4 class="text-primary">Bientôt des contenus inspirants</h4>
-                    <p class="text-muted">Notre équipe prépare des enseignements et témoignages pour nourrir votre foi.</p>
+                    <h4 class="text-primary">Contenus en préparation</h4>
+                    <p class="text-muted">Notre équipe prépare des contenus spirituels enrichissants pour nourrir votre foi. Revenez bientôt !</p>
+                    <div class="mt-4">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Chargement...</span>
+                        </div>
+                    </div>
                 </div>
             `;
         }

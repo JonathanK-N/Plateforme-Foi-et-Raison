@@ -54,8 +54,10 @@ function displayContents(contents) {
     if (contents.length === 0) {
         contentsList.innerHTML = `
             <div class="col-12 text-center py-5">
-                <h4 class="text-muted">Aucun contenu disponible</h4>
-                <p class="text-muted">Revenez bientôt pour découvrir de nouveaux contenus!</p>
+                <i class="fas fa-heart text-primary" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                <h4 class="text-primary">Contenus en préparation</h4>
+                <p class="text-muted">Notre équipe travaille avec amour pour vous offrir des contenus spirituels de qualité.</p>
+                <p class="text-muted">Revenez bientôt découvrir nos enseignements, témoignages et réflexions !</p>
             </div>
         `;
         return;
