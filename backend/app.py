@@ -218,15 +218,22 @@ def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 def create_admin_user():
-    if not User.query.filter_by(username='admin').first():
-        admin = User(
-            username='admin',
-            email='admin@foietraison.ca',
-            password_hash=generate_password_hash('admin123'),
-            role='admin'
-        )
-        db.session.add(admin)
-        db.session.commit()
+    try:
+        if not User.query.filter_by(username='admin').first():
+            admin = User(
+                username='admin',
+                email='admin@foietraison.ca',
+                password_hash=generate_password_hash('admin123'),
+                role='admin'
+            )
+            db.session.add(admin)
+            db.session.commit()
+            print("Utilisateur admin créé avec succès")
+        else:
+            print("Utilisateur admin déjà existant")
+    except Exception as e:
+        print(f"Erreur lors de la création de l'admin: {e}")
+        db.session.rollback()
 
 if __name__ == '__main__':
     with app.app_context():
