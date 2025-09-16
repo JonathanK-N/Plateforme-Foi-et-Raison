@@ -1,5 +1,5 @@
 // Configuration globale
-const API_BASE = 'http://localhost:5000/api';
+const API_BASE = window.location.origin + '/api';
 let currentUser = null;
 
 // Initialisation de l'application
@@ -74,6 +74,11 @@ function hideAllPages() {
 async function loadRecentContents() {
     try {
         const response = await fetch(`${API_BASE}/contents`);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        
         const contents = await response.json();
         
         const recentGrid = document.getElementById('recentContentGrid');
