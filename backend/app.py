@@ -13,10 +13,12 @@ load_dotenv()
 app = Flask(__name__, template_folder='../frontend/templates', static_folder='../frontend/static')
 # Configuration base de données pour Railway
 database_url = os.getenv('DATABASE_URL')
+print(f"DATABASE_URL: {database_url}")  # Debug
 if database_url and database_url.startswith('postgres://'):
     database_url = database_url.replace('postgres://', 'postgresql://', 1)
 app.config['SQLALCHEMY_DATABASE_URI'] = database_url or 'sqlite:///foi_raison.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+print(f"Using database: {app.config['SQLALCHEMY_DATABASE_URI']}")  # Debug
 app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET_KEY', 'your-secret-key')
 app.config['UPLOAD_FOLDER'] = os.getenv('UPLOAD_FOLDER', 'uploads')
 app.config['MAX_CONTENT_LENGTH'] = 500 * 1024 * 1024  # 500MB max
@@ -115,16 +117,20 @@ def login():
 # Routes de contenu
 @app.route('/api/contents', methods=['GET'])
 def get_contents():
-    contents = Content.query.filter_by(is_published=True).order_by(Content.created_at.desc()).all()
-    return jsonify([{
-        'id': c.id,
-        'title': c.title,
-        'description': c.description,
-        'content_type': c.content_type,
-        'thumbnail': c.thumbnail,
-        'views': c.views,
-        'created_at': c.created_at.isoformat()
-    } for c in contents])
+    try:
+        contents = Content.query.filter_by(is_published=True).order_by(Content.created_at.desc()).all()
+        return jsonify([{
+            'id': c.id,
+            'title': c.title,
+            'description': c.description,
+            'content_type': c.content_type,
+            'thumbnail': c.thumbnail,
+            'views': c.views,
+            'created_at': c.created_at.isoformat()
+        } for c in contents])
+    except Exception as e:
+        print(f"Error loading contents: {e}")
+        return jsonify({'error': str(e)}), 500
 
 @app.route('/api/contents/<int:content_id>', methods=['GET'])
 def get_content(content_id):
