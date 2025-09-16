@@ -222,6 +222,26 @@ function showPrayer(prayerType) {
                 </div>
             `
         },
+        meal: {
+            title: "Prière du Repas",
+            content: `
+                <p class="prayer-verse">"Rendez grâces en toutes choses."</p>
+                
+                <div class="prayer-text">
+                    <p>Père céleste,</p>
+                    <p>Nous te remercions pour cette nourriture que tu places devant nous.</p>
+                    <p>Bénis ce repas et ceux qui l'ont préparé avec amour.</p>
+                    <p>Que cette nourriture fortifie nos corps pour te servir.</p>
+                    <p>Nous pensons à ceux qui n'ont pas à manger aujourd'hui, aide-nous à partager tes bénédictions.</p>
+                    <p class="text-end"><em>Au nom de Jésus, Amen.</em></p>
+                </div>
+                
+                <div class="prayer-verse mt-4">
+                    <p><em>"Que vous mangiez, soit que vous buviez, soit que vous fassiez quelque autre chose, faites tout pour la gloire de Dieu."</em></p>
+                    <small class="text-muted">1 Corinthiens 10:31</small>
+                </div>
+            `
+        },
         healing: {
             title: "Prière pour la Guérison",
             content: `
@@ -240,6 +260,69 @@ function showPrayer(prayerType) {
                 <div class="prayer-verse mt-4">
                     <p><em>"Mais il était blessé pour nos péchés, brisé pour nos iniquités; le châtiment qui nous donne la paix est tombé sur lui, et c'est par ses meurtrissures que nous sommes guéris."</em></p>
                     <small class="text-muted">Ésaïe 53:5</small>
+                </div>
+            `
+        },
+        guidance: {
+            title: "Prière pour la Guidance",
+            content: `
+                <p class="prayer-verse">"Je t'instruirai et te montrerai la voie que tu dois suivre."</p>
+                
+                <div class="prayer-text">
+                    <p>Seigneur, mon guide fidèle,</p>
+                    <p>Je me trouve à un carrefour et j'ai besoin de ta sagesse.</p>
+                    <p>Éclaire mon chemin, montre-moi la direction à prendre.</p>
+                    <p>Donne-moi un cœur attentif à ta voix et des oreilles pour entendre tes conseils.</p>
+                    <p>Que ta volonté soit ma boussole et ta parole ma lumière.</p>
+                    <p>Je remets mes décisions entre tes mains, confiant en ta bonté.</p>
+                    <p class="text-end"><em>Au nom de Jésus, Amen.</em></p>
+                </div>
+                
+                <div class="prayer-verse mt-4">
+                    <p><em>"Confie-toi en l'Éternel de tout ton cœur, et ne t'appuie pas sur ta sagesse; reconnais-le dans toutes tes voies, et il aplanira tes sentiers."</em></p>
+                    <small class="text-muted">Proverbes 3:5-6</small>
+                </div>
+            `
+        },
+        gratitude: {
+            title: "Prière de Gratitude",
+            content: `
+                <p class="prayer-verse">"Rendez grâces en toutes choses."</p>
+                
+                <div class="prayer-text">
+                    <p>Père plein d'amour,</p>
+                    <p>Mon cœur déborde de reconnaissance pour toutes tes bontés.</p>
+                    <p>Merci pour la vie, la santé, la famille et les amis que tu m'as donnés.</p>
+                    <p>Merci pour les épreuves qui m'ont fait grandir et les joies qui ont illuminé mes jours.</p>
+                    <p>Merci pour ton amour inconditionnel et ta grâce qui me relève chaque jour.</p>
+                    <p>Que ma vie soit un cantique de louange à ta gloire.</p>
+                    <p class="text-end"><em>Au nom de Jésus, Amen.</em></p>
+                </div>
+                
+                <div class="prayer-verse mt-4">
+                    <p><em>"Rendez grâces en toutes choses, car c'est à votre égard la volonté de Dieu en Jésus-Christ."</em></p>
+                    <small class="text-muted">1 Thessaloniciens 5:18</small>
+                </div>
+            `
+        },
+        protection: {
+            title: "Prière de Protection",
+            content: `
+                <p class="prayer-verse">"L'Éternel te gardera de tout mal."</p>
+                
+                <div class="prayer-text">
+                    <p>Dieu tout-puissant, mon refuge et ma forteresse,</p>
+                    <p>Je me place sous ta protection divine.</p>
+                    <p>Couvre-moi de tes ailes, entoure-moi de tes anges gardiens.</p>
+                    <p>Protège ma famille, mes proches et moi-même du mal sous toutes ses formes.</p>
+                    <p>Garde nos cœurs dans la paix, nos esprits dans la vérité.</p>
+                    <p>Que ton bouclier nous accompagne partout où nous allons.</p>
+                    <p class="text-end"><em>Au nom de Jésus, notre protecteur, Amen.</em></p>
+                </div>
+                
+                <div class="prayer-verse mt-4">
+                    <p><em>"L'Éternel te gardera de tout mal, il gardera ton âme; L'Éternel gardera ton départ et ton arrivée, dès maintenant et à jamais."</em></p>
+                    <small class="text-muted">Psaume 121:7-8</small>
                 </div>
             `
         }
