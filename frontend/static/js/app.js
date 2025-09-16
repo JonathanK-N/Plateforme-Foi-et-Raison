@@ -64,10 +64,15 @@ function showQuestions() {
 }
 
 function hideAllPages() {
-    const pages = ['homePage', 'contentsPage', 'questionsPage'];
+    const pages = ['homePage', 'contentsPage', 'questionsPage', 'adminPage'];
     pages.forEach(pageId => {
-        document.getElementById(pageId).classList.add('d-none');
+        const page = document.getElementById(pageId);
+        if (page) page.classList.add('d-none');
     });
+    
+    // Masquer aussi la page de prières si elle existe
+    const prayersPage = document.getElementById('prayersPage');
+    if (prayersPage) prayersPage.classList.add('d-none');
 }
 
 // Chargement des contenus récents pour la grille
@@ -254,4 +259,228 @@ function logout() {
     updateNavigation(false);
     showHome();
     showAlert('Déconnexion réussie', 'success');
+}
+
+// Fonctions d'authentification globales
+function setupAuthModal(type, title, submitText) {
+    const modal = document.getElementById('authModal');
+    const modalTitle = document.getElementById('authModalTitle');
+    const authFields = document.getElementById('authFields');
+    const authSubmit = document.getElementById('authSubmit');
+    const authForm = document.getElementById('authForm');
+    
+    modalTitle.textContent = title;
+    authSubmit.textContent = submitText;
+    
+    // Nettoyer les anciens écouteurs
+    const newForm = authForm.cloneNode(true);
+    authForm.parentNode.replaceChild(newForm, authForm);
+    
+    if (type === 'login') {
+        authFields.innerHTML = `
+            <div class="mb-3">
+                <label for="username" class="form-label">Nom d'utilisateur</label>
+                <input type="text" class="form-control" id="username" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Mot de passe</label>
+                <input type="password" class="form-control" id="password" required>
+            </div>
+        `;
+        
+        document.getElementById('authForm').addEventListener('submit', handleLogin);
+    } else {
+        authFields.innerHTML = `
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="nom" class="form-label">Nom</label>
+                    <input type="text" class="form-control" id="nom" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="prenom" class="form-label">Prénom</label>
+                    <input type="text" class="form-control" id="prenom" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="sexe" class="form-label">Sexe</label>
+                    <select class="form-select" id="sexe" required>
+                        <option value="">Sélectionner</option>
+                        <option value="M">Masculin</option>
+                        <option value="F">Féminin</option>
+                    </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="telephone" class="form-label">Numéro de téléphone</label>
+                    <input type="tel" class="form-control" id="telephone" required>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" required>
+            </div>
+            <div class="mb-3">
+                <label for="dateNaissance" class="form-label">Date de naissance</label>
+                <input type="date" class="form-control" id="dateNaissance" required>
+            </div>
+            <div class="mb-3">
+                <label for="accepteJesus" class="form-label">Avez-vous déjà reçu Jésus comme Seigneur et Sauveur ?</label>
+                <select class="form-select" id="accepteJesus" required>
+                    <option value="">Sélectionner</option>
+                    <option value="oui">Oui</option>
+                    <option value="non">Non</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="baptise" class="form-label">Êtes-vous déjà baptisé ?</label>
+                <select class="form-select" id="baptise" required onchange="toggleBaptismYear()">
+                    <option value="">Sélectionner</option>
+                    <option value="oui">Oui</option>
+                    <option value="non">Non</option>
+                </select>
+            </div>
+            <div class="mb-3 d-none" id="anneeBaptemeDiv">
+                <label for="anneeBapteme" class="form-label">Année de baptême</label>
+                <input type="number" class="form-control" id="anneeBapteme" min="1900" max="2024">
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Mot de passe</label>
+                <input type="password" class="form-control" id="password" required minlength="6">
+            </div>
+            <div class="mb-3">
+                <label for="confirmPassword" class="form-label">Confirmer le mot de passe</label>
+                <input type="password" class="form-control" id="confirmPassword" required>
+            </div>
+        `;
+        
+        // Ajouter la fonction pour afficher/masquer l'année de baptême
+        window.toggleBaptismYear = function() {
+            const baptise = document.getElementById('baptise').value;
+            const anneeBaptemeDiv = document.getElementById('anneeBaptemeDiv');
+            if (baptise === 'oui') {
+                anneeBaptemeDiv.classList.remove('d-none');
+                document.getElementById('anneeBapteme').required = true;
+            } else {
+                anneeBaptemeDiv.classList.add('d-none');
+                document.getElementById('anneeBapteme').required = false;
+            }
+        };
+        
+        document.getElementById('authForm').addEventListener('submit', handleRegister);
+    }
+    
+    const bootstrapModal = new bootstrap.Modal(modal);
+    bootstrapModal.show();
+}
+
+window.showLogin = function() {
+    setupAuthModal('login', 'Connexion', 'Se connecter');
+};
+
+window.showRegister = function() {
+    setupAuthModal('register', 'Inscription', 'S\'inscrire');
+};
+
+// Gestion de la connexion
+async function handleLogin(e) {
+    e.preventDefault();
+    
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    const submitBtn = document.getElementById('authSubmit');
+    
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Connexion...';
+    
+    try {
+        const response = await fetch(`${API_BASE}/login`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username, password })
+        });
+        
+        const data = await response.json();
+        
+        if (response.ok) {
+            localStorage.setItem('access_token', data.access_token);
+            localStorage.setItem('user_data', JSON.stringify(data.user));
+            
+            currentUser = data.user;
+            updateNavigation(true);
+            
+            bootstrap.Modal.getInstance(document.getElementById('authModal')).hide();
+            showAlert('Connexion réussie!', 'success');
+        } else {
+            showAlert(data.message || 'Erreur de connexion', 'danger');
+        }
+    } catch (error) {
+        showAlert('Erreur de connexion au serveur', 'danger');
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Se connecter';
+    }
+}
+
+// Gestion de l'inscription
+async function handleRegister(e) {
+    e.preventDefault();
+    
+    const formData = {
+        nom: document.getElementById('nom').value,
+        prenom: document.getElementById('prenom').value,
+        sexe: document.getElementById('sexe').value,
+        telephone: document.getElementById('telephone').value,
+        email: document.getElementById('email').value,
+        dateNaissance: document.getElementById('dateNaissance').value,
+        accepteJesus: document.getElementById('accepteJesus').value,
+        baptise: document.getElementById('baptise').value,
+        anneeBapteme: document.getElementById('baptise').value === 'oui' ? document.getElementById('anneeBapteme').value : null,
+        password: document.getElementById('password').value
+    };
+    
+    const confirmPassword = document.getElementById('confirmPassword').value;
+    const submitBtn = document.getElementById('authSubmit');
+    
+    if (formData.password !== confirmPassword) {
+        showAlert('Les mots de passe ne correspondent pas', 'danger');
+        return;
+    }
+    
+    if (formData.password.length < 6) {
+        showAlert('Le mot de passe doit contenir au moins 6 caractères', 'danger');
+        return;
+    }
+    
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Inscription...';
+    
+    try {
+        const response = await fetch(`${API_BASE}/register`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        });
+        
+        const data = await response.json();
+        
+        if (response.ok) {
+            showAlert('Inscription réussie! Vous pouvez maintenant vous connecter.', 'success');
+            bootstrap.Modal.getInstance(document.getElementById('authModal')).hide();
+            
+            setTimeout(() => {
+                showLogin();
+            }, 1000);
+        } else {
+            showAlert(data.message || 'Erreur lors de l\'inscription', 'danger');
+        }
+    } catch (error) {
+        showAlert('Erreur de connexion au serveur', 'danger');
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'S\'inscrire';
+    }
 }
