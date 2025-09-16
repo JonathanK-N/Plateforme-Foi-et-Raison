@@ -1,0 +1,83 @@
+version: '3.8'
+
+services:
+  # Base de données PostgreSQL
+  db:
+    image: postgres:15-alpine
+    container_name: foi_raison_db
+    environment:
+      POSTGRES_DB: foi_raison
+      POSTGRES_USER: foi_user
+      POSTGRES_PASSWORD: foi_password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+    networks:
+      - foi_raison_network
+    restart: unless-stopped
+
+  # Application Flask (Backend)
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: foi_raison_backend
+    environment:
+      DATABASE_URL: postgresql://foi_user:foi_password@db:5432/foi_raison
+      JWT_SECRET_KEY: your-super-secret-jwt-key-change-in-production
+      UPLOAD_FOLDER: /app/uploads
+      FLASK_ENV: production
+    volumes:
+      - ./backend/uploads:/app/uploads
+      - ./backend:/app
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    networks:
+      - foi_raison_network
+    restart: unless-stopped
+
+  # Serveur web Nginx (Frontend)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: foi_raison_frontend
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./frontend:/usr/share/nginx/html
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./ssl:/etc/nginx/ssl
+    depends_on:
+      - backend
+    networks:
+      - foi_raison_network
+    restart: unless-stopped
+
+  # Redis pour la mise en cache (optionnel)
+  redis:
+    image: redis:7-alpine
+    container_name: foi_raison_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - foi_raison_network
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  foi_raison_network:
+    driver: bridge

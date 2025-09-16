@@ -1,0 +1,259 @@
+/* Hero Section Prières */
+.hero-section-prayers {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-section-prayers .hero-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="cross" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M10 0v20M0 10h20" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23cross)"/></svg>');
+    opacity: 0.3;
+}
+
+.hero-verse {
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Sections de prières */
+.prayer-section-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: 0 10px 30px rgba(139, 69, 19, 0.1);
+    transition: all 0.3s ease;
+    border: 1px solid var(--border-color);
+    margin-bottom: 2rem;
+}
+
+.prayer-section-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(139, 69, 19, 0.15);
+}
+
+.prayer-main-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    color: var(--white);
+    font-size: 2rem;
+    box-shadow: 0 8px 20px rgba(139, 69, 19, 0.3);
+}
+
+.prayer-section-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    font-size: 1.8rem;
+}
+
+.prayer-section-card p {
+    font-size: 1rem;
+    line-height: 1.5;
+    opacity: 0.8;
+}
+
+.prayer-btn {
+    padding: 1rem 0.8rem;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    min-height: 90px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+}
+
+.prayer-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(139, 69, 19, 0.2);
+}
+
+.prayer-btn i {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.prayer-btn small {
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+/* Section méditation */
+.meditation-section {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: var(--white);
+    padding: 3rem 2rem;
+    border-radius: 20px;
+    margin-top: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.meditation-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="dots" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse"><circle cx="5" cy="5" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23dots)"/></svg>');
+    opacity: 0.5;
+}
+
+.meditation-section .row {
+    position: relative;
+    z-index: 1;
+}
+
+.meditation-section h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+}
+
+.meditation-section .lead {
+    font-size: 1.1rem;
+}
+
+/* Modal de prière */
+.prayer-modal-body {
+    padding: 2rem;
+    font-size: 1.1rem;
+    line-height: 1.7;
+}
+
+.prayer-verse {
+    background: linear-gradient(135deg, var(--bg-light), var(--light-gold));
+    padding: 1.5rem;
+    border-radius: 12px;
+    font-style: italic;
+    font-weight: 600;
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 1.5rem;
+    border-left: 4px solid var(--secondary-color);
+    font-size: 1.2rem;
+}
+
+.prayer-text {
+    background: var(--white);
+    padding: 2rem;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    margin-bottom: 1.5rem;
+}
+
+.prayer-text p {
+    margin-bottom: 1rem;
+    color: var(--text-color);
+    font-size: 1rem;
+}
+
+.prayer-text p:first-child {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.prayer-text p:last-child {
+    font-style: italic;
+    font-weight: 600;
+}
+
+/* Méditation */
+.meditation-circle {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border-radius: 50%;
+    box-shadow: 0 8px 25px rgba(139, 69, 19, 0.3);
+}
+
+.meditation-breath {
+    font-size: 3rem;
+    color: var(--white);
+    animation: breathe 4s ease-in-out infinite;
+}
+
+@keyframes breathe {
+    0%, 100% { transform: scale(1); opacity: 0.7; }
+    50% { transform: scale(1.1); opacity: 1; }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero-section-prayers {
+        min-height: 50vh;
+    }
+    
+    .prayer-section-card {
+        padding: 2rem 1.5rem;
+        text-align: center;
+    }
+    
+    .prayer-main-icon {
+        width: 70px;
+        height: 70px;
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+    }
+    
+    .prayer-section-card h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .prayer-btn {
+        min-height: 80px;
+        padding: 0.8rem 0.5rem;
+    }
+    
+    .prayer-btn i {
+        font-size: 1.3rem;
+    }
+    
+    .meditation-section {
+        padding: 2rem 1.5rem;
+        text-align: center;
+    }
+    
+    .meditation-section h3 {
+        font-size: 1.8rem;
+    }
+    
+    .meditation-circle {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .meditation-breath {
+        font-size: 2.5rem;
+    }
+    
+    .prayer-modal-body {
+        padding: 1.5rem;
+        font-size: 1rem;
+    }
+    
+    .prayer-verse {
+        font-size: 1.1rem;
+        padding: 1.2rem;
+    }
+}
