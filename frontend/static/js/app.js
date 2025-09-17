@@ -194,6 +194,20 @@ function setupEventListeners() {
     if (questionForm) {
         questionForm.addEventListener('submit', handleQuestionSubmit);
     }
+    
+    // Formulaire d'authentification
+    const authForm = document.getElementById('authForm');
+    if (authForm) {
+        authForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const submitBtn = document.getElementById('authSubmit');
+            if (submitBtn.textContent.includes('connecter')) {
+                handleLogin(e);
+            } else {
+                handleRegister(e);
+            }
+        });
+    }
 }
 
 // Gestion des questions
@@ -386,17 +400,97 @@ function setupAuthModal(type, title, submitText) {
 }
 
 window.showLogin = function() {
-    setupAuthModal('login', 'Connexion', 'Se connecter');
+    const modal = document.getElementById('authModal');
+    const modalTitle = document.getElementById('authModalTitle');
+    const authFields = document.getElementById('authFields');
+    const authSubmit = document.getElementById('authSubmit');
+    
+    modalTitle.textContent = 'Connexion';
+    authSubmit.textContent = 'Se connecter';
+    
+    authFields.innerHTML = `
+        <div class="mb-3">
+            <label class="form-label">Nom d'utilisateur</label>
+            <input type="text" class="form-control" id="username" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Mot de passe</label>
+            <input type="password" class="form-control" id="password" required>
+        </div>
+    `;
+    
+    new bootstrap.Modal(modal).show();
 };
 
 window.showRegister = function() {
-    console.log('showRegister appelé');
-    try {
-        setupAuthModal('register', 'Inscription', 'S\'inscrire');
-    } catch (error) {
-        console.error('Erreur dans showRegister:', error);
-        showAlert('Erreur lors de l\'ouverture du formulaire', 'danger');
-    }
+    const modal = document.getElementById('authModal');
+    const modalTitle = document.getElementById('authModalTitle');
+    const authFields = document.getElementById('authFields');
+    const authSubmit = document.getElementById('authSubmit');
+    
+    modalTitle.textContent = 'Inscription';
+    authSubmit.textContent = 'S\'inscrire';
+    
+    authFields.innerHTML = `
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Nom</label>
+                <input type="text" class="form-control" id="nom" required>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Prénom</label>
+                <input type="text" class="form-control" id="prenom" required>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Sexe</label>
+                <select class="form-select" id="sexe" required>
+                    <option value="">Sélectionner</option>
+                    <option value="M">Masculin</option>
+                    <option value="F">Féminin</option>
+                </select>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Téléphone</label>
+                <input type="tel" class="form-control" id="telephone" required>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Date de naissance</label>
+            <input type="date" class="form-control" id="dateNaissance" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Avez-vous déjà reçu Jésus comme Seigneur et Sauveur ?</label>
+            <select class="form-select" id="accepteJesus" required>
+                <option value="">Sélectionner</option>
+                <option value="oui">Oui</option>
+                <option value="non">Non</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Êtes-vous déjà baptisé ?</label>
+            <select class="form-select" id="baptise" required>
+                <option value="">Sélectionner</option>
+                <option value="oui">Oui</option>
+                <option value="non">Non</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Mot de passe</label>
+            <input type="password" class="form-control" id="password" required minlength="6">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Confirmer le mot de passe</label>
+            <input type="password" class="form-control" id="confirmPassword" required>
+        </div>
+    `;
+    
+    new bootstrap.Modal(modal).show();
 };
 
 // Gestion de la connexion
