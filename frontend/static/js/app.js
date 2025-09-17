@@ -214,6 +214,12 @@ function setupEventListeners() {
     if (registerForm) {
         registerForm.addEventListener('submit', handleNewRegister);
     }
+    
+    // Formulaire de connexion
+    const loginForm = document.getElementById('loginForm');
+    if (loginForm) {
+        loginForm.addEventListener('submit', handleNewLogin);
+    }
 }
 
 // Gestion des questions
