@@ -613,14 +613,14 @@ async function handleNewRegister(e) {
         prenom: document.getElementById('prenom').value,
         sexe: document.getElementById('sexe').value,
         telephone: document.getElementById('telephone').value,
-        email: document.getElementById('email').value,
+        email: document.getElementById('registerEmail').value,
         dateNaissance: document.getElementById('dateNaissance').value,
         accepteJesus: document.getElementById('accepteJesus').value,
         baptise: document.getElementById('baptise').value,
-        password: document.getElementById('password').value
+        password: document.getElementById('registerPassword').value
     };
     
-    const confirmPassword = document.getElementById('confirmPassword').value;
+    const confirmPassword = document.getElementById('registerConfirmPassword').value;
     const submitBtn = e.target.querySelector('button[type="submit"]');
     
     if (formData.password !== confirmPassword) {
