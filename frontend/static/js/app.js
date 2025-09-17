@@ -208,6 +208,12 @@ function setupEventListeners() {
             }
         });
     }
+    
+    // Nouveau formulaire d'inscription
+    const registerForm = document.getElementById('registerForm');
+    if (registerForm) {
+        registerForm.addEventListener('submit', handleNewRegister);
+    }
 }
 
 // Gestion des questions
@@ -586,6 +592,67 @@ async function handleRegister(e) {
             
             setTimeout(() => {
                 showLogin();
+            }, 1000);
+        } else {
+            showAlert(data.message || 'Erreur lors de l\'inscription', 'danger');
+        }
+    } catch (error) {
+        showAlert('Erreur de connexion au serveur', 'danger');
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'S\'inscrire';
+    }
+}
+
+// Nouvelle fonction pour le formulaire d'inscription avec tous les champs
+async function handleNewRegister(e) {
+    e.preventDefault();
+    
+    const formData = {
+        nom: document.getElementById('nom').value,
+        prenom: document.getElementById('prenom').value,
+        sexe: document.getElementById('sexe').value,
+        telephone: document.getElementById('telephone').value,
+        email: document.getElementById('email').value,
+        dateNaissance: document.getElementById('dateNaissance').value,
+        accepteJesus: document.getElementById('accepteJesus').value,
+        baptise: document.getElementById('baptise').value,
+        password: document.getElementById('password').value
+    };
+    
+    const confirmPassword = document.getElementById('confirmPassword').value;
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    
+    if (formData.password !== confirmPassword) {
+        showAlert('Les mots de passe ne correspondent pas', 'danger');
+        return;
+    }
+    
+    if (formData.password.length < 6) {
+        showAlert('Le mot de passe doit contenir au moins 6 caractères', 'danger');
+        return;
+    }
+    
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Inscription...';
+    
+    try {
+        const response = await fetch(`${API_BASE}/register`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        });
+        
+        const data = await response.json();
+        
+        if (response.ok) {
+            showAlert('Inscription réussie! Vous pouvez maintenant vous connecter.', 'success');
+            bootstrap.Modal.getInstance(document.getElementById('registerModal')).hide();
+            
+            setTimeout(() => {
+                new bootstrap.Modal(document.getElementById('authModal')).show();
             }, 1000);
         } else {
             showAlert(data.message || 'Erreur lors de l\'inscription', 'danger');
