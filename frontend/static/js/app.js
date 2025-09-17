@@ -263,18 +263,24 @@ function logout() {
 
 // Fonctions d'authentification globales
 function setupAuthModal(type, title, submitText) {
+    console.log('setupAuthModal appelé avec type:', type);
+    
     const modal = document.getElementById('authModal');
     const modalTitle = document.getElementById('authModalTitle');
     const authFields = document.getElementById('authFields');
     const authSubmit = document.getElementById('authSubmit');
     const authForm = document.getElementById('authForm');
     
+    if (!modal || !modalTitle || !authFields || !authSubmit || !authForm) {
+        console.error('Éléments manquants:', { modal, modalTitle, authFields, authSubmit, authForm });
+        return;
+    }
+    
     modalTitle.textContent = title;
     authSubmit.textContent = submitText;
     
-    // Nettoyer les anciens écouteurs
-    const newForm = authForm.cloneNode(true);
-    authForm.parentNode.replaceChild(newForm, authForm);
+    // Nettoyer le formulaire
+    authForm.reset();
     
     if (type === 'login') {
         authFields.innerHTML = `
@@ -288,7 +294,10 @@ function setupAuthModal(type, title, submitText) {
             </div>
         `;
         
-        document.getElementById('authForm').addEventListener('submit', handleLogin);
+        const form = document.getElementById('authForm');
+        form.removeEventListener('submit', handleLogin);
+        form.removeEventListener('submit', handleRegister);
+        form.addEventListener('submit', handleLogin);
     } else {
         authFields.innerHTML = `
             <div class="row">
@@ -366,7 +375,10 @@ function setupAuthModal(type, title, submitText) {
             }
         };
         
-        document.getElementById('authForm').addEventListener('submit', handleRegister);
+        const form = document.getElementById('authForm');
+        form.removeEventListener('submit', handleLogin);
+        form.removeEventListener('submit', handleRegister);
+        form.addEventListener('submit', handleRegister);
     }
     
     const bootstrapModal = new bootstrap.Modal(modal);
@@ -378,7 +390,13 @@ window.showLogin = function() {
 };
 
 window.showRegister = function() {
-    setupAuthModal('register', 'Inscription', 'S\'inscrire');
+    console.log('showRegister appelé');
+    try {
+        setupAuthModal('register', 'Inscription', 'S\'inscrire');
+    } catch (error) {
+        console.error('Erreur dans showRegister:', error);
+        showAlert('Erreur lors de l\'ouverture du formulaire', 'danger');
+    }
 };
 
 // Gestion de la connexion
