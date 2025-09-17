@@ -423,15 +423,16 @@ window.showLogin = function() {
 };
 
 window.showRegister = function() {
-    const modal = document.getElementById('authModal');
-    const modalTitle = document.getElementById('authModalTitle');
-    const authFields = document.getElementById('authFields');
-    const authSubmit = document.getElementById('authSubmit');
-    
-    modalTitle.textContent = 'Inscription';
-    authSubmit.textContent = 'S\'inscrire';
-    
-    authFields.innerHTML = `
+    setTimeout(() => {
+        const modal = document.getElementById('authModal');
+        const modalTitle = document.getElementById('authModalTitle');
+        const authFields = document.getElementById('authFields');
+        const authSubmit = document.getElementById('authSubmit');
+        
+        modalTitle.textContent = 'Inscription';
+        authSubmit.textContent = 'S\'inscrire';
+        
+        authFields.innerHTML = `
         <div class="row">
             <div class="col-md-6 mb-3">
                 <label class="form-label">Nom</label>
@@ -488,9 +489,10 @@ window.showRegister = function() {
             <label class="form-label">Confirmer le mot de passe</label>
             <input type="password" class="form-control" id="confirmPassword" required>
         </div>
-    `;
-    
-    new bootstrap.Modal(modal).show();
+        `;
+        
+        new bootstrap.Modal(modal).show();
+    }, 50);
 };
 
 // Gestion de la connexion
