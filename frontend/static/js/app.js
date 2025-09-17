@@ -195,13 +195,13 @@ function setupEventListeners() {
         questionForm.addEventListener('submit', handleQuestionSubmit);
     }
     
-    // Formulaire d'authentification
+    // Formulaire d'authentification (ancien - à supprimer)
     const authForm = document.getElementById('authForm');
     if (authForm) {
         authForm.addEventListener('submit', function(e) {
             e.preventDefault();
             const submitBtn = document.getElementById('authSubmit');
-            if (submitBtn.textContent.includes('connecter')) {
+            if (submitBtn && submitBtn.textContent.includes('connecter')) {
                 handleLogin(e);
             } else {
                 handleRegister(e);
