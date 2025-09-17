@@ -30,8 +30,15 @@ CORS(app)
 # Modèles de base de données
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80), unique=True, nullable=False)
+    nom = db.Column(db.String(100), nullable=False)
+    prenom = db.Column(db.String(100), nullable=False)
+    sexe = db.Column(db.String(1), nullable=False)
+    telephone = db.Column(db.String(20), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
+    date_naissance = db.Column(db.Date, nullable=False)
+    accepte_jesus = db.Column(db.String(3), nullable=False)
+    baptise = db.Column(db.String(3), nullable=False)
+    annee_bapteme = db.Column(db.Integer, nullable=True)
     password_hash = db.Column(db.String(255), nullable=False)
     role = db.Column(db.String(20), default='user')
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
@@ -74,29 +81,41 @@ class Comment(db.Model):
 # Routes d'authentification
 @app.route('/api/register', methods=['POST'])
 def register():
-    data = request.get_json()
-    
-    if User.query.filter_by(username=data['username']).first():
-        return jsonify({'message': 'Nom d\'utilisateur déjà pris'}), 400
-    
-    if User.query.filter_by(email=data['email']).first():
-        return jsonify({'message': 'Email déjà utilisé'}), 400
-    
-    user = User(
-        username=data['username'],
-        email=data['email'],
-        password_hash=generate_password_hash(data['password'])
-    )
-    
-    db.session.add(user)
-    db.session.commit()
-    
-    return jsonify({'message': 'Utilisateur créé avec succès'}), 201
+    try:
+        data = request.get_json()
+        
+        if User.query.filter_by(email=data['email']).first():
+            return jsonify({'message': 'Email déjà utilisé'}), 400
+        
+        # Convertir la date de naissance
+        from datetime import datetime
+        date_naissance = datetime.strptime(data['dateNaissance'], '%Y-%m-%d').date()
+        
+        user = User(
+            nom=data['nom'],
+            prenom=data['prenom'],
+            sexe=data['sexe'],
+            telephone=data['telephone'],
+            email=data['email'],
+            date_naissance=date_naissance,
+            accepte_jesus=data['accepteJesus'],
+            baptise=data['baptise'],
+            annee_bapteme=int(data['anneeBapteme']) if data.get('anneeBapteme') else None,
+            password_hash=generate_password_hash(data['password'])
+        )
+        
+        db.session.add(user)
+        db.session.commit()
+        
+        return jsonify({'message': 'Utilisateur créé avec succès'}), 201
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'message': f'Erreur lors de l\'inscription: {str(e)}'}), 500
 
 @app.route('/api/login', methods=['POST'])
 def login():
     data = request.get_json()
-    user = User.query.filter_by(username=data['username']).first()
+    user = User.query.filter_by(email=data['username']).first()  # Utiliser email comme username
     
     if user and check_password_hash(user.password_hash, data['password']) and user.is_active:
         access_token = create_access_token(
@@ -107,7 +126,7 @@ def login():
             'access_token': access_token,
             'user': {
                 'id': user.id,
-                'username': user.username,
+                'username': f"{user.prenom} {user.nom}",
                 'role': user.role
             }
         })
@@ -219,10 +238,18 @@ def uploaded_file(filename):
 
 def create_admin_user():
     try:
-        if not User.query.filter_by(username='admin').first():
+        if not User.query.filter_by(email='admin@foietraison.ca').first():
+            from datetime import date
             admin = User(
-                username='admin',
+                nom='Admin',
+                prenom='Système',
+                sexe='M',
+                telephone='0000000000',
                 email='admin@foietraison.ca',
+                date_naissance=date(1990, 1, 1),
+                accepte_jesus='oui',
+                baptise='oui',
+                annee_bapteme=2000,
                 password_hash=generate_password_hash('admin123'),
                 role='admin'
             )
