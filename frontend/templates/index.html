@@ -19,15 +19,9 @@
     <header class="site-header fixed-top">
         <div class="top-info-bar">
             <div class="container">
-                <div class="top-info-stack">
-                    <span class="top-info-pill">
-                        <i class="fas fa-bullseye"></i>
-                        Croire et penser la foi à la lumière des Écritures
-                    </span>
-                    <span class="top-info-pill d-none d-md-inline-flex">
-                        <i class="fas fa-headphones"></i>
-                        Podcast à la une : « Penser la foi aujourd'hui »
-                    </span>
+                <div class="top-info-message">
+                    <i class="fas fa-bullseye"></i>
+                    Croire & Penser : articuler foi et intelligence biblique
                 </div>
                 <div class="info-links">
                     <a href="#" onclick="showContents(); return false;">
@@ -35,6 +29,9 @@
                     </a>
                     <a href="#" onclick="showQuestions(); return false;">
                         <i class="fas fa-comments"></i> Questions/Réponses
+                    </a>
+                    <a href="#" onclick="showPrayers(); return false;">
+                        <i class="fas fa-praying-hands"></i> Prières
                     </a>
                     <div class="social-links d-none d-md-flex gap-3">
                         <a href="mailto:contact@croire-et-penser.com">
@@ -70,41 +67,52 @@
                     </li>
                     <li class="nav-item dropdown mega-nav">
                         <a class="nav-link fw-medium dropdown-toggle" href="#" id="megaDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-compass me-1"></i>Axes Croire & Penser
+                            <i class="fas fa-compass me-1"></i>Resources
                         </a>
                         <div class="dropdown-menu mega-menu shadow" aria-labelledby="megaDropdown">
-                            <div class="container py-4">
-                                <div class="row g-4">
-                                    <div class="col-lg-4">
-                                        <div class="mega-menu-block">
-                                            <span class="mega-eyebrow">Foi & Bible</span>
-                                            <h5 class="mega-title">Approfondir les Écritures</h5>
-                                            <p class="mega-text">Études bibliques, parcours de disciples et ressources pour nourrir la foi.</p>
-                                            <button class="btn btn-link p-0 mega-link" onclick="showContents(); return false;">
-                                                Accéder aux dossiers
-                                            </button>
+                            <div class="container px-0 py-lg-4">
+                                <div class="row g-4 align-items-stretch">
+                                    <div class="col-lg-5">
+                                        <div class="mega-menu-block mega-feature">
+                                            <span class="mega-eyebrow">À ne pas manquer</span>
+                                            <h5 class="mega-title">Guides & dossiers Croire & Penser</h5>
+                                            <p class="mega-text">Des parcours bibliques et scientifiques pour approfondir la foi, comprendre la culture et accompagner vos groupes.</p>
+                                            <div class="d-flex flex-column flex-sm-row gap-3">
+                                                <button class="btn btn-primary" onclick="showContents(); return false;">
+                                                    <i class="fas fa-compass me-2"></i>Voir les dossiers
+                                                </button>
+                                                <button class="btn btn-outline-primary" onclick="showQuestions(); return false;">
+                                                    <i class="fas fa-comments me-2"></i>Forum dédié
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-4">
-                                        <div class="mega-menu-block">
-                                            <span class="mega-eyebrow">Sciences</span>
-                                            <h5 class="mega-title">Dialoguer avec le savoir</h5>
-                                            <ul class="mega-list list-unstyled">
-                                                <li><a href="#" onclick="showContents(); return false;">Cosmologie & création</a></li>
-                                                <li><a href="#" onclick="showContents(); return false;">Anthropologie biblique</a></li>
-                                                <li><a href="#" onclick="showQuestions(); return false;">Questions d'actualité</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="mega-menu-block">
-                                            <span class="mega-eyebrow">Communauté</span>
-                                            <h5 class="mega-title">Cheminer ensemble</h5>
-                                            <ul class="mega-list list-unstyled">
-                                                <li><a href="#" onclick="showQuestions(); return false;">Forum Croire & Penser</a></li>
-                                                <li><a href="#" onclick="showPrayers(); return false;">Prières & intercession</a></li>
-                                                <li><a href="#" onclick="showContents(); return false;">Rencontres & podcasts</a></li>
-                                            </ul>
+                                    <div class="col-lg-7">
+                                        <div class="row g-4 mega-columns">
+                                            <div class="col-md-6">
+                                                <div class="mega-menu-block">
+                                                    <span class="mega-eyebrow">Étudier</span>
+                                                    <ul class="mega-list list-unstyled">
+                                                        <li><a href="#" onclick="showContents(); return false;"><i class="fas fa-book me-2"></i>Études bibliques interactives</a></li>
+                                                        <li><a href="#" onclick="showContents(); return false;"><i class="fas fa-flask me-2"></i>Foi & sciences (cosmologie, évolution…)</a></li>
+                                                        <li><a href="#" onclick="showContents(); return false;"><i class="fas fa-feather me-2"></i>Questions éthiques & société</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="mega-menu-block">
+                                                    <span class="mega-eyebrow">Participer</span>
+                                                    <ul class="mega-list list-unstyled">
+                                                        <li><a href="#" onclick="showQuestions(); return false;"><i class="fas fa-people-arrows me-2"></i>Forum Croire & Penser</a></li>
+                                                        <li><a href="#" onclick="showPrayers(); return false;"><i class="fas fa-praying-hands me-2"></i>Espace prières & intercession</a></li>
+                                                        <li><a href="#" onclick="showContents(); return false;"><i class="fas fa-headphones me-2"></i>Podcasts & webinaires</a></li>
+                                                    </ul>
+                                                    <div class="mega-mini">
+                                                        <span><i class="fas fa-calendar me-2"></i>Newsletter mensuelle</span>
+                                                        <button class="btn btn-link p-0 mega-link" onclick="showContents(); return false;">S'inscrire</button>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

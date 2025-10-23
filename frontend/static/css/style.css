@@ -62,34 +62,27 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 1rem;
+    gap: 1.5rem;
 }
 
-.top-info-stack {
+.top-info-message {
     display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
     align-items: center;
+    gap: 0.6rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.92);
+    white-space: nowrap;
 }
 
-.top-info-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    background-color: rgba(255, 255, 255, 0.12);
-    border-radius: 999px;
-    padding: 0.3rem 0.9rem;
-    font-weight: 500;
-}
-
-.top-info-pill i {
-    font-size: 0.85rem;
+.top-info-message i {
+    font-size: 0.9rem;
 }
 
 .info-links {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 1.2rem;
+    flex-wrap: wrap;
 }
 
 .info-links a {
@@ -171,7 +164,7 @@ body {
 }
 
 .mega-menu {
-    width: min(900px, 90vw);
+    width: min(930px, 92vw);
     border: none;
     border-radius: 22px;
     padding: 0;
@@ -190,13 +183,32 @@ body {
 
 .mega-menu-block {
     position: relative;
-    padding: 1rem 1.5rem;
     border-radius: 16px;
-    background: linear-gradient(160deg, rgba(245, 242, 255, 0.5), rgba(255, 255, 255, 0.9));
+    background: linear-gradient(160deg, rgba(245, 242, 255, 0.55), rgba(255, 255, 255, 0.92));
     height: 100%;
     box-shadow: 0 18px 30px rgba(63, 42, 109, 0.08);
     transition: transform 0.25s ease, box-shadow 0.25s ease;
     backdrop-filter: blur(8px);
+    padding: 1.4rem 1.6rem;
+}
+
+.mega-feature {
+    background: linear-gradient(135deg, rgba(63, 42, 109, 0.95), rgba(31, 155, 183, 0.85));
+    color: var(--white);
+    box-shadow: 0 25px 45px rgba(63, 42, 109, 0.25);
+}
+
+.mega-feature .mega-text {
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.mega-feature .mega-eyebrow,
+.mega-feature .mega-title {
+    color: var(--white);
+}
+
+.mega-columns .mega-menu-block {
+    background: var(--white);
 }
 
 .mega-menu-block:hover {
@@ -224,7 +236,7 @@ body {
 .mega-text {
     color: rgba(43, 38, 66, 0.7);
     font-size: 0.95rem;
-    margin-bottom: 0.9rem;
+    margin-bottom: 1rem;
 }
 
 .mega-list li + li {
@@ -235,22 +247,17 @@ body {
     color: var(--text-color);
     font-weight: 600;
     text-decoration: none;
-    position: relative;
-    padding-left: 1.1rem;
     display: inline-flex;
     align-items: center;
+    gap: 0.55rem;
     transition: color 0.2s ease, transform 0.2s ease;
 }
 
-.mega-list a::before {
-    content: '\\f105';
-    font-family: 'Font Awesome 6 Free';
-    font-weight: 900;
-    position: absolute;
-    left: 0;
+.mega-list a i {
     color: var(--accent-color);
-    font-size: 0.75rem;
-    transition: transform 0.2s ease;
+    font-size: 0.85rem;
+    width: 1rem;
+    text-align: center;
 }
 
 .mega-list a:hover {
@@ -944,6 +951,11 @@ body {
         align-items: flex-start;
     }
 
+    .top-info-message {
+        font-size: 0.85rem;
+        white-space: normal;
+    }
+
     .info-links {
         width: 100%;
         justify-content: flex-start;
@@ -983,6 +995,15 @@ body {
         min-height: auto;
         padding: 5rem 0 3rem;
         text-align: center;
+    }
+
+    .top-info-message {
+        justify-content: center;
+        text-align: center;
+    }
+
+    .info-links {
+        justify-content: center;
     }
 
     .hero-highlight-pills {
@@ -1031,7 +1052,7 @@ body {
     }
 
     .info-links {
-        justify-content: space-between;
+        justify-content: center;
     }
 
     .featured-highlight {
