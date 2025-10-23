@@ -499,11 +499,11 @@ function startMeditation() {
 // Partage de prière
 function sharePrayer(prayerType) {
     const shareUrl = `${window.location.origin}#prayer-${prayerType}`;
-    const shareText = "Découvrez cette belle prière sur Foi & Raison";
+    const shareText = "Découvrez cette belle prière sur Croire & Penser";
     
     if (navigator.share) {
         navigator.share({
-            title: 'Prière - Foi & Raison',
+            title: 'Prière - Croire & Penser',
             text: shareText,
             url: shareUrl
         });

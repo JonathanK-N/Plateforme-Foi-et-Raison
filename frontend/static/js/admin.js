@@ -344,7 +344,7 @@ function showAdminSettings(content) {
                         <form id="generalSettings">
                             <div class="mb-3">
                                 <label class="form-label">Nom du site</label>
-                                <input type="text" class="form-control" value="Foi & Raison">
+                                <input type="text" class="form-control" value="Croire & Penser">
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Email administrateur</label>

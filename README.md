@@ -1,4 +1,4 @@
-# Foi & Raison - Plateforme Communautaire
+# Croire & Penser - Plateforme Communautaire
 
 ## 🎯 Description
 Plateforme communautaire pour contenus religieux avec gestion multimédia, Q&A, et administration complète.
@@ -19,7 +19,7 @@ venv\Scripts\activate
 pip install -r requirements.txt
 
 # Configuration base de données
-createdb foi_raison
+createdb croire_penser
 python app.py init-db
 
 # Lancer le serveur
@@ -33,7 +33,7 @@ docker-compose up --build
 
 ## 📁 Structure
 ```
-foi-et-raison/
+croire-et-penser/
 ├── backend/          # API Flask
 ├── frontend/         # Interface utilisateur
 ├── docker-compose.yml

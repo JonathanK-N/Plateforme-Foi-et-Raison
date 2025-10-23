@@ -6,11 +6,13 @@
     background:
         linear-gradient(120deg, rgba(63, 42, 109, 0.9), rgba(31, 155, 183, 0.65)),
         url('https://images.unsplash.com/photo-1493246507139-91e8fad9978e?auto=format&fit=crop&w=1600&q=80');
-    background-size: cover;
-    background-position: center;
+    background-size: cover, cover;
+    background-position: center, center;
     position: relative;
     overflow: hidden;
     padding: 6rem 0 4rem;
+    --hero-shift: 0px;
+    background-position: center, center calc(50% + var(--hero-shift));
 }
 
 .hero-bg-animated {
@@ -302,7 +304,7 @@
 /* Responsive animations */
 @media (max-width: 768px) {
     .hero-fullscreen {
-        height: 100vh;
+        min-height: 100vh;
     }
     
     .hero-icon-main {
