@@ -78,7 +78,7 @@ function enhanceAnimatedElements() {
             card.style.transitionDelay = `${index * 0.1}s`;
         });
 
-        const heroElements = document.querySelectorAll('.hero-content, .hero-featured-card, .hero-highlight-pills .pill, .hero-meta span');
+        const heroElements = document.querySelectorAll('.hero-content, .hero-featured-card, .hero-highlight-pills .pill, .hero-stat');
         heroElements.forEach((element, index) => {
             element.classList.add('animate-on-scroll');
             element.style.transitionDelay = `${0.1 + index * 0.1}s`;
@@ -88,6 +88,18 @@ function enhanceAnimatedElements() {
         introItems.forEach((item, index) => {
             item.classList.add('animate-on-scroll');
             item.style.transitionDelay = `${index * 0.15}s`;
+        });
+
+        const highlightedBlocks = document.querySelectorAll('.featured-highlight, .cta-section, .sidebar-card');
+        highlightedBlocks.forEach((block, index) => {
+            block.classList.add('animate-on-scroll');
+            block.style.transitionDelay = `${index * 0.1}s`;
+        });
+
+        const ctaItems = document.querySelectorAll('.cta-list li');
+        ctaItems.forEach((item, index) => {
+            item.classList.add('animate-on-scroll');
+            item.style.transitionDelay = `${0.2 + index * 0.1}s`;
         });
 
         animateOnScroll();

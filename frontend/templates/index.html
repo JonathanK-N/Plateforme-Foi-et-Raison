@@ -182,24 +182,41 @@
                         <div class="col-lg-7">
                             <div class="hero-content text-white">
                                 <span class="hero-eyebrow">Croire & Penser</span>
-                                <h1 class="display-4 fw-bold mb-3">Réconcilier la foi et l'intelligence</h1>
-                                <p class="hero-subtitle">Articles, dossiers et podcasts pour ancrer la réflexion biblique face aux questions scientifiques et culturelles d'aujourd'hui.</p>
+                                <h1 class="display-4 fw-bold mb-3">Réconcilier la foi et la pensée biblique</h1>
+                                <p class="hero-subtitle">Analyses, dossiers et podcasts pour éclairer les enjeux scientifiques, culturels et spirituels à la lumière de l'Écriture.</p>
+
                                 <div class="hero-highlight-pills">
                                     <span class="pill"><i class="fas fa-flask"></i>Foi & sciences</span>
                                     <span class="pill"><i class="fas fa-book-open"></i>Études bibliques</span>
                                     <span class="pill"><i class="fas fa-brain"></i>Culture & pensée</span>
+                                    <span class="pill"><i class="fas fa-people-group"></i>Communauté</span>
                                 </div>
-                                <div class="hero-buttons d-flex flex-wrap gap-3">
+
+                                <div class="hero-buttons d-flex flex-wrap gap-3 align-items-center">
                                     <button class="btn btn-light btn-lg px-4" onclick="showContents()">
-                                        <i class="fas fa-compass me-2"></i>Explorer nos contenus
+                                        <i class="fas fa-compass me-2"></i>Explorer nos dossiers
                                     </button>
                                     <button class="btn btn-outline-light btn-lg px-4" onclick="showQuestions()">
                                         <i class="fas fa-question-circle me-2"></i>Poser une question
                                     </button>
+                                    <button class="btn btn-link text-white hero-link" onclick="showPrayers()">
+                                        <i class="fas fa-praying-hands me-2"></i>Espace prière
+                                    </button>
                                 </div>
+
                                 <div class="hero-meta mt-4">
-                                    <span><i class="fas fa-podcast"></i>Podcast hebdomadaire</span>
-                                    <span><i class="fas fa-calendar-alt"></i>Rencontres en ligne</span>
+                                    <div class="hero-stat">
+                                        <span class="hero-stat-number">120+</span>
+                                        <span class="hero-stat-label">ressources croisées foi & science</span>
+                                    </div>
+                                    <div class="hero-stat">
+                                        <span class="hero-stat-number">Hebdo</span>
+                                        <span class="hero-stat-label">Podcast "Penser la foi aujourd'hui"</span>
+                                    </div>
+                                    <div class="hero-stat">
+                                        <span class="hero-stat-number">Forum</span>
+                                        <span class="hero-stat-label">Questions pastorales & enjeux culturels</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -323,17 +340,30 @@
             <section class="recent-content-section py-5 animate-on-scroll" id="recentArticles">
                 <div class="container">
                     <div class="row g-4 align-items-start">
-                        <div class="col-lg-8">
-                            <div class="section-heading mb-4">
-                                <span class="section-kicker">Le blog</span>
-                                <h2 class="section-title">Les dernières publications</h2>
-                                <p class="section-subtitle">Découvrez les contenus ajoutés récemment par notre équipe éditoriale et nos contributeurs.</p>
-                            </div>
-                            <div class="row g-4" id="recentContentGrid">
-                                <!-- Contenu généré dynamiquement -->
-                            </div>
+                <div class="col-lg-8">
+                    <div class="section-heading mb-4">
+                        <span class="section-kicker">Le blog</span>
+                        <h2 class="section-title">Les dernières publications</h2>
+                        <p class="section-subtitle">Découvrez les contenus ajoutés récemment par notre équipe éditoriale et nos contributeurs.</p>
+                    </div>
+                    <div class="featured-highlight animate-on-scroll mb-4">
+                        <span class="featured-eyebrow">À la une</span>
+                        <h3 class="featured-title">Foi, sciences et culture : comprendre notre monde autrement</h3>
+                        <p class="featured-text">Chaque semaine, Croire & Penser décrypte une question au croisement de la Bible, des découvertes scientifiques et de la vie quotidienne. Plongez dans notre dossier thématique et rejoignez la réflexion collective.</p>
+                        <div class="d-flex flex-wrap gap-3">
+                            <button class="btn btn-primary" onclick="showContents()">
+                                <i class="fas fa-compass me-2"></i>Lire le dossier
+                            </button>
+                            <button class="btn btn-outline-primary" onclick="showQuestions()">
+                                <i class="fas fa-comments me-2"></i>Réagir sur le forum
+                            </button>
                         </div>
-                        <div class="col-lg-4">
+                    </div>
+                    <div class="row g-4" id="recentContentGrid">
+                        <!-- Contenu généré dynamiquement -->
+                    </div>
+                </div>
+                <div class="col-lg-4">
                             <aside class="sidebar-stack">
                                 <div class="sidebar-card newsletter-card">
                                     <h4>Inscrivez-vous à la newsletter</h4>
@@ -381,7 +411,12 @@
                         <div class="col-lg-6">
                             <div class="cta-section text-center text-lg-start">
                                 <h3 class="text-primary mb-3">Rejoignez la communauté Croire & Penser</h3>
-                                <p class="lead mb-4">Connectez-vous pour accéder à l'intégralité des ressources, participer au forum et contribuer aux prochains dossiers.</p>
+                                <p class="lead mb-4">Connectez-vous pour accéder aux ressources, dialoguer avec d'autres croyants et contribuer à une foi qui réfléchit.</p>
+                                <ul class="cta-list">
+                                    <li><i class="fas fa-feather me-2"></i>Des dossiers bibliques et scientifiques approfondis</li>
+                                    <li><i class="fas fa-headset me-2"></i>Des webinaires et podcasts en direct chaque mois</li>
+                                    <li><i class="fas fa-hands-helping me-2"></i>Un forum fraternel pour vos questions et témoignages</li>
+                                </ul>
                                 <div class="d-flex flex-column flex-md-row gap-3 justify-content-md-start">
                                     <button class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#registerModal">
                                         <i class="fas fa-user-plus me-2"></i>S'inscrire
