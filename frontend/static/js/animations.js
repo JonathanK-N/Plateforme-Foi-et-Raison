@@ -102,6 +102,24 @@ function enhanceAnimatedElements() {
             item.style.transitionDelay = `${0.2 + index * 0.1}s`;
         });
 
+        const actionCards = document.querySelectorAll('.content-action-card');
+        actionCards.forEach((card, index) => {
+            card.classList.add('animate-on-scroll');
+            card.style.transitionDelay = `${index * 0.1}s`;
+        });
+
+        const resourceSections = document.querySelectorAll('.resource-section, .content-section');
+        resourceSections.forEach((section, index) => {
+            section.classList.add('animate-on-scroll');
+            section.style.transitionDelay = `${index * 0.1}s`;
+        });
+
+        const questionElements = document.querySelectorAll('.questions-hero, .questions-card, .question-shortcut, .questions-list-wrapper');
+        questionElements.forEach((element, index) => {
+            element.classList.add('animate-on-scroll');
+            element.style.transitionDelay = `${index * 0.12}s`;
+        });
+
         animateOnScroll();
     }, 150);
 }

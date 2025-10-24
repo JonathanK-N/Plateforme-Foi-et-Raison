@@ -130,6 +130,16 @@
                             <i class="fas fa-book-open me-1"></i>Contenus
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link fw-medium" href="#" onclick="showQuestions()">
+                            <i class="fas fa-question-circle me-1"></i>Questions & Réponses
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link fw-medium" href="#" onclick="showPrayers()">
+                            <i class="fas fa-praying-hands me-1"></i>Prières
+                        </a>
+                    </li>
                 </ul>
                 <ul class="navbar-nav" id="authNav">
                     <li class="nav-item">
@@ -437,7 +447,7 @@
 </div>
 
         <!-- Sections Ressources -->
-        <section id="resource-bible" class="resource-section">
+        <section id="resource-bible" class="resource-section animate-on-scroll">
             <div class="container">
                 <div class="row align-items-center g-4">
                     <div class="col-lg-6">
@@ -470,7 +480,7 @@
             </div>
         </section>
 
-        <section id="resource-science" class="resource-section resource-section--alt">
+        <section id="resource-science" class="resource-section resource-section--alt animate-on-scroll">
             <div class="container">
                 <div class="row align-items-center flex-lg-row-reverse g-4">
                     <div class="col-lg-6">
@@ -503,7 +513,7 @@
             </div>
         </section>
 
-        <section id="resource-culture" class="resource-section">
+        <section id="resource-culture" class="resource-section animate-on-scroll">
             <div class="container">
                 <div class="row align-items-center g-4">
                     <div class="col-lg-6">
@@ -536,7 +546,7 @@
             </div>
         </section>
 
-        <section id="resource-community" class="resource-section resource-section--alt">
+        <section id="resource-community" class="resource-section resource-section--alt animate-on-scroll">
             <div class="container">
                 <div class="row align-items-center flex-lg-row-reverse g-4">
                     <div class="col-lg-6">
@@ -569,7 +579,7 @@
             </div>
         </section>
 
-        <section id="resource-media" class="resource-section">
+        <section id="resource-media" class="resource-section animate-on-scroll">
             <div class="container">
                 <div class="row align-items-center g-4">
                     <div class="col-lg-6">
@@ -602,7 +612,7 @@
             </div>
         </section>
 
-        <section id="resource-newsletter" class="resource-section resource-section--alt">
+        <section id="resource-newsletter" class="resource-section resource-section--alt animate-on-scroll">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-8">
@@ -640,29 +650,201 @@
                         </select>
                     </div>
                 </div>
+                <div class="row g-3 content-actions">
+                    <div class="col-md-6 col-lg-4">
+                        <a class="content-action-card animate-on-scroll" href="#content-guides">
+                            <h4><i class="fas fa-map-signs me-2"></i>Guides de lecture</h4>
+                            <small>Parcours thématiques et plans bibliques prêts à l’emploi.</small>
+                        </a>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <a class="content-action-card animate-on-scroll" href="#content-explorer">
+                            <h4><i class="fas fa-video me-2"></i>Vidéos & formations</h4>
+                            <small>Sessions vidéo, webinaires et ateliers en replay.</small>
+                        </a>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <a class="content-action-card animate-on-scroll" href="#content-library">
+                            <h4><i class="fas fa-music me-2"></i>Podcasts & ressources audio</h4>
+                            <small>Podcasts hebdomadaires, interviews et playlists spirituelles.</small>
+                        </a>
+                    </div>
+                </div>
                 <div class="row" id="contentsList">
                     <!-- Contenus générés dynamiquement -->
                 </div>
+        <section id="content-guides" class="content-section animate-on-scroll">
+            <div class="container">
+                <div class="row align-items-center g-4">
+                    <div class="col-lg-6">
+                        <div class="resource-card">
+                            <h3 class="resource-card-title"><i class="fas fa-map-signs me-2"></i>Guides & parcours</h3>
+                            <p>Accédez à des séries d’articles structurés pour accompagner vos études personnelles ou de groupe : lectures suivies des évangiles, approfondissements doctrinaux, synthèses historiques.</p>
+                            <ul class="resource-list">
+                                <li>Parcours « Découvrir Jésus » (6 semaines)</li>
+                                <li>Guide « Foi et raison en 12 questions »</li>
+                                <li>Dossiers sur les grandes doctrines bibliques</li>
+                            </ul>
+                            <a class="resource-link" href="#" onclick="showContents(); return false;">Parcourir les guides</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="resource-card">
+                            <h3 class="resource-card-title"><i class="fas fa-users me-2"></i>Pour vos groupes</h3>
+                            <p>Une sélection de fiches d’animation, questions de discussion et suggestions de prières pour nourrir les cellules de maison, les groupes de jeunes ou les équipes de formation.</p>
+                            <a class="btn btn-primary" href="#" onclick="showContents(); return false;">
+                                <i class="fas fa-download me-2"></i>Télécharger les fiches
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="content-explorer" class="content-section content-section--alt animate-on-scroll">
+            <div class="container">
+                <div class="row align-items-center flex-lg-row-reverse g-4">
+                    <div class="col-lg-6">
+                        <div class="resource-card">
+                            <h3 class="resource-card-title"><i class="fas fa-video me-2"></i>Vidéos & masterclass</h3>
+                            <p>Une médiathèque vidéo pour approfondir des thématiques clés : introduction à l’apologétique, lectures bibliques inductives, témoignages inspirants.</p>
+                            <ul class="resource-list">
+                                <li>Masterclass « Lire la Bible avec son cœur et son intelligence »</li>
+                                <li>Série vidéo « Foi & sciences : dialogues ouverts »</li>
+                                <li>Ateliers pratiques pour responsables de groupes</li>
+                            </ul>
+                            <a class="resource-link" href="#" onclick="showContents(); return false;">Ouvrir la vidéothèque</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="resource-card">
+                            <h3 class="resource-card-title"><i class="fas fa-calendar me-2"></i>Formations à venir</h3>
+                            <p>Inscrivez-vous aux prochaines sessions en direct et recevez les supports de formation.</p>
+                            <form class="newsletter-form row g-3" onsubmit="showContents(); return false;">
+                                <div class="col-sm-7">
+                                    <input type="email" class="form-control form-control-lg" placeholder="Votre email" required>
+                                </div>
+                                <div class="col-sm-5">
+                                    <button class="btn btn-primary btn-lg w-100" type="submit">
+                                        <i class="fas fa-paper-plane me-2"></i>Être informé
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="content-library" class="content-section animate-on-scroll">
+            <div class="container">
+                <div class="row align-items-center g-4">
+                    <div class="col-lg-6">
+                        <div class="resource-card">
+                            <h3 class="resource-card-title"><i class="fas fa-headphones me-2"></i>Podcasts & playlists</h3>
+                            <p>Retrouvez tous nos podcasts classés par série : entretiens avec des scientifiques chrétiens, méditations bibliques guidées, ressources pour les familles et les responsables jeunesse.</p>
+                            <a class="btn btn-primary" href="#" onclick="showContents(); return false;">
+                                <i class="fab fa-spotify me-2"></i>Écouter les podcasts
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="resource-card">
+                            <h3 class="resource-card-title"><i class="fas fa-book me-2"></i>Bibliothèque numérique</h3>
+                            <p>Des articles de fond, e-books et bibliographies sélectives pour aller plus loin.</p>
+                            <div class="resource-buttons">
+                                <a class="btn btn-outline-primary" href="#" onclick="showContents(); return false;">Télécharger les e-books</a>
+                                <a class="btn btn-outline-primary" href="#" onclick="showContents(); return false;">Voir les bibliographies</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
             </div>
 
         </div>
 
         <!-- Page Q&A -->
-        <div id="questionsPage" class="d-none">
-            <div class="container">
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h2>Questions & Réponses</h2>
-                    <button class="btn btn-primary" onclick="showQuestionForm()" id="askQuestionBtn" style="display:none">
-                        Poser une question
-                    </button>
+                <div id="questionsPage" class="d-none">
+            <section class="questions-hero animate-on-scroll">
+                <div class="container">
+                    <div class="row align-items-center g-4">
+                        <div class="col-lg-7">
+                            <h1 class="questions-title">Questions & Réponses</h1>
+                            <p class="questions-intro">Une plateforme pour poser vos questions bibliques, scientifiques ou pastorales et bénéficier de réponses solides, étayées par l’Écriture et la réflexion.</p>
+                            <div class="questions-pills">
+                                <span><i class="fas fa-lightbulb me-2"></i>Théologie & doctrine</span>
+                                <span><i class="fas fa-flask me-2"></i>Foi & sciences</span>
+                                <span><i class="fas fa-heart me-2"></i>Vie pratique</span>
+                            </div>
+                            <div class="questions-actions">
+                                <button class="btn btn-primary" onclick="showQuestionForm()" id="askQuestionBtn" style="display:none">
+                                    <i class="fas fa-pen-to-square me-2"></i>Poser une question
+                                </button>
+                                <a class="btn btn-outline-light" href="#resource-community">
+                                    <i class="fas fa-users me-2"></i>Rejoindre la communauté
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="questions-card">
+                                <h3><i class="fas fa-info-circle me-2"></i>Comment ça marche ?</h3>
+                                <ul>
+                                    <li>Choisissez la catégorie adaptée (Foi & sciences, Bible, société…)</li>
+                                    <li>Déposez votre question ; notre équipe de modérateurs la publie sous 24h</li>
+                                    <li>Recevez des réponses argumentées et participez à la discussion</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div id="questionsList">
-                    <!-- Questions générées dynamiquement -->
+            </section>
+            <section class="questions-body">
+                <div class="container">
+                    <div class="row g-3 questions-shortcuts">
+                        <div class="col-md-4">
+                            <a class="question-shortcut animate-on-scroll" href="#resource-community">
+                                <i class="fas fa-people-arrows"></i>
+                                <span>Forum Croire & Penser</span>
+                                <small>Accédez aux échanges thématiques et aux questions similaires.</small>
+                            </a>
+                        </div>
+                        <div class="col-md-4">
+                            <a class="question-shortcut animate-on-scroll" href="#resource-community" onclick="showPrayers(); return false;">
+                                <i class="fas fa-praying-hands"></i>
+                                <span>Espace prière & accompagnement</span>
+                                <small>Partagez vos sujets de prière et recevez le soutien de la communauté.</small>
+                            </a>
+                        </div>
+                        <div class="col-md-4">
+                            <a class="question-shortcut animate-on-scroll" href="#content-guides">
+                                <i class="fas fa-book-open"></i>
+                                <span>Guides de réflexion</span>
+                                <small>Parcourez des ressources pour approfondir vos réponses.</small>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="questions-list-wrapper animate-on-scroll">
+                        <div class="questions-list-header d-flex flex-column flex-md-row justify-content-between align-items-md-center">
+                            <div>
+                                <h2 class="mb-1">Dernières questions publiées</h2>
+                                <p class="text-muted mb-0">Explorez les interrogations de la communauté et partagez votre perspective.</p>
+                            </div>
+                            <div class="questions-filters">
+                                <button class="btn btn-outline-primary btn-sm" onclick="loadQuestions()"><i class="fas fa-clock me-1"></i>Récentes</button>
+                                <button class="btn btn-outline-primary btn-sm" onclick="loadQuestions()"><i class="fas fa-fire me-1"></i>Populaires</button>
+                            </div>
+                        </div>
+                        <div id="questionsList" class="questions-list">
+                            <!-- Questions générées dynamiquement -->
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </section>
         </div>
-
-        <!-- Modal d'inscription -->
+<!-- Modal d'inscription -->
         <div class="modal fade" id="registerModal" tabindex="-1">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
