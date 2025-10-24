@@ -64,7 +64,7 @@ function showQuestions() {
 }
 
 function hideAllPages() {
-    const pages = ['homePage', 'contentsPage', 'questionsPage', 'adminPage'];
+    const pages = ['homePage', 'contentsPage', 'questionsPage', 'adminPage', 'contentsDetailPage', 'qaDetailPage'];
     pages.forEach(pageId => {
         const page = document.getElementById(pageId);
         if (page) page.classList.add('d-none');
@@ -73,6 +73,17 @@ function hideAllPages() {
     // Masquer aussi la page de prières si elle existe
     const prayersPage = document.getElementById('prayersPage');
     if (prayersPage) prayersPage.classList.add('d-none');
+}
+
+// Nouvelles fonctions pour les pages détaillées
+function showContentsDetail() {
+    hideAllPages();
+    document.getElementById('contentsDetailPage').classList.remove('d-none');
+}
+
+function showQADetail() {
+    hideAllPages();
+    document.getElementById('qaDetailPage').classList.remove('d-none');
 }
 
 // Chargement des contenus récents pour la grille
@@ -670,3 +681,49 @@ async function handleNewRegister(e) {
         submitBtn.textContent = 'S\'inscrire';
     }
 }
+
+// Nouvelle fonction pour le formulaire de connexion
+async function handleNewLogin(e) {
+    e.preventDefault();
+    
+    const username = document.getElementById('loginEmail').value;
+    const password = document.getElementById('loginPassword').value;
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Connexion...';
+    
+    try {
+        const response = await fetch(`${API_BASE}/login`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username, password })
+        });
+        
+        const data = await response.json();
+        
+        if (response.ok) {
+            localStorage.setItem('access_token', data.access_token);
+            localStorage.setItem('user_data', JSON.stringify(data.user));
+            
+            currentUser = data.user;
+            updateNavigation(true);
+            
+            bootstrap.Modal.getInstance(document.getElementById('authModal')).hide();
+            showAlert('Connexion réussie!', 'success');
+        } else {
+            showAlert(data.message || 'Erreur de connexion', 'danger');
+        }
+    } catch (error) {
+        showAlert('Erreur de connexion au serveur', 'danger');
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Se connecter';
+    }
+}
+
+// Fonctions globales pour les nouvelles pages
+window.showContentsDetail = showContentsDetail;
+window.showQADetail = showQADetail;
