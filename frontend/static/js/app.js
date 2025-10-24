@@ -64,7 +64,7 @@ function showQuestions() {
 }
 
 function hideAllPages() {
-    const pages = ['homePage', 'contentsPage', 'questionsPage', 'adminPage', 'contentsDetailPage', 'qaDetailPage'];
+    const pages = ['homePage', 'contentsPage', 'questionsPage', 'adminPage', 'contentsDetailPage', 'qaDetailPage', 'thematicPage'];
     pages.forEach(pageId => {
         const page = document.getElementById(pageId);
         if (page) page.classList.add('d-none');
@@ -73,6 +73,18 @@ function hideAllPages() {
     // Masquer aussi la page de prières si elle existe
     const prayersPage = document.getElementById('prayersPage');
     if (prayersPage) prayersPage.classList.add('d-none');
+}
+
+function showThematicPage() {
+    hideAllPages();
+    const thematicPage = document.getElementById('thematicPage');
+    if (thematicPage) {
+        thematicPage.classList.remove('d-none');
+        // Initialiser le gestionnaire thématique si pas encore fait
+        if (typeof thematicManager !== 'undefined') {
+            thematicManager.loadContent();
+        }
+    }
 }
 
 // Nouvelles fonctions pour les pages détaillées

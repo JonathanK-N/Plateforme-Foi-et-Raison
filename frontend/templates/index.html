@@ -13,6 +13,8 @@
     <link href="static/css/admin.css" rel="stylesheet">
     <link href="static/css/animations.css" rel="stylesheet">
     <link href="static/css/pages.css" rel="stylesheet">
+    <link href="static/css/thematic.css" rel="stylesheet">
+    <link href="static/css/thematic-new.css" rel="stylesheet">
     <link rel="manifest" href="static/manifest.json">
     <meta name="theme-color" content="#3f2a6d">
 </head>
@@ -92,6 +94,11 @@
                         </div>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link fw-medium" href="#" onclick="showThematicPage()">
+                            <i class="fas fa-compass me-1"></i>Thématiques
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link fw-medium" href="#" onclick="showContentsDetail()">
                             <i class="fas fa-book-open me-1"></i>Contenus
                         </a>
@@ -161,9 +168,12 @@
                     <div class="row align-items-center">
                         <div class="col-lg-7">
                             <div class="hero-content text-white">
+                                <div class="hero-question mb-3">
+                                    <h2 class="text-white-50 fs-5 mb-2">Et si croire et penser n'étaient pas incompatibles ?</h2>
+                                </div>
                                 <span class="hero-eyebrow">Croire & Penser</span>
-                                <h1 class="display-4 fw-bold mb-3">Réconcilier la foi et la pensée biblique</h1>
-                                <p class="hero-subtitle">Analyses, dossiers et podcasts pour éclairer les enjeux scientifiques, culturels et spirituels à la lumière de l'Écriture.</p>
+                                <h1 class="display-4 fw-bold mb-3">"Amener les croyants à penser, et les penseurs à croire"</h1>
+                                <p class="hero-subtitle">Une plateforme communautaire pour contenus religieux avec gestion multimédia, Q&A, et administration complète. Explorez votre foi avec intelligence.</p>
 
                                 <div class="hero-highlight-pills">
                                     <span class="pill"><i class="fas fa-flask"></i>Foi & sciences</span>
@@ -601,6 +611,173 @@
                 </div>
             </div>
         </section>
+
+        <!-- Page Thématique -->
+        <div id="thematicPage" class="d-none page-content">
+            <section class="thematic-hero animate-on-scroll">
+                <div class="container">
+                    <div class="row align-items-center g-4">
+                        <div class="col-lg-8">
+                            <h1 id="thematicPageTitle" class="thematic-title">Contenus Thématiques</h1>
+                            <p class="thematic-intro">Découvrez nos contenus organisés par thématiques selon le plan de contenu "Croire & Penser". Des ressources pour approfondir votre foi et répondre aux grandes questions.</p>
+                            <div class="thematic-pills">
+                                <span><i class="fas fa-infinity me-2"></i>Questions sur Dieu</span>
+                                <span><i class="fas fa-book me-2"></i>Études bibliques</span>
+                                <span><i class="fas fa-cross me-2"></i>Jésus-Christ</span>
+                                <span><i class="fas fa-balance-scale me-2"></i>Éthique</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="thematic-card">
+                                <h3><i class="fas fa-filter me-2"></i>Filtres</h3>
+                                <div class="mb-3">
+                                    <label class="form-label">Type de contenu</label>
+                                    <select class="form-select" id="contentTypeFilter">
+                                        <option value="">Tous les types</option>
+                                        <option value="article">Articles</option>
+                                        <option value="video">Vidéos</option>
+                                        <option value="podcast">Podcasts</option>
+                                        <option value="study">Études</option>
+                                        <option value="carrousel">Carrousels</option>
+                                    </select>
+                                </div>
+                                <button class="btn btn-primary w-100" onclick="loadFeaturedContent()">
+                                    <i class="fas fa-star me-2"></i>Contenus à la une
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="thematic-categories py-5">
+                <div class="container">
+                    <h2 class="section-title text-center mb-5">
+                        <i class="fas fa-compass me-2"></i>Explorer par Thématiques
+                    </h2>
+                    <div class="row" id="thematicCategoriesMenu">
+                        <!-- Catégories générées dynamiquement -->
+                    </div>
+                </div>
+            </section>
+
+            <section class="thematic-content py-5">
+                <div class="container">
+                    <div class="row" id="thematicContentGrid">
+                        <!-- Contenu généré dynamiquement -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section Questions 2026 -->
+            <section class="questions-2026 py-5 bg-light">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 text-center mb-5">
+                            <h2 class="section-title">Contenus à partir de 2026</h2>
+                            <p class="section-subtitle">Les grandes questions qui seront traitées dans nos prochains contenus</p>
+                        </div>
+                    </div>
+                    <div class="row g-4">
+                        <div class="col-md-6 col-lg-4">
+                            <div class="question-preview-card">
+                                <div class="question-icon">
+                                    <i class="fas fa-infinity"></i>
+                                </div>
+                                <h4>Dieu</h4>
+                                <ul class="question-list">
+                                    <li>Comment pouvons-nous être sûrs de l'existence de Dieu ?</li>
+                                    <li>Pourquoi Dieu est-il invisible ?</li>
+                                    <li>La théorie de l'évolution et la foi chrétienne sont-elles compatibles ?</li>
+                                </ul>
+                                <button class="btn btn-outline-primary btn-sm" onclick="showThematicContent('dieu')">
+                                    Voir tous les contenus
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <div class="question-preview-card">
+                                <div class="question-icon">
+                                    <i class="fas fa-book"></i>
+                                </div>
+                                <h4>Bible</h4>
+                                <ul class="question-list">
+                                    <li>En quoi un livre vieux de 2000 ans peut-il me concerner ?</li>
+                                    <li>La Bible est-elle entièrement vraie ?</li>
+                                    <li>Pourquoi certains livres sont-ils absents de certaines Bibles ?</li>
+                                </ul>
+                                <button class="btn btn-outline-primary btn-sm" onclick="showThematicContent('bible')">
+                                    Voir tous les contenus
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <div class="question-preview-card">
+                                <div class="question-icon">
+                                    <i class="fas fa-cross"></i>
+                                </div>
+                                <h4>Jésus-Christ</h4>
+                                <ul class="question-list">
+                                    <li>Jésus a-t-il vraiment existé ?</li>
+                                    <li>Comment peut-on dire que Jésus était à la fois Dieu et homme ?</li>
+                                    <li>Le tombeau de Jésus était-il vraiment vide ?</li>
+                                </ul>
+                                <button class="btn btn-outline-primary btn-sm" onclick="showThematicContent('jesus-christ')">
+                                    Voir tous les contenus
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <div class="question-preview-card">
+                                <div class="question-icon">
+                                    <i class="fas fa-balance-scale"></i>
+                                </div>
+                                <h4>Éthique</h4>
+                                <ul class="question-list">
+                                    <li>La contraception est-elle un péché ?</li>
+                                    <li>Doit-on toujours dire la vérité ?</li>
+                                    <li>Une fille qui tombe enceinte après un viol peut-elle avorter ?</li>
+                                </ul>
+                                <button class="btn btn-outline-primary btn-sm" onclick="showThematicContent('ethique')">
+                                    Voir tous les contenus
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <div class="question-preview-card">
+                                <div class="question-icon">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <h4>L'être humain</h4>
+                                <ul class="question-list">
+                                    <li>Est-ce que tout être vivant a une âme ?</li>
+                                    <li>Que penser du clonage ?</li>
+                                    <li>La foi n'est-elle pas une béquille pour les faibles ?</li>
+                                </ul>
+                                <button class="btn btn-outline-primary btn-sm" onclick="showThematicContent('etre-humain')">
+                                    Voir tous les contenus
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <div class="question-preview-card">
+                                <div class="question-icon">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                                <h4>Le mal</h4>
+                                <ul class="question-list">
+                                    <li>D'où vient le mal ?</li>
+                                    <li>Pourquoi Dieu permet-il que le mal blesse les innocents ?</li>
+                                </ul>
+                                <button class="btn btn-outline-primary btn-sm" onclick="showThematicContent('le-mal')">
+                                    Voir tous les contenus
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
 
         <!-- Page de contenus -->
         <div id="contentsPage" class="d-none">
@@ -1333,6 +1510,8 @@
     <script src="static/js/prayers.js"></script>
     <script src="static/js/admin.js"></script>
     <script src="static/js/animations.js"></script>
+    <script src="static/js/thematic-content.js"></script>
+    <script src="static/js/thematic.js"></script>
     <script src="static/js/pwa.js"></script>
 </body>
 </html>
