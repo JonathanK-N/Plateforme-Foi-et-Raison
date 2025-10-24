@@ -15,6 +15,7 @@
     <link href="static/css/pages.css" rel="stylesheet">
     <link href="static/css/thematic.css" rel="stylesheet">
     <link href="static/css/thematic-new.css" rel="stylesheet">
+    <link href="static/css/navbar-hero-fix.css" rel="stylesheet">
     <link rel="manifest" href="static/manifest.json">
     <meta name="theme-color" content="#3f2a6d">
 </head>
@@ -33,95 +34,41 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto ms-4 align-items-lg-center">
+                <ul class="navbar-nav mx-auto">
                     <li class="nav-item">
-                        <a class="nav-link fw-medium" href="#" onclick="showHome()">
-                            <i class="fas fa-home me-1"></i>Accueil
-                        </a>
-                    </li>
-                    <li class="nav-item dropdown mega-nav">
-                        <a class="nav-link fw-medium dropdown-toggle" href="#" id="megaDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-compass me-1"></i>Resources
-                        </a>
-                        <div class="dropdown-menu mega-menu shadow" aria-labelledby="megaDropdown">
-                            <div class="container px-0 py-lg-4 text-center text-lg-start d-flex flex-column align-items-center align-items-lg-stretch gap-4">
-                                <div class="row g-4 align-items-stretch justify-content-center w-100 m-0">
-                                    <div class="col-lg-5 d-flex justify-content-center">
-                                        <div class="mega-menu-block mega-feature">
-                                            <span class="mega-eyebrow">À ne pas manquer</span>
-                                            <h5 class="mega-title">Guides & dossiers Croire & Penser</h5>
-                                            <p class="mega-text">Des parcours bibliques et scientifiques pour approfondir la foi, comprendre la culture et accompagner vos groupes.</p>
-                                            <div class="d-flex flex-column flex-sm-row gap-3">
-                                                <a class="btn btn-primary" href="#resource-bible">
-                                                    <i class="fas fa-compass me-2"></i>Voir les dossiers
-                                                </a>
-                                                <a class="btn btn-outline-primary" href="#resource-community">
-                                                    <i class="fas fa-comments me-2"></i>Forum dédié
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-7">
-                                        <div class="row g-4 mega-columns justify-content-center text-center text-lg-start w-100 m-0">
-                                            <div class="col-md-6 d-flex justify-content-center">
-                                                <div class="mega-menu-block w-100">
-                                                    <span class="mega-eyebrow">Étudier</span>
-                                                    <ul class="mega-list list-unstyled">
-                                                        <li><a href="#resource-bible"><i class="fas fa-book me-2"></i>Études bibliques interactives</a></li>
-                                                        <li><a href="#resource-science"><i class="fas fa-flask me-2"></i>Foi & sciences (cosmologie, évolution…)</a></li>
-                                                        <li><a href="#resource-culture"><i class="fas fa-feather me-2"></i>Questions éthiques & société</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 d-flex justify-content-center">
-                                                <div class="mega-menu-block w-100">
-                                                    <span class="mega-eyebrow">Participer</span>
-                                                    <ul class="mega-list list-unstyled">
-                                                        <li><a href="#resource-community"><i class="fas fa-people-arrows me-2"></i>Forum Croire & Penser</a></li>
-                                                        <li><a href="#resource-community"><i class="fas fa-praying-hands me-2"></i>Espace prières & intercession</a></li>
-                                                        <li><a href="#resource-media"><i class="fas fa-headphones me-2"></i>Podcasts & webinaires</a></li>
-                                                    </ul>
-                                                    <div class="mega-mini">
-                                                        <span><i class="fas fa-calendar me-2"></i>Newsletter mensuelle</span>
-                                                        <a class="btn btn-link p-0 mega-link" href="#resource-newsletter">S'inscrire</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link fw-medium" href="#" onclick="showThematicPage()">
-                            <i class="fas fa-compass me-1"></i>Thématiques
+                        <a class="nav-link fw-medium px-3" href="#" onclick="showHome()">
+                            <i class="fas fa-home me-2"></i>Accueil
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link fw-medium" href="#" onclick="showContentsDetail()">
-                            <i class="fas fa-book-open me-1"></i>Contenus
+                        <a class="nav-link fw-medium px-3" href="#" onclick="showThematicPage()">
+                            <i class="fas fa-compass me-2"></i>Thématiques
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link fw-medium" href="#" onclick="showQADetail()">
-                            <i class="fas fa-question-circle me-1"></i>Questions & Réponses
+                        <a class="nav-link fw-medium px-3" href="#" onclick="showContentsDetail()">
+                            <i class="fas fa-book-open me-2"></i>Contenus
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link fw-medium" href="#" onclick="showPrayers()">
-                            <i class="fas fa-praying-hands me-1"></i>Prières
+                        <a class="nav-link fw-medium px-3" href="#" onclick="showQADetail()">
+                            <i class="fas fa-question-circle me-2"></i>Q&A
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link fw-medium px-3" href="#" onclick="showPrayers()">
+                            <i class="fas fa-praying-hands me-2"></i>Prières
                         </a>
                     </li>
                 </ul>
-                <ul class="navbar-nav" id="authNav">
-                    <li class="nav-item">
-                        <a class="nav-link btn btn-outline-primary me-2 px-3" href="#" data-bs-toggle="modal" data-bs-target="#authModal">
+                <ul class="navbar-nav ms-auto" id="authNav">
+                    <li class="nav-item me-2">
+                        <a class="btn btn-outline-primary" href="#" data-bs-toggle="modal" data-bs-target="#authModal">
                             <i class="fas fa-sign-in-alt me-1"></i>Connexion
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link btn btn-primary text-white px-3" href="#" data-bs-toggle="modal" data-bs-target="#registerModal">
+                        <a class="btn btn-primary" href="#" data-bs-toggle="modal" data-bs-target="#registerModal">
                             <i class="fas fa-user-plus me-1"></i>Inscription
                         </a>
                     </li>
@@ -168,12 +115,18 @@
                     <div class="row align-items-center">
                         <div class="col-lg-7">
                             <div class="hero-content text-white">
-                                <div class="hero-question mb-3">
-                                    <h2 class="text-white-50 fs-5 mb-2">Et si croire et penser n'étaient pas incompatibles ?</h2>
+                                <div class="hero-question mb-4">
+                                    <h2 class="text-white-75 fs-4 mb-3 fw-light">Et si croire et penser n'étaient pas incompatibles ?</h2>
                                 </div>
-                                <span class="hero-eyebrow">Croire & Penser</span>
-                                <h1 class="display-4 fw-bold mb-3">"Amener les croyants à penser, et les penseurs à croire"</h1>
-                                <p class="hero-subtitle">Une plateforme communautaire pour contenus religieux avec gestion multimédia, Q&A, et administration complète. Explorez votre foi avec intelligence.</p>
+                                <div class="hero-brand mb-4">
+                                    <span class="hero-eyebrow d-block mb-2">Croire & Penser</span>
+                                    <h1 class="display-3 fw-bold mb-4 lh-1">"Amener les croyants à penser,<br>et les penseurs à croire"</h1>
+                                </div>
+                                <div class="hero-description mb-4">
+                                    <p class="hero-subtitle fs-5 mb-3 fw-light">Une plateforme communautaire pour contenus religieux</p>
+                                    <p class="hero-features text-white-75">Gestion multimédia • Questions & Réponses • Administration complète</p>
+                                    <p class="hero-cta fw-medium">Explorez votre foi avec intelligence</p>
+                                </div>
 
                                 <div class="hero-highlight-pills">
                                     <span class="pill"><i class="fas fa-flask"></i>Foi & sciences</span>
