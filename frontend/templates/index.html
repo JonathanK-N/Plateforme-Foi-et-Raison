@@ -63,11 +63,6 @@
                             <i class="fas fa-envelope me-2"></i>Contact
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link fw-medium px-3" href="#" onclick="showDonation()">
-                            <i class="fas fa-heart me-2"></i>Faire un don
-                        </a>
-                    </li>
                 </ul>
             </div>
         </div>
@@ -238,12 +233,12 @@
                 </div>
             </section>
 
-            <section class="py-5 bg-light">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12 text-center mb-5">
-                            <h2>Nos Valeurs</h2>
-                        </div>
+              <section class="py-5 bg-light">
+                  <div class="container">
+                      <div class="row">
+                          <div class="col-12 text-center mb-5">
+                              <h2>Nos Valeurs</h2>
+                          </div>
                     </div>
                     <div class="row g-4">
                         <div class="col-md-6">
@@ -273,30 +268,37 @@
                                 <h4>Service</h4>
                                 <p>Nous mettons nos compétences au service de l'Église et de la société.</p>
                             </div>
+                          </div>
+                      </div>
+                  </div>
+              </section>
+
+            <section class="donation-section donation-section--gradient py-5 animate-on-scroll">
+                <div class="container">
+                    <div class="row align-items-center g-4">
+                        <div class="col-lg-8">
+                            <span class="donation-kicker text-uppercase fw-semibold">Soutenir la vision</span>
+                            <h3 class="mb-3">Partagez la mission Croire &amp; Penser</h3>
+                            <p class="mb-0">Vos dons nous permettent de produire des parcours d&#39;accompagnement, de financer les prochaines séries thématiques et de soutenir les projets de formation.</p>
+                        </div>
+                        <div class="col-lg-4 text-lg-end">
+                            <button class="btn btn-light btn-lg shadow-sm" onclick="showDonation()">
+                                <i class="fas fa-heart me-2"></i>Faire un don
+                            </button>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Section Faire un don -->
-            <section class="donation-section py-5 bg-primary text-white">
-                <div class="container text-center">
-                    <h3 class="mb-3">Rejoignez notre mission</h3>
-                    <p class="mb-4">Votre soutien nous permet de continuer à produire des contenus de qualité</p>
-                    <button class="btn btn-light" onclick="showDonation()">
-                        <i class="fas fa-heart me-2"></i>Soutenir Croire & Penser
-                    </button>
-                </div>
-            </section>
         </div>
 
         <!-- Page Contenus -->
         <div id="contentsPage" class="d-none page-content">
-            <section class="contents-hero animate-on-scroll">
-                <div class="container">
-                    <div class="row align-items-center g-4">
-                        <div class="col-lg-7">
-                            <h1 class="contents-title">Contenus Spirituels</h1>
+          <section class="contents-hero animate-on-scroll">
+              <div class="container">
+                  <div class="row align-items-center g-4">
+                      <div class="col-lg-7">
+                          <h1 class="contents-title">Contenus Spirituels</h1>
                             <p class="contents-intro">Découvrez notre bibliothèque de ressources spirituelles : articles, vidéos, podcasts et études bibliques pour nourrir votre foi.</p>
                             <div class="contents-pills">
                                 <span><i class="fas fa-book me-2"></i>Articles de fond</span>
@@ -332,6 +334,59 @@
                                             <small>Études</small>
                                         </a>
                                     </div>
+                                </div>
+                            </div>
+                      </div>
+                  </div>
+              </div>
+          </section>
+
+            <section class="contents-intro py-5 bg-light animate-on-scroll">
+                <div class="container">
+                    <div class="row g-4 align-items-center">
+                        <div class="col-lg-6">
+                            <span class="section-kicker text-uppercase text-primary fw-semibold">Parcours thématiques</span>
+                            <h2 class="mb-3">Explorez nos dossiers guidés</h2>
+                            <p class="mb-4">Retrouvez des dossiers structurés pour articuler foi, sciences et vie quotidienne. Chaque parcours propose des articles de fond, des ressources multimédias et des pistes de discussion pour vos groupes.</p>
+                            <ul class="highlight-list">
+                                <li><i class="fas fa-check-circle text-primary me-2"></i>Guides téléchargeables pour vos études bibliques</li>
+                                <li><i class="fas fa-check-circle text-primary me-2"></i>Interventions d'experts et podcasts complémentaires</li>
+                                <li><i class="fas fa-check-circle text-primary me-2"></i>Questions de réflexion pour animer vos rencontres</li>
+                            </ul>
+                            <div class="d-flex flex-wrap gap-3 mt-3">
+                                <button class="btn btn-primary" onclick="showContentsDetail()">
+                                    <i class="fas fa-arrow-right me-2"></i>Voir la bibliothèque détaillée
+                                </button>
+                                <button class="btn btn-outline-primary" onclick="showQA()">
+                                    <i class="fas fa-comments me-2"></i>Prolonger le dialogue
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="resource-highlight-grid">
+                                <div class="resource-highlight-card">
+                                    <span class="badge bg-soft-primary text-primary mb-2">Nouveau</span>
+                                    <h4 class="mb-2">Foyers &amp; Familles</h4>
+                                    <p class="mb-3">Des ressources pour accompagner la vie spirituelle du foyer, avec des fiches de discussion parents-enfants.</p>
+                                    <a href="#" class="btn btn-link px-0" onclick="showContentsDetail(); return false;">
+                                        Découvrir les fiches <i class="fas fa-arrow-right ms-2"></i>
+                                    </a>
+                                </div>
+                                <div class="resource-highlight-card">
+                                    <span class="badge bg-soft-primary text-primary mb-2">À écouter</span>
+                                    <h4 class="mb-2">Podcast "Foi &amp; Raison"</h4>
+                                    <p class="mb-3">Une série hebdomadaire pour croiser regards bibliques et enjeux contemporains.</p>
+                                    <a href="#" class="btn btn-link px-0" onclick="showContentsDetail(); return false;">
+                                        Lancer la série <i class="fas fa-arrow-right ms-2"></i>
+                                    </a>
+                                </div>
+                                <div class="resource-highlight-card">
+                                    <span class="badge bg-soft-primary text-primary mb-2">À vivre</span>
+                                    <h4 class="mb-2">Ateliers communautaires</h4>
+                                    <p class="mb-3">Organisez un atelier clé en main avec nos guides de discussion et plans d'accompagnement.</p>
+                                    <a href="#" class="btn btn-link px-0" onclick="showContentsDetail(); return false;">
+                                        Télécharger le kit <i class="fas fa-arrow-right ms-2"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -512,14 +567,20 @@
                 </div>
             </section>
 
-            <!-- Section Faire un don -->
-            <section class="donation-section py-5 bg-light">
-                <div class="container text-center">
-                    <h3 class="mb-3">Soutenez nos contenus</h3>
-                    <p class="text-muted mb-4">Votre don nous permet de continuer à produire des ressources spirituelles de qualité</p>
-                    <button class="btn btn-primary" onclick="showDonation()">
-                        <i class="fas fa-heart me-2"></i>Faire un don
-                    </button>
+            <section class="donation-section donation-section--muted py-5 animate-on-scroll">
+                <div class="container">
+                    <div class="row align-items-center g-4">
+                        <div class="col-lg-8">
+                            <span class="donation-kicker text-uppercase fw-semibold">Investir dans le contenu</span>
+                            <h3 class="mb-3">Soutenez la production de nouvelles ressources</h3>
+                            <p class="mb-0 text-muted">Chaque contribution finance la rédaction d'articles, la création de podcasts et la diffusion de vidéos accessibles gratuitement à la communauté.</p>
+                        </div>
+                        <div class="col-lg-4 text-lg-end">
+                            <button class="btn btn-primary btn-lg shadow-sm" onclick="showDonation()">
+                                <i class="fas fa-heart me-2"></i>Je soutiens les contenus
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </section>
         </div>
@@ -602,25 +663,82 @@
                 </div>
             </section>
 
+            <section class="prayer-highlights py-5 animate-on-scroll">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 text-center mb-5">
+                            <span class="section-kicker text-primary text-uppercase fw-semibold">Accompagnement</span>
+                            <h2 class="mb-3">Prier, se soutenir et avancer ensemble</h2>
+                            <p class="text-muted mb-0">Rejoignez une communauté qui intercède, partage des témoignages et propose des ressources pour nourrir votre vie de prière.</p>
+                        </div>
+                    </div>
+                    <div class="row g-4">
+                        <div class="col-md-4">
+                            <div class="prayer-highlight-card h-100">
+                                <div class="icon-wrap mb-3">
+                                    <i class="fas fa-people-arrows"></i>
+                                </div>
+                                <h4>Groupes d'intercession</h4>
+                                <p>Participez à nos veillées en ligne, partagez vos sujets et recevez le soutien d'intercesseurs engagés.</p>
+                                <button class="btn btn-link px-0" onclick="showQA(); return false;">
+                                    Voir le calendrier <i class="fas fa-arrow-right ms-1"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="prayer-highlight-card h-100">
+                                <div class="icon-wrap mb-3">
+                                    <i class="fas fa-seedling"></i>
+                                </div>
+                                <h4>Guides de prière</h4>
+                                <p>Recevez chaque semaine une méditation, une liturgie courte et des pistes pour prier seul, en famille ou en groupe.</p>
+                                <button class="btn btn-link px-0" onclick="showContentsDetail(); return false;">
+                                    Télécharger le dernier guide <i class="fas fa-arrow-right ms-1"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="prayer-highlight-card h-100">
+                                <div class="icon-wrap mb-3">
+                                    <i class="fas fa-heartbeat"></i>
+                                </div>
+                                <h4>Témoignages d'espérance</h4>
+                                <p>Découvrez comment Dieu répond aux prières et partagez vos propres histoires pour encourager d'autres croyants.</p>
+                                <button class="btn btn-link px-0" onclick="showContents(); return false;">
+                                    Écouter les témoignages <i class="fas fa-arrow-right ms-1"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <!-- Section Faire un don -->
-            <section class="donation-section py-5 bg-light">
-                <div class="container text-center">
-                    <h3 class="mb-3">Soutenez notre communauté de prière</h3>
-                    <p class="text-muted mb-4">Votre soutien nous aide à maintenir cet espace de communion spirituelle</p>
-                    <button class="btn btn-primary" onclick="showDonation()">
-                        <i class="fas fa-heart me-2"></i>Faire un don
-                    </button>
+            <section class="donation-section donation-section--muted py-5 animate-on-scroll">
+                <div class="container">
+                    <div class="row align-items-center g-4">
+                        <div class="col-lg-8">
+                            <span class="donation-kicker text-uppercase fw-semibold">Soutien fraternel</span>
+                            <h3 class="mb-3">Permettre un accompagnement pastoral continu</h3>
+                            <p class="mb-0 text-muted">Vos dons financent la modération de l'espace, l'accompagnement pastoral et l'organisation de temps de prière communautaires.</p>
+                        </div>
+                        <div class="col-lg-4 text-lg-end">
+                            <button class="btn btn-primary btn-lg shadow-sm" onclick="showDonation()">
+                                <i class="fas fa-heart me-2"></i>Soutenir l'espace prière
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </section>
         </div>
 
         <!-- Page Q&A -->
         <div id="qaDetailPage" class="d-none page-content">
-            <section class="qa-hero animate-on-scroll">
-                <div class="container">
-                    <div class="row align-items-center g-4">
-                        <div class="col-lg-7">
-                            <h1 class="qa-title">Questions & Réponses Spirituelles</h1>
+          <section class="qa-hero animate-on-scroll">
+              <div class="container">
+                  <div class="row align-items-center g-4">
+                      <div class="col-lg-7">
+                          <h1 class="qa-title">Questions & Réponses Spirituelles</h1>
                             <p class="qa-intro">Trouvez des réponses à vos questions spirituelles ou posez les vôtres à notre communauté de croyants.</p>
                             <div class="qa-pills">
                                 <span><i class="fas fa-question-circle me-2"></i>Questions fréquentes</span>
@@ -658,6 +776,56 @@
                                     </div>
                                 </div>
                             </div>
+                      </div>
+                  </div>
+              </div>
+          </section>
+
+            <section class="qa-shortcuts py-5 bg-light animate-on-scroll">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 text-center mb-5">
+                            <span class="section-kicker text-uppercase text-primary fw-semibold">Commencer</span>
+                            <h2 class="mb-3">Choisissez une thématique et rejoignez la discussion</h2>
+                            <p class="text-muted mb-0">Les réponses sont modérées par notre équipe théologique et nourries par les contributions de la communauté.</p>
+                        </div>
+                    </div>
+                    <div class="row g-4">
+                        <div class="col-md-3 col-sm-6">
+                            <a class="question-shortcut-card h-100" href="#bible-questions">
+                                <div class="icon-wrap mb-3">
+                                    <i class="fas fa-book"></i>
+                                </div>
+                                <h4>Bible &amp; exégèse</h4>
+                                <p class="mb-0">Interprétation, compréhension des textes, lecture contextuelle.</p>
+                            </a>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <a class="question-shortcut-card h-100" href="#faith-questions">
+                                <div class="icon-wrap mb-3">
+                                    <i class="fas fa-cross"></i>
+                                </div>
+                                <h4>Vie de foi</h4>
+                                <p class="mb-0">Spiritualité, doutes, croissance personnelle et témoignage.</p>
+                            </a>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <a class="question-shortcut-card h-100" href="#life-questions">
+                                <div class="icon-wrap mb-3">
+                                    <i class="fas fa-people-arrows"></i>
+                                </div>
+                                <h4>Vie quotidienne</h4>
+                                <p class="mb-0">Éthique, relations, travail et équilibre de vie.</p>
+                            </a>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <a class="question-shortcut-card h-100" href="#theology-questions">
+                                <div class="icon-wrap mb-3">
+                                    <i class="fas fa-graduation-cap"></i>
+                                </div>
+                                <h4>Théologie</h4>
+                                <p class="mb-0">Doctrine, histoire de l'Église et grandes questions de foi.</p>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -778,14 +946,20 @@
                 </div>
             </section>
 
-            <!-- Section Faire un don -->
-            <section class="donation-section py-5 bg-light">
-                <div class="container text-center">
-                    <h3 class="mb-3">Soutenez notre mission</h3>
-                    <p class="text-muted mb-4">Votre don nous aide à continuer à fournir des réponses de qualité</p>
-                    <button class="btn btn-primary" onclick="showDonation()">
-                        <i class="fas fa-heart me-2"></i>Faire un don
-                    </button>
+            <section class="donation-section donation-section--muted py-5 animate-on-scroll">
+                <div class="container">
+                    <div class="row align-items-center g-4">
+                        <div class="col-lg-8">
+                            <span class="donation-kicker text-uppercase fw-semibold">Encourager le dialogue</span>
+                            <h3 class="mb-3">Soutenez la modération et la réponse aux questions</h3>
+                            <p class="mb-0 text-muted">Vos contributions permettent de former nos modérateurs, de solliciter des experts et de proposer des réponses approfondies.</p>
+                        </div>
+                        <div class="col-lg-4 text-lg-end">
+                            <button class="btn btn-primary btn-lg shadow-sm" onclick="showDonation()">
+                                <i class="fas fa-heart me-2"></i>Soutenir la Q&amp;R
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </section>
         </div>
