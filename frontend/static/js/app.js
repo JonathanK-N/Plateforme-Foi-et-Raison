@@ -64,26 +64,38 @@ function showQuestions() {
 }
 
 function hideAllPages() {
-    const pages = ['homePage', 'contentsPage', 'questionsPage', 'adminPage', 'contentsDetailPage', 'qaDetailPage', 'thematicPage'];
+    const pages = ['homePage', 'aboutPage', 'contentsPage', 'questionsPage', 'contentsDetailPage', 'qaDetailPage', 'thematicPage', 'donationPage', 'contactPage', 'prayersPage'];
     pages.forEach(pageId => {
         const page = document.getElementById(pageId);
         if (page) page.classList.add('d-none');
     });
-    
-    // Masquer aussi la page de prières si elle existe
-    const prayersPage = document.getElementById('prayersPage');
-    if (prayersPage) prayersPage.classList.add('d-none');
 }
 
-function showThematicPage() {
+function showAbout() {
     hideAllPages();
-    const thematicPage = document.getElementById('thematicPage');
-    if (thematicPage) {
-        thematicPage.classList.remove('d-none');
-        // Initialiser le gestionnaire thématique si pas encore fait
-        if (typeof thematicManager !== 'undefined') {
-            thematicManager.loadContent();
-        }
+    document.getElementById('aboutPage').classList.remove('d-none');
+}
+
+function showQA() {
+    hideAllPages();
+    document.getElementById('qaDetailPage').classList.remove('d-none');
+}
+
+function showDonation() {
+    hideAllPages();
+    document.getElementById('donationPage').classList.remove('d-none');
+}
+
+function showContact() {
+    hideAllPages();
+    document.getElementById('contactPage').classList.remove('d-none');
+}
+
+function showPrayers() {
+    hideAllPages();
+    const prayersPage = document.getElementById('prayersPage');
+    if (prayersPage) {
+        prayersPage.classList.remove('d-none');
     }
 }
 

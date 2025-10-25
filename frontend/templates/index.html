@@ -16,6 +16,7 @@
     <link href="static/css/thematic.css" rel="stylesheet">
     <link href="static/css/thematic-new.css" rel="stylesheet">
     <link href="static/css/navbar-hero-fix.css" rel="stylesheet">
+    <link href="static/css/new-pages.css" rel="stylesheet">
     <link rel="manifest" href="static/manifest.json">
     <meta name="theme-color" content="#3f2a6d">
 </head>
@@ -41,58 +42,34 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link fw-medium px-3" href="#" onclick="showThematicPage()">
-                            <i class="fas fa-compass me-2"></i>Thématiques
+                        <a class="nav-link fw-medium px-3" href="#" onclick="showAbout()">
+                            <i class="fas fa-info-circle me-2"></i>À propos
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link fw-medium px-3" href="#" onclick="showContentsDetail()">
+                        <a class="nav-link fw-medium px-3" href="#" onclick="showContents()">
                             <i class="fas fa-book-open me-2"></i>Contenus
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link fw-medium px-3" href="#" onclick="showQADetail()">
+                        <a class="nav-link fw-medium px-3" href="#" onclick="showPrayers()">
+                            <i class="fas fa-praying-hands me-2"></i>Prière
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link fw-medium px-3" href="#" onclick="showQA()">
                             <i class="fas fa-question-circle me-2"></i>Q&A
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link fw-medium px-3" href="#" onclick="showPrayers()">
-                            <i class="fas fa-praying-hands me-2"></i>Prières
-                        </a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav ms-auto" id="authNav">
-                    <li class="nav-item me-2">
-                        <a class="btn btn-outline-primary" href="#" data-bs-toggle="modal" data-bs-target="#authModal">
-                            <i class="fas fa-sign-in-alt me-1"></i>Connexion
+                        <a class="nav-link fw-medium px-3" href="#" onclick="showDonation()">
+                            <i class="fas fa-heart me-2"></i>Faire un don
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="btn btn-primary" href="#" data-bs-toggle="modal" data-bs-target="#registerModal">
-                            <i class="fas fa-user-plus me-1"></i>Inscription
+                        <a class="nav-link fw-medium px-3" href="#" onclick="showContact()">
+                            <i class="fas fa-envelope me-2"></i>Contact
                         </a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav d-none" id="userNav">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown">
-                            <div class="user-avatar me-2">
-                                <i class="fas fa-user-circle fs-4"></i>
-                            </div>
-                            <span id="username"></span>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end shadow">
-                            <li><a class="dropdown-item" href="#" onclick="showProfile()">
-                                <i class="fas fa-user me-2"></i>Mon Profil
-                            </a></li>
-                            <li><a class="dropdown-item" href="#" onclick="showAdmin()" id="adminLink" style="display:none">
-                                <i class="fas fa-cog me-2"></i>Administration
-                            </a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item text-danger" href="#" onclick="logout()">
-                                <i class="fas fa-sign-out-alt me-2"></i>Déconnexion
-                            </a></li>
-                        </ul>
                     </li>
                 </ul>
             </div>
@@ -357,11 +334,11 @@
                                     <li><i class="fas fa-hands-helping me-2"></i>Un forum fraternel pour vos questions et témoignages</li>
                                 </ul>
                                 <div class="d-flex flex-column flex-md-row gap-3 justify-content-md-start">
-                                    <button class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#registerModal">
-                                        <i class="fas fa-user-plus me-2"></i>S'inscrire
+                                    <button class="btn btn-primary btn-lg" onclick="showContents()">
+                                        <i class="fas fa-book-open me-2"></i>Découvrir nos contenus
                                     </button>
-                                    <button class="btn btn-outline-primary btn-lg" data-bs-toggle="modal" data-bs-target="#authModal">
-                                        <i class="fas fa-sign-in-alt me-2"></i>Se connecter
+                                    <button class="btn btn-outline-primary btn-lg" onclick="showAbout()">
+                                        <i class="fas fa-info-circle me-2"></i>En savoir plus
                                     </button>
                                 </div>
                             </div>
@@ -721,6 +698,167 @@
                                 <button class="btn btn-outline-primary btn-sm" onclick="showThematicContent('le-mal')">
                                     Voir tous les contenus
                                 </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Page À propos -->
+        <div id="aboutPage" class="d-none page-content">
+            <section class="about-hero py-5">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6">
+                            <h1 class="display-4 fw-bold text-primary mb-4">À propos de Croire & Penser</h1>
+                            <p class="lead">"Amener les croyants à penser, et les penseurs à croire"</p>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="about-image text-center">
+                                <i class="fas fa-cross text-primary" style="font-size: 8rem;"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="py-5">
+                <div class="container">
+                    <div class="row g-5">
+                        <div class="col-lg-4">
+                            <div class="about-card h-100">
+                                <div class="about-icon">
+                                    <i class="fas fa-eye"></i>
+                                </div>
+                                <h3>Notre Vision</h3>
+                                <p>Créer un pont entre la foi et la raison, permettant aux croyants d'approfondir leur réflexion et aux penseurs de découvrir la richesse de la foi chrétienne.</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="about-card h-100">
+                                <div class="about-icon">
+                                    <i class="fas fa-bullseye"></i>
+                                </div>
+                                <h3>Notre Mission</h3>
+                                <p>Proposer des contenus de qualité qui articulent foi chrétienne et connaissances contemporaines, dans un esprit de dialogue respectueux et constructif.</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="about-card h-100">
+                                <div class="about-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <h3>Qui sommes-nous</h3>
+                                <p>Une équipe de théologiens, scientifiques et penseurs chrétiens unis par la conviction que foi et raison peuvent s'éclairer mutuellement.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Page Faire un don -->
+        <div id="donationPage" class="d-none page-content">
+            <section class="donation-hero py-5 bg-primary text-white">
+                <div class="container text-center">
+                    <h1 class="display-4 fw-bold mb-4">Soutenez notre mission</h1>
+                    <p class="lead">Votre don nous aide à continuer à produire des contenus de qualité</p>
+                </div>
+            </section>
+            
+            <section class="py-5">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-8">
+                            <div class="donation-card p-5">
+                                <h3 class="text-center mb-4">Faire un don</h3>
+                                <div class="donation-amounts mb-4">
+                                    <div class="row g-3">
+                                        <div class="col-6 col-md-3">
+                                            <button class="btn btn-outline-primary w-100">25€</button>
+                                        </div>
+                                        <div class="col-6 col-md-3">
+                                            <button class="btn btn-outline-primary w-100">50€</button>
+                                        </div>
+                                        <div class="col-6 col-md-3">
+                                            <button class="btn btn-outline-primary w-100">100€</button>
+                                        </div>
+                                        <div class="col-6 col-md-3">
+                                            <button class="btn btn-outline-primary w-100">Autre</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <p class="text-muted">Votre don nous permet de continuer à offrir des contenus gratuits et de qualité.</p>
+                                    <button class="btn btn-primary btn-lg">Procéder au don</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Page Contact -->
+        <div id="contactPage" class="d-none page-content">
+            <section class="contact-hero py-5">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <h1 class="display-4 fw-bold text-primary mb-4">Nous contacter</h1>
+                            <p class="lead">Une question ? Une suggestion ? N'hésitez pas à nous écrire.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="py-5">
+                <div class="container">
+                    <div class="row g-5">
+                        <div class="col-lg-8">
+                            <div class="contact-form">
+                                <h3 class="mb-4">Envoyez-nous un message</h3>
+                                <form>
+                                    <div class="row g-3">
+                                        <div class="col-md-6">
+                                            <label class="form-label">Nom</label>
+                                            <input type="text" class="form-control" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">Email</label>
+                                            <input type="email" class="form-control" required>
+                                        </div>
+                                        <div class="col-12">
+                                            <label class="form-label">Sujet</label>
+                                            <input type="text" class="form-control" required>
+                                        </div>
+                                        <div class="col-12">
+                                            <label class="form-label">Message</label>
+                                            <textarea class="form-control" rows="5" required></textarea>
+                                        </div>
+                                        <div class="col-12">
+                                            <button type="submit" class="btn btn-primary btn-lg">Envoyer le message</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="contact-info">
+                                <h4 class="mb-4">Informations de contact</h4>
+                                <div class="contact-item mb-3">
+                                    <i class="fas fa-envelope text-primary me-3"></i>
+                                    <span>contact@croire-penser.com</span>
+                                </div>
+                                <div class="contact-item mb-3">
+                                    <i class="fas fa-phone text-primary me-3"></i>
+                                    <span>+33 1 23 45 67 89</span>
+                                </div>
+                                <div class="contact-item mb-3">
+                                    <i class="fas fa-map-marker-alt text-primary me-3"></i>
+                                    <span>Paris, France</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1325,103 +1463,7 @@
             </section>
         </div>
 
-<!-- Modal d'inscription -->
-        <div class="modal fade" id="registerModal" tabindex="-1">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Inscription</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="registerForm">
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label">Nom</label>
-                                    <input type="text" class="form-control" id="nom" required>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label">Prénom</label>
-                                    <input type="text" class="form-control" id="prenom" required>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label">Sexe</label>
-                                    <select class="form-select" id="sexe" required>
-                                        <option value="">Sélectionner</option>
-                                        <option value="M">Masculin</option>
-                                        <option value="F">Féminin</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label">Téléphone</label>
-                                    <input type="tel" class="form-control" id="telephone" required>
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Email</label>
-                                <input type="email" class="form-control" id="registerEmail" required>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Date de naissance</label>
-                                <input type="date" class="form-control" id="dateNaissance" required>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Avez-vous déjà reçu Jésus comme Seigneur et Sauveur ?</label>
-                                <select class="form-select" id="accepteJesus" required>
-                                    <option value="">Sélectionner</option>
-                                    <option value="oui">Oui</option>
-                                    <option value="non">Non</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Êtes-vous déjà baptisé ?</label>
-                                <select class="form-select" id="baptise" required>
-                                    <option value="">Sélectionner</option>
-                                    <option value="oui">Oui</option>
-                                    <option value="non">Non</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Mot de passe</label>
-                                <input type="password" class="form-control" id="registerPassword" required minlength="6">
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Confirmer le mot de passe</label>
-                                <input type="password" class="form-control" id="registerConfirmPassword" required>
-                            </div>
-                            <button type="submit" class="btn btn-primary w-100">S'inscrire</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Modal de connexion -->
-        <div class="modal fade" id="authModal" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Connexion</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="loginForm">
-                            <div class="mb-3">
-                                <label class="form-label">Email</label>
-                                <input type="email" class="form-control" id="loginEmail" required>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Mot de passe</label>
-                                <input type="password" class="form-control" id="loginPassword" required>
-                            </div>
-                            <button type="submit" class="btn btn-primary w-100">Se connecter</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+
 
         <!-- Modal pour poser une question -->
         <div class="modal fade" id="questionModal" tabindex="-1">

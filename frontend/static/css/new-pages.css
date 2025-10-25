@@ -1,0 +1,115 @@
+/* Styles pour les nouvelles pages */
+
+/* Page À propos */
+.about-card {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.about-card:hover {
+    transform: translateY(-5px);
+}
+
+.about-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    color: white;
+    font-size: 2rem;
+}
+
+.about-card h3 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.about-card p {
+    color: #6c757d;
+    line-height: 1.6;
+}
+
+/* Page Donation */
+.donation-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.donation-amounts .btn {
+    border-radius: 10px;
+    padding: 1rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.donation-amounts .btn:hover {
+    background: #667eea;
+    border-color: #667eea;
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Page Contact */
+.contact-form {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.contact-info {
+    background: #f8f9fa;
+    padding: 2rem;
+    border-radius: 15px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    font-size: 1.1rem;
+}
+
+.contact-item i {
+    width: 20px;
+}
+
+/* Formulaires */
+.form-control {
+    border-radius: 10px;
+    border: 2px solid #e9ecef;
+    padding: 0.75rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+}
+
+/* Boutons */
+.btn-lg {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    border-radius: 25px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .about-card, .contact-form, .contact-info {
+        margin-bottom: 2rem;
+    }
+    
+    .donation-amounts .btn {
+        margin-bottom: 0.5rem;
+    }
+}
