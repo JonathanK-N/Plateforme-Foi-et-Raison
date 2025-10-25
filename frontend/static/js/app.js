@@ -49,11 +49,13 @@ function showHome() {
     hideAllPages();
     document.getElementById('homePage').classList.remove('d-none');
     loadRecentContents();
+    refreshPageAnimations();
 }
 
 function showContents() {
     hideAllPages();
     document.getElementById('contentsPage').classList.remove('d-none');
+    refreshPageAnimations();
 }
 
 // Fonction pour charger les contenus (placeholder)
@@ -72,6 +74,7 @@ function showQuestions() {
     hideAllPages();
     document.getElementById('questionsPage').classList.remove('d-none');
     loadQuestions();
+    refreshPageAnimations();
 }
 
 function hideAllPages() {
@@ -87,6 +90,7 @@ function hideAllPages() {
 function showAbout() {
     hideAllPages();
     document.getElementById('aboutPage').classList.remove('d-none');
+    refreshPageAnimations();
 }
 
 function showQA() {
@@ -97,6 +101,7 @@ function showQA() {
     if (qaPage) {
         qaPage.classList.remove('d-none');
         console.log('Page Q&A affichée');
+        refreshPageAnimations();
     } else {
         console.error('Page qaDetailPage non trouvée');
     }
@@ -105,11 +110,13 @@ function showQA() {
 function showDonation() {
     hideAllPages();
     document.getElementById('donationPage').classList.remove('d-none');
+    refreshPageAnimations();
 }
 
 function showContact() {
     hideAllPages();
     document.getElementById('contactPage').classList.remove('d-none');
+    refreshPageAnimations();
 }
 
 function showPrayers() {
@@ -117,6 +124,7 @@ function showPrayers() {
     const prayersPage = document.getElementById('prayersPage');
     if (prayersPage) {
         prayersPage.classList.remove('d-none');
+        refreshPageAnimations();
     }
 }
 
@@ -124,11 +132,19 @@ function showPrayers() {
 function showContentsDetail() {
     hideAllPages();
     document.getElementById('contentsDetailPage').classList.remove('d-none');
+    refreshPageAnimations();
+}
+
+function refreshPageAnimations() {
+    if (typeof animateOnScroll === 'function') {
+        requestAnimationFrame(() => animateOnScroll());
+    }
 }
 
 function showQADetail() {
     hideAllPages();
     document.getElementById('qaDetailPage').classList.remove('d-none');
+    refreshPageAnimations();
 }
 
 // Chargement des contenus récents pour la grille
