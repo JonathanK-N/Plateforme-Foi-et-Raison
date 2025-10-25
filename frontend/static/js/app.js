@@ -54,7 +54,18 @@ function showHome() {
 function showContents() {
     hideAllPages();
     document.getElementById('contentsPage').classList.remove('d-none');
-    loadContents();
+}
+
+// Fonction pour charger les contenus (placeholder)
+async function loadContents(filter = '') {
+    // Cette fonction peut être étendue pour charger du contenu dynamique
+    console.log('Chargement des contenus avec filtre:', filter);
+}
+
+// Fonction pour charger les questions (placeholder)
+async function loadQuestions() {
+    // Cette fonction peut être étendue pour charger des questions dynamiques
+    console.log('Chargement des questions');
 }
 
 function showQuestions() {
@@ -67,7 +78,9 @@ function hideAllPages() {
     const pages = ['homePage', 'aboutPage', 'contentsPage', 'questionsPage', 'contentsDetailPage', 'qaDetailPage', 'thematicPage', 'donationPage', 'contactPage', 'prayersPage'];
     pages.forEach(pageId => {
         const page = document.getElementById(pageId);
-        if (page) page.classList.add('d-none');
+        if (page) {
+            page.classList.add('d-none');
+        }
     });
 }
 
@@ -77,8 +90,16 @@ function showAbout() {
 }
 
 function showQA() {
+    console.log('showQA appelé');
     hideAllPages();
-    document.getElementById('qaDetailPage').classList.remove('d-none');
+    const qaPage = document.getElementById('qaDetailPage');
+    console.log('qaPage trouvé:', qaPage);
+    if (qaPage) {
+        qaPage.classList.remove('d-none');
+        console.log('Page Q&A affichée');
+    } else {
+        console.error('Page qaDetailPage non trouvée');
+    }
 }
 
 function showDonation() {
