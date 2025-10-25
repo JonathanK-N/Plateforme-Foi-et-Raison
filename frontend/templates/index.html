@@ -146,6 +146,115 @@
                 </div>
             </section>
 
+            <section class="home-features py-5 animate-on-scroll">
+                <div class="container">
+                    <div class="row text-center mb-5">
+                        <div class="col-12">
+                            <span class="section-kicker text-uppercase text-primary fw-semibold">Pour commencer</span>
+                            <h2 class="mb-3">Découvrez l'essentiel en un coup d'œil</h2>
+                            <p class="text-muted mb-0">Des parcours structurés, des contenus inspirants et une communauté active pour croiser foi et raison.</p>
+                        </div>
+                    </div>
+                    <div class="row g-4">
+                        <div class="col-md-4">
+                            <div class="home-feature-card h-100">
+                                <div class="icon-wrap mb-3">
+                                    <i class="fas fa-compass"></i>
+                                </div>
+                                <h4>Parcours guidés</h4>
+                                <p>Suivez des dossiers construits autour de thématiques foi &amp; sciences avec lectures, vidéos et pistes de discussion.</p>
+                                <button class="btn btn-outline-primary w-100" onclick="showContents()">
+                                    <i class="fas fa-book-open me-2"></i>Explorer les dossiers
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="home-feature-card h-100">
+                                <div class="icon-wrap mb-3">
+                                    <i class="fas fa-people-arrows"></i>
+                                </div>
+                                <h4>Communauté engagée</h4>
+                                <p>Posez vos questions, échangez des témoignages et recevez du soutien pastoral dans un espace bienveillant.</p>
+                                <button class="btn btn-outline-primary w-100" onclick="showQA()">
+                                    <i class="fas fa-comments me-2"></i>Aller au forum Q&amp;R
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="home-feature-card h-100">
+                                <div class="icon-wrap mb-3">
+                                    <i class="fas fa-headphones"></i>
+                                </div>
+                                <h4>Médias inspirants</h4>
+                                <p>Retrouvez chaque semaine podcasts, vidéos et méditations guidées pour approfondir votre marche avec Dieu.</p>
+                                <button class="btn btn-outline-primary w-100" onclick="showContentsDetail()">
+                                    <i class="fas fa-play-circle me-2"></i>Voir la médiathèque
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="home-latest py-5 bg-light animate-on-scroll">
+                <div class="container">
+                    <div class="row g-4 align-items-center">
+                        <div class="col-lg-5">
+                            <span class="section-kicker text-uppercase text-primary fw-semibold">Actualités</span>
+                            <h2 class="mb-3">Les contenus mis en avant</h2>
+                            <p class="text-muted">Une sélection de dossiers, de podcasts et de ressources pédagogiques récemment publiés sur la plateforme.</p>
+                            <button class="btn btn-primary btn-lg" onclick="showContents()">
+                                <i class="fas fa-arrow-right me-2"></i>Voir tous les contenus
+                            </button>
+                        </div>
+                        <div class="col-lg-7">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <article class="home-latest-card h-100">
+                                        <span class="badge bg-primary-soft text-primary mb-2">Dossier</span>
+                                        <h5 class="mb-2">Foi et intelligence artificielle</h5>
+                                        <p class="text-muted mb-3">Décrypter les enjeux éthiques de l'IA à la lumière de l'Évangile.</p>
+                                        <button class="btn btn-link px-0" onclick="showContentsDetail(); return false;">
+                                            Lire le dossier <i class="fas fa-arrow-right ms-2"></i>
+                                        </button>
+                                    </article>
+                                </div>
+                                <div class="col-md-6">
+                                    <article class="home-latest-card h-100">
+                                        <span class="badge bg-primary-soft text-primary mb-2">Podcast</span>
+                                        <h5 class="mb-2">Parole et culture</h5>
+                                        <p class="text-muted mb-3">Une conversation avec des penseurs chrétiens sur l'art et la mission.</p>
+                                        <button class="btn btn-link px-0" onclick="showContentsDetail(); return false;">
+                                            Écouter l'épisode <i class="fas fa-arrow-right ms-2"></i>
+                                        </button>
+                                    </article>
+                                </div>
+                                <div class="col-md-6">
+                                    <article class="home-latest-card h-100">
+                                        <span class="badge bg-primary-soft text-primary mb-2">Étude</span>
+                                        <h5 class="mb-2">Parcours Évangile de Jean</h5>
+                                        <p class="text-muted mb-3">Un plan en 8 rencontres pour petits groupes avec questions clés.</p>
+                                        <button class="btn btn-link px-0" onclick="showContentsDetail(); return false;">
+                                            Télécharger le guide <i class="fas fa-arrow-right ms-2"></i>
+                                        </button>
+                                    </article>
+                                </div>
+                                <div class="col-md-6">
+                                    <article class="home-latest-card h-100">
+                                        <span class="badge bg-primary-soft text-primary mb-2">Témoignage</span>
+                                        <h5 class="mb-2">Foi et médecine</h5>
+                                        <p class="text-muted mb-3">Comment vivre sa vocation de soignant en restant centré sur Christ.</p>
+                                        <button class="btn btn-link px-0" onclick="showContents(); return false;">
+                                            Découvrir le témoignage <i class="fas fa-arrow-right ms-2"></i>
+                                        </button>
+                                    </article>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <section class="community-section py-5 animate-on-scroll">
                 <div class="container">
                     <div class="row g-4 align-items-center">
@@ -388,6 +497,60 @@
                                         Télécharger le kit <i class="fas fa-arrow-right ms-2"></i>
                                     </a>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="contents-showcase py-5 animate-on-scroll">
+                <div class="container">
+                    <div class="row text-center mb-5">
+                        <div class="col-12">
+                            <span class="section-kicker text-uppercase text-primary fw-semibold">Formats variés</span>
+                            <h2 class="mb-3">Une médiathèque structurée pour vos besoins</h2>
+                            <p class="text-muted mb-0">Accédez facilement aux ressources selon le format qui vous convient le mieux.</p>
+                        </div>
+                    </div>
+                    <div class="row g-4">
+                        <div class="col-md-3">
+                            <div class="contents-showcase-card h-100">
+                                <i class="fas fa-newspaper"></i>
+                                <h5>Articles</h5>
+                                <p>Analyses bibliques et regards sur l'actualité.</p>
+                                <button class="btn btn-link px-0" onclick="showContentsDetail(); return false;">
+                                    Voir les articles <i class="fas fa-arrow-right ms-2"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="contents-showcase-card h-100">
+                                <i class="fas fa-video"></i>
+                                <h5>Vidéos</h5>
+                                <p>Enseignements, webinaires et témoignages.</p>
+                                <button class="btn btn-link px-0" onclick="showContentsDetail(); return false;">
+                                    Regarder <i class="fas fa-arrow-right ms-2"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="contents-showcase-card h-100">
+                                <i class="fas fa-podcast"></i>
+                                <h5>Podcasts</h5>
+                                <p>Conversations hebdomadaires foi &amp; raison.</p>
+                                <button class="btn btn-link px-0" onclick="showContentsDetail(); return false;">
+                                    Écouter <i class="fas fa-arrow-right ms-2"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="contents-showcase-card h-100">
+                                <i class="fas fa-scroll"></i>
+                                <h5>Guides</h5>
+                                <p>Supports prêts à l'emploi pour groupes et ateliers.</p>
+                                <button class="btn btn-link px-0" onclick="showContentsDetail(); return false;">
+                                    Télécharger <i class="fas fa-arrow-right ms-2"></i>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -767,11 +930,11 @@
 
         <!-- Page Q&A -->
         <div id="qaDetailPage" class="d-none page-content">
-          <section class="qa-hero animate-on-scroll">
-              <div class="container">
-                  <div class="row align-items-center g-4">
-                      <div class="col-lg-7">
-                          <h1 class="qa-title">Questions & Réponses Spirituelles</h1>
+            <section class="qa-hero animate-on-scroll">
+                <div class="container">
+                    <div class="row align-items-center g-4">
+                        <div class="col-lg-7">
+                            <h1 class="qa-title">Questions & Réponses Spirituelles</h1>
                             <p class="qa-intro">Trouvez des réponses à vos questions spirituelles ou posez les vôtres à notre communauté de croyants.</p>
                             <div class="qa-pills">
                                 <span><i class="fas fa-question-circle me-2"></i>Questions fréquentes</span>
@@ -809,10 +972,38 @@
                                     </div>
                                 </div>
                             </div>
-                      </div>
-                  </div>
-              </div>
-          </section>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="qa-overview py-5 animate-on-scroll">
+                <div class="container">
+                    <div class="row g-4">
+                        <div class="col-md-4">
+                            <div class="qa-overview-card h-100">
+                                <p class="text-muted mb-1">Questions traitées</p>
+                                <h3 class="display-6 fw-bold text-primary mb-2">320+</h3>
+                                <p class="mb-0">Réponses argumentées par notre équipe théologique et la communauté.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="qa-overview-card h-100">
+                                <p class="text-muted mb-1">Thèmes suivis</p>
+                                <h3 class="display-6 fw-bold text-primary mb-2">25</h3>
+                                <p class="mb-0">Foi, Bible, éthique, culture et accompagnement pastoral.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="qa-overview-card h-100">
+                                <p class="text-muted mb-1">Communauté active</p>
+                                <h3 class="display-6 fw-bold text-primary mb-2">1 200</h3>
+                                <p class="mb-0">Contributeurs qui prient, répondent et partagent des ressources.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
             <section class="qa-shortcuts py-5 bg-light animate-on-scroll">
                 <div class="container">
