@@ -403,7 +403,7 @@
 
         <!-- Page Contenus -->
         <div id="contentsPage" class="d-none page-content">
-          <section class="contents-hero animate-on-scroll">
+            <section class="contents-hero animate-on-scroll">
               <div class="container">
                   <div class="row align-items-center g-4">
                       <div class="col-lg-7">
@@ -477,25 +477,25 @@
                                     <span class="badge bg-soft-primary text-primary mb-2">Nouveau</span>
                                     <h4 class="mb-2">Foyers &amp; Familles</h4>
                                     <p class="mb-3">Des ressources pour accompagner la vie spirituelle du foyer, avec des fiches de discussion parents-enfants.</p>
-                                    <a href="#" class="btn btn-link px-0" onclick="showContentsDetail(); return false;">
+                                    <button type="button" class="btn btn-link px-0" onclick="openContentDetail('study','Foyers & Familles','Des fiches de discussion parents-enfants pour accompagner la vie spirituelle du foyer.')">
                                         Découvrir les fiches <i class="fas fa-arrow-right ms-2"></i>
-                                    </a>
+                                    </button>
                                 </div>
                                 <div class="resource-highlight-card">
                                     <span class="badge bg-soft-primary text-primary mb-2">À écouter</span>
                                     <h4 class="mb-2">Podcast "Foi &amp; Raison"</h4>
                                     <p class="mb-3">Une série hebdomadaire pour croiser regards bibliques et enjeux contemporains.</p>
-                                    <a href="#" class="btn btn-link px-0" onclick="showContentsDetail(); return false;">
+                                    <button type="button" class="btn btn-link px-0" onclick="openContentDetail('podcast','Podcast Foi & Raison','Une série hebdomadaire pour croiser regards bibliques et enjeux contemporains.')">
                                         Lancer la série <i class="fas fa-arrow-right ms-2"></i>
-                                    </a>
+                                    </button>
                                 </div>
                                 <div class="resource-highlight-card">
                                     <span class="badge bg-soft-primary text-primary mb-2">À vivre</span>
                                     <h4 class="mb-2">Ateliers communautaires</h4>
                                     <p class="mb-3">Organisez un atelier clé en main avec nos guides de discussion et plans d'accompagnement.</p>
-                                    <a href="#" class="btn btn-link px-0" onclick="showContentsDetail(); return false;">
+                                    <button type="button" class="btn btn-link px-0" onclick="openContentDetail('study','Ateliers communautaires','Guides et plans d&apos;accompagnement clés en main pour vos rencontres.')">
                                         Télécharger le kit <i class="fas fa-arrow-right ms-2"></i>
-                                    </a>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -518,7 +518,7 @@
                                 <i class="fas fa-newspaper"></i>
                                 <h5>Articles</h5>
                                 <p>Analyses bibliques et regards sur l'actualité.</p>
-                                <button class="btn btn-link px-0" onclick="showContentsDetail(); return false;">
+                                <button class="btn btn-link px-0" onclick="openContentDetail('article','Sélection d\&apos;articles','Analyses bibliques et regards sur l\&apos;actualité.')">
                                     Voir les articles <i class="fas fa-arrow-right ms-2"></i>
                                 </button>
                             </div>
@@ -528,7 +528,7 @@
                                 <i class="fas fa-video"></i>
                                 <h5>Vidéos</h5>
                                 <p>Enseignements, webinaires et témoignages.</p>
-                                <button class="btn btn-link px-0" onclick="showContentsDetail(); return false;">
+                                <button class="btn btn-link px-0" onclick="openContentDetail('video','Vidéos mises en avant','Enseignements, webinaires et témoignages à revoir.')">
                                     Regarder <i class="fas fa-arrow-right ms-2"></i>
                                 </button>
                             </div>
@@ -538,7 +538,7 @@
                                 <i class="fas fa-podcast"></i>
                                 <h5>Podcasts</h5>
                                 <p>Conversations hebdomadaires foi &amp; raison.</p>
-                                <button class="btn btn-link px-0" onclick="showContentsDetail(); return false;">
+                                <button class="btn btn-link px-0" onclick="openContentDetail('podcast','Podcasts à écouter','Conversations hebdomadaires foi & raison.')">
                                     Écouter <i class="fas fa-arrow-right ms-2"></i>
                                 </button>
                             </div>
@@ -548,7 +548,7 @@
                                 <i class="fas fa-scroll"></i>
                                 <h5>Guides</h5>
                                 <p>Supports prêts à l'emploi pour groupes et ateliers.</p>
-                                <button class="btn btn-link px-0" onclick="showContentsDetail(); return false;">
+                                <button class="btn btn-link px-0" onclick="openContentDetail('study','Guides pratiques','Supports prêts à l\&apos;emploi pour groupes et ateliers.')">
                                     Télécharger <i class="fas fa-arrow-right ms-2"></i>
                                 </button>
                             </div>
@@ -570,7 +570,7 @@
                                     </div>
                                     <h4>La Foi au Quotidien</h4>
                                     <p>Découvrez comment vivre votre foi dans les situations de tous les jours.</p>
-                                    <a href="#" class="btn btn-sm btn-outline-primary">Lire l'article</a>
+                                    <button type="button" class="btn btn-sm btn-outline-primary" onclick="openContentDetail('article','La Foi au Quotidien','Découvrez comment vivre votre foi dans les situations de tous les jours.')">Lire l'article</button>
                                 </div>
                             </div>
                             <div class="col-md-6 col-lg-4">
@@ -580,7 +580,7 @@
                                     </div>
                                     <h4>L'Amour de Dieu</h4>
                                     <p>Méditation sur l'amour inconditionnel de Dieu pour chacun de nous.</p>
-                                    <a href="#" class="btn btn-sm btn-outline-primary">Lire l'article</a>
+                                    <button type="button" class="btn btn-sm btn-outline-primary" onclick="openContentDetail('article','L&apos;Amour de Dieu','Méditation sur L&apos;amour inconditionnel de Dieu pour chacun de nous.')">Lire l'article</button>
                                 </div>
                             </div>
                             <div class="col-md-6 col-lg-4">
@@ -590,7 +590,7 @@
                                     </div>
                                     <h4>La Paix Intérieure</h4>
                                     <p>Comment trouver la paix de Dieu qui surpasse toute intelligence.</p>
-                                    <a href="#" class="btn btn-sm btn-outline-primary">Lire l'article</a>
+                                    <button type="button" class="btn btn-sm btn-outline-primary" onclick="openContentDetail('article','La Paix Intérieure','Comment trouver la paix de Dieu qui surpasse toute intelligence.')">Lire l'article</button>
                                 </div>
                             </div>
                         </div>
@@ -607,7 +607,7 @@
                                     </div>
                                     <h4>Les Fondements de la Foi</h4>
                                     <p>Série d'enseignements sur les bases de la foi chrétienne.</p>
-                                    <a href="#" class="btn btn-sm btn-primary">Regarder</a>
+                                    <button type="button" class="btn btn-sm btn-primary" onclick="openContentDetail('video','Lumières sur la Genèse','Une série vidéo pour revisiter les récits de la création à la lumière des travaux scientifiques actuels.')">Regarder</button>
                                 </div>
                             </div>
                             <div class="col-md-6 col-lg-4">
@@ -617,7 +617,7 @@
                                     </div>
                                     <h4>Prière et Méditation</h4>
                                     <p>Apprenez à développer votre vie de prière et de méditation.</p>
-                                    <a href="#" class="btn btn-sm btn-primary">Regarder</a>
+                                    <button type="button" class="btn btn-sm btn-primary" onclick="openContentDetail('video','Prières et Méditation','Apprenez à développer votre vie de prière et de méditation.')">Regarder</button>
                                 </div>
                             </div>
                             <div class="col-md-6 col-lg-4">
@@ -627,7 +627,7 @@
                                     </div>
                                     <h4>Témoignages de Foi</h4>
                                     <p>Découvrez des témoignages inspirants de transformation.</p>
-                                    <a href="#" class="btn btn-sm btn-primary">Regarder</a>
+                                    <button type="button" class="btn btn-sm btn-primary" onclick="openContentDetail('video','Témoignages de Foi','Des témoignages inspirants de transformation.')">Regarder</button>
                                 </div>
                             </div>
                         </div>
@@ -649,7 +649,7 @@
                                             <span><i class="fas fa-clock me-1"></i>15 min</span>
                                             <span><i class="fas fa-calendar me-1"></i>Quotidien</span>
                                         </div>
-                                        <a href="#" class="btn btn-sm btn-outline-primary">Écouter</a>
+                                        <button type="button" class="btn btn-sm btn-outline-primary" onclick="openContentDetail('podcast','Méditations Quotidiennes','Des méditations courtes pour commencer votre journée avec Dieu.')">Écouter</button>
                                     </div>
                                 </div>
                             </div>
@@ -665,7 +665,7 @@
                                             <span><i class="fas fa-clock me-1"></i>30 min</span>
                                             <span><i class="fas fa-calendar me-1"></i>Hebdomadaire</span>
                                         </div>
-                                        <a href="#" class="btn btn-sm btn-outline-primary">Écouter</a>
+                                        <button type="button" class="btn btn-sm btn-outline-primary" onclick="openContentDetail('podcast','Études Bibliques','Approfondissez votre connaissance de la Bible avec nos études.')">Écouter</button>
                                     </div>
                                 </div>
                             </div>
@@ -690,7 +690,7 @@
                                             <div class="progress-bar" style="width: 0%"></div>
                                         </div>
                                     </div>
-                                    <a href="#" class="btn btn-sm btn-primary mt-2">Commencer</a>
+                                    <button type="button" class="btn btn-sm btn-primary mt-2" onclick="openContentDetail('study','L\&apos;Évangile de Jean','Étude approfondie de l\&apos;Évangile de Jean en 21 leçons.')">Commencer</button>
                                 </div>
                             </div>
                             <div class="col-md-6 col-lg-4">
@@ -706,7 +706,7 @@
                                             <div class="progress-bar" style="width: 0%"></div>
                                         </div>
                                     </div>
-                                    <a href="#" class="btn btn-sm btn-primary mt-2">Commencer</a>
+                                    <button type="button" class="btn btn-sm btn-primary mt-2" onclick="openContentDetail('study','Les Psaumes','Découvrez la richesse des Psaumes et leur application aujourd\&apos;hui.')">Commencer</button>
                                 </div>
                             </div>
                             <div class="col-md-6 col-lg-4">
@@ -722,7 +722,7 @@
                                             <div class="progress-bar" style="width: 0%"></div>
                                         </div>
                                     </div>
-                                    <a href="#" class="btn btn-sm btn-primary mt-2">Commencer</a>
+                                    <button type="button" class="btn btn-sm btn-primary mt-2" onclick="openContentDetail('study','Les Épîtres de Paul','Explorez les lettres de l\&apos;apôtre Paul et leurs enseignements.')">Commencer</button>
                                 </div>
                             </div>
                         </div>
@@ -743,6 +743,55 @@
                                 <i class="fas fa-heart me-2"></i>Je soutiens les contenus
                             </button>
                         </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Vue détaillée de contenu -->
+        <div id="contentDetailView" class="d-none page-content">
+            <section class="content-detail-hero py-5 bg-primary text-white">
+                <div class="container text-center">
+                    <h1 id="contentDetailTitle" class="display-5 fw-bold mb-3">Contenu sélectionné</h1>
+                    <p id="contentDetailSubtitle" class="lead mb-0">Découvrez nos ressources en profondeur.</p>
+                </div>
+            </section>
+
+            <section class="content-detail-loading py-5">
+                <div class="container">
+                    <div class="loading-wrapper text-center">
+                        <div class="loading-icon mb-4">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Chargement...</span>
+                            </div>
+                        </div>
+                        <h3 class="mb-2">Notre équipe prépare le contenu adapté</h3>
+                        <p class="text-muted">Contenu en préparation... merci de patienter quelques instants.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-detail-body py-5 d-none" id="contentDetailBody">
+                <div class="container">
+                    <div class="row g-4" id="contentDetailList">
+                        <!-- Contenus détaillés injectés dynamiquement -->
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-detail-actions py-5 bg-light">
+                <div class="container d-flex flex-column flex-md-row gap-3 justify-content-between align-items-md-center">
+                    <div>
+                        <h4 class="mb-1">Envie d'explorer davantage ?</h4>
+                        <p class="text-muted mb-0">Retournez à la bibliothèque pour découvrir d'autres ressources.</p>
+                    </div>
+                    <div class="d-flex flex-wrap gap-3">
+                        <button class="btn btn-outline-primary" onclick="showContents()">
+                            <i class="fas fa-arrow-left me-2"></i>Retour aux contenus
+                        </button>
+                        <button class="btn btn-primary" onclick="showQA()">
+                            <i class="fas fa-comments me-2"></i>Poser une question
+                        </button>
                     </div>
                 </div>
             </section>
