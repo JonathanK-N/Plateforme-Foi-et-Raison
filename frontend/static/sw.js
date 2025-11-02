@@ -1,4 +1,4 @@
-// Service Worker pour Foi & Raison PWA
+// Service Worker pour Croire & Penser PWA
 
 const CACHE_NAME = 'foi-raison-v1';
 const STATIC_CACHE = 'foi-raison-static-v1';
@@ -161,7 +161,7 @@ self.addEventListener('push', event => {
     }
     
     const options = {
-        body: data.body || 'Nouveau contenu disponible sur Foi & Raison',
+        body: data.body || 'Nouveau contenu disponible sur Croire & Penser',
         icon: '/static/icons/icon-192x192.png',
         badge: '/static/icons/icon-72x72.png',
         tag: 'foi-raison-notification',
@@ -180,7 +180,7 @@ self.addEventListener('push', event => {
     };
     
     event.waitUntil(
-        self.registration.showNotification(data.title || 'Foi & Raison', options)
+        self.registration.showNotification(data.title || 'Croire & Penser', options)
     );
 });
 
