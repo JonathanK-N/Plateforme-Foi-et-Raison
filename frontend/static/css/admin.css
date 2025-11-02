@@ -1,0 +1,103 @@
+/* Styles pour l'interface d'administration */
+
+.admin-sidebar {
+    min-height: 80vh;
+}
+
+.admin-sidebar .nav-link {
+    color: #6c757d;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.admin-sidebar .nav-link:hover {
+    background-color: #f8f9fa;
+    color: #0d6efd;
+}
+
+.admin-sidebar .nav-link.active {
+    background-color: #0d6efd;
+    color: white;
+}
+
+.admin-sidebar .nav-link i {
+    width: 20px;
+}
+
+#adminContent {
+    min-height: 80vh;
+}
+
+.card {
+    border: none;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    transition: box-shadow 0.15s ease-in-out;
+}
+
+.card:hover {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.table th {
+    border-top: none;
+    font-weight: 600;
+    color: #495057;
+    background-color: #f8f9fa;
+}
+
+.badge {
+    font-size: 0.75em;
+}
+
+.btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .admin-sidebar {
+        margin-bottom: 2rem;
+    }
+    
+    .table-responsive {
+        font-size: 0.875rem;
+    }
+    
+    .btn-sm {
+        padding: 0.125rem 0.25rem;
+        font-size: 0.7rem;
+    }
+}
+
+/* Animation pour les cartes de statistiques */
+.card {
+    animation: fadeInUp 0.5s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Styles pour les indicateurs de statut */
+.bg-success { background-color: #198754 !important; }
+.bg-warning { background-color: #ffc107 !important; }
+.bg-danger { background-color: #dc3545 !important; }
+.bg-info { background-color: #0dcaf0 !important; }
+.bg-primary { background-color: #0d6efd !important; }
+.bg-secondary { background-color: #6c757d !important; }
+
+/* Amélioration des boutons d'action */
+.btn-outline-primary:hover,
+.btn-outline-warning:hover,
+.btn-outline-danger:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}

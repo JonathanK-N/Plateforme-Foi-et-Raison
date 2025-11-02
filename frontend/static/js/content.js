@@ -4,7 +4,17 @@
 async function loadContents(filter = '') {
     try {
         const response = await fetch(`${API_BASE}/contents`);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        
         const contents = await response.json();
+        
+        // Vérifier si c'est une erreur du serveur
+        if (contents.error) {
+            throw new Error(contents.error);
+        }
         
         // Filtrer les contenus si nécessaire
         const filteredContents = filter ? 
@@ -14,7 +24,26 @@ async function loadContents(filter = '') {
         displayContents(filteredContents);
     } catch (error) {
         console.error('Erreur lors du chargement des contenus:', error);
-        showAlert('Erreur lors du chargement des contenus', 'danger');
+        
+        // Afficher l'erreur réelle
+        const contentsList = document.getElementById('contentsList');
+        if (contentsList) {
+            contentsList.innerHTML = `
+                <div class="col-12 text-center py-5">
+                    <div class="alert alert-danger">
+                        <h4>Erreur de chargement</h4>
+                        <p>Impossible de charger les contenus pour le moment.</p>
+                        <small>Détails: ${error.message}</small>
+                        <br><br>
+                        <button class="btn btn-outline-danger" onclick="loadContents()">
+                            <i class="bi bi-arrow-clockwise"></i> Réessayer
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+        
+        showAlert(`Erreur: ${error.message}`, 'danger');
     }
 }
 
@@ -25,8 +54,10 @@ function displayContents(contents) {
     if (contents.length === 0) {
         contentsList.innerHTML = `
             <div class="col-12 text-center py-5">
-                <h4 class="text-muted">Aucun contenu disponible</h4>
-                <p class="text-muted">Revenez bientôt pour découvrir de nouveaux contenus!</p>
+                <i class="fas fa-heart text-primary" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                <h4 class="text-primary">Contenus en préparation</h4>
+                <p class="text-muted">Notre équipe travaille avec amour pour vous offrir des contenus spirituels de qualité.</p>
+                <p class="text-muted">Revenez bientôt découvrir nos enseignements, témoignages et réflexions !</p>
             </div>
         `;
         return;
@@ -204,7 +235,7 @@ function renderContentPlayer(content) {
 // Partage de contenu
 function shareContent(platform, contentId) {
     const url = encodeURIComponent(window.location.origin + `#content-${contentId}`);
-    const title = encodeURIComponent('Découvrez ce contenu sur Foi & Raison');
+    const title = encodeURIComponent('Découvrez ce contenu sur Croire & Penser');
     
     let shareUrl;
     

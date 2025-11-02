@@ -30,7 +30,7 @@ function showPrayers() {
                 </div>
             </div>
 
-            <!-- Contenu Principal -->
+            <!-- Contenu Principal - Espace de Prière Uniquement -->
             <div class="container py-5">
                 <!-- Prières du jour -->
                 <div class="row mb-5">
@@ -132,20 +132,26 @@ function showPrayers() {
                                 </div>
                                 <div class="col-md-4">
                                     <h3 class="text-primary mb-2">Communauté de Prière</h3>
-                                    <p class="text-muted">Partagez vos intentions et priez les uns pour les autres</p>
+                                    <p class="text-muted">Rejoignez notre communauté pour prier ensemble et partager vos intentions</p>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="row g-2">
-                                        <div class="col-md-6">
-                                            <button class="btn btn-primary w-100 prayer-btn" onclick="showPrayerRequestForm()">
-                                                <i class="fas fa-plus d-block mb-1"></i>
-                                                <small>Nouvelle Demande</small>
+                                        <div class="col-md-4">
+                                            <button class="btn btn-outline-primary w-100 prayer-btn" onclick="showPrayerRequests()">
+                                                <i class="fas fa-hands-helping d-block mb-1"></i>
+                                                <small>Demandes</small>
                                             </button>
                                         </div>
-                                        <div class="col-md-6">
-                                            <button class="btn btn-outline-primary w-100 prayer-btn" onclick="showPrayerRequests()">
-                                                <i class="fas fa-list d-block mb-1"></i>
-                                                <small>Voir les Demandes</small>
+                                        <div class="col-md-4">
+                                            <button class="btn btn-outline-primary w-100 prayer-btn" onclick="showPrayerChain()">
+                                                <i class="fas fa-link d-block mb-1"></i>
+                                                <small>Chaîne</small>
+                                            </button>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <button class="btn btn-outline-primary w-100 prayer-btn" onclick="showTestimonies()">
+                                                <i class="fas fa-heart d-block mb-1"></i>
+                                                <small>Témoignages</small>
                                             </button>
                                         </div>
                                     </div>
@@ -222,6 +228,26 @@ function showPrayer(prayerType) {
                 </div>
             `
         },
+        meal: {
+            title: "Prière du Repas",
+            content: `
+                <p class="prayer-verse">"Rendez grâces en toutes choses."</p>
+                
+                <div class="prayer-text">
+                    <p>Père céleste,</p>
+                    <p>Nous te remercions pour cette nourriture que tu places devant nous.</p>
+                    <p>Bénis ce repas et ceux qui l'ont préparé avec amour.</p>
+                    <p>Que cette nourriture fortifie nos corps pour te servir.</p>
+                    <p>Nous pensons à ceux qui n'ont pas à manger aujourd'hui, aide-nous à partager tes bénédictions.</p>
+                    <p class="text-end"><em>Au nom de Jésus, Amen.</em></p>
+                </div>
+                
+                <div class="prayer-verse mt-4">
+                    <p><em>"Que vous mangiez, soit que vous buviez, soit que vous fassiez quelque autre chose, faites tout pour la gloire de Dieu."</em></p>
+                    <small class="text-muted">1 Corinthiens 10:31</small>
+                </div>
+            `
+        },
         healing: {
             title: "Prière pour la Guérison",
             content: `
@@ -240,6 +266,69 @@ function showPrayer(prayerType) {
                 <div class="prayer-verse mt-4">
                     <p><em>"Mais il était blessé pour nos péchés, brisé pour nos iniquités; le châtiment qui nous donne la paix est tombé sur lui, et c'est par ses meurtrissures que nous sommes guéris."</em></p>
                     <small class="text-muted">Ésaïe 53:5</small>
+                </div>
+            `
+        },
+        guidance: {
+            title: "Prière pour la Guidance",
+            content: `
+                <p class="prayer-verse">"Je t'instruirai et te montrerai la voie que tu dois suivre."</p>
+                
+                <div class="prayer-text">
+                    <p>Seigneur, mon guide fidèle,</p>
+                    <p>Je me trouve à un carrefour et j'ai besoin de ta sagesse.</p>
+                    <p>Éclaire mon chemin, montre-moi la direction à prendre.</p>
+                    <p>Donne-moi un cœur attentif à ta voix et des oreilles pour entendre tes conseils.</p>
+                    <p>Que ta volonté soit ma boussole et ta parole ma lumière.</p>
+                    <p>Je remets mes décisions entre tes mains, confiant en ta bonté.</p>
+                    <p class="text-end"><em>Au nom de Jésus, Amen.</em></p>
+                </div>
+                
+                <div class="prayer-verse mt-4">
+                    <p><em>"Confie-toi en l'Éternel de tout ton cœur, et ne t'appuie pas sur ta sagesse; reconnais-le dans toutes tes voies, et il aplanira tes sentiers."</em></p>
+                    <small class="text-muted">Proverbes 3:5-6</small>
+                </div>
+            `
+        },
+        gratitude: {
+            title: "Prière de Gratitude",
+            content: `
+                <p class="prayer-verse">"Rendez grâces en toutes choses."</p>
+                
+                <div class="prayer-text">
+                    <p>Père plein d'amour,</p>
+                    <p>Mon cœur déborde de reconnaissance pour toutes tes bontés.</p>
+                    <p>Merci pour la vie, la santé, la famille et les amis que tu m'as donnés.</p>
+                    <p>Merci pour les épreuves qui m'ont fait grandir et les joies qui ont illuminé mes jours.</p>
+                    <p>Merci pour ton amour inconditionnel et ta grâce qui me relève chaque jour.</p>
+                    <p>Que ma vie soit un cantique de louange à ta gloire.</p>
+                    <p class="text-end"><em>Au nom de Jésus, Amen.</em></p>
+                </div>
+                
+                <div class="prayer-verse mt-4">
+                    <p><em>"Rendez grâces en toutes choses, car c'est à votre égard la volonté de Dieu en Jésus-Christ."</em></p>
+                    <small class="text-muted">1 Thessaloniciens 5:18</small>
+                </div>
+            `
+        },
+        protection: {
+            title: "Prière de Protection",
+            content: `
+                <p class="prayer-verse">"L'Éternel te gardera de tout mal."</p>
+                
+                <div class="prayer-text">
+                    <p>Dieu tout-puissant, mon refuge et ma forteresse,</p>
+                    <p>Je me place sous ta protection divine.</p>
+                    <p>Couvre-moi de tes ailes, entoure-moi de tes anges gardiens.</p>
+                    <p>Protège ma famille, mes proches et moi-même du mal sous toutes ses formes.</p>
+                    <p>Garde nos cœurs dans la paix, nos esprits dans la vérité.</p>
+                    <p>Que ton bouclier nous accompagne partout où nous allons.</p>
+                    <p class="text-end"><em>Au nom de Jésus, notre protecteur, Amen.</em></p>
+                </div>
+                
+                <div class="prayer-verse mt-4">
+                    <p><em>"L'Éternel te gardera de tout mal, il gardera ton âme; L'Éternel gardera ton départ et ton arrivée, dès maintenant et à jamais."</em></p>
+                    <small class="text-muted">Psaume 121:7-8</small>
                 </div>
             `
         }
@@ -285,84 +374,7 @@ function showPrayer(prayerType) {
     });
 }
 
-// Formulaire de demande de prière
-function showPrayerRequestForm() {
-    if (!currentUser) {
-        showAlert('Veuillez vous connecter pour soumettre une demande de prière', 'warning');
-        showLogin();
-        return;
-    }
 
-    const requestModal = document.createElement('div');
-    requestModal.className = 'modal fade';
-    requestModal.innerHTML = `
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">
-                        <i class="fas fa-praying-hands me-2"></i>Demande de Prière
-                    </h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="prayerRequestForm">
-                        <div class="mb-3">
-                            <label class="form-label">Sujet de la prière</label>
-                            <input type="text" class="form-control" id="prayerSubject" required 
-                                   placeholder="Ex: Guérison, Guidance, Famille...">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Détails (optionnel)</label>
-                            <textarea class="form-control" id="prayerDetails" rows="4" 
-                                      placeholder="Partagez plus de détails si vous le souhaitez..."></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="prayerAnonymous">
-                                <label class="form-check-label" for="prayerAnonymous">
-                                    Demande anonyme
-                                </label>
-                            </div>
-                        </div>
-                        <div class="alert alert-info">
-                            <i class="fas fa-info-circle me-2"></i>
-                            Votre demande sera partagée avec notre communauté de prière pour intercéder en votre faveur.
-                        </div>
-                        <button type="submit" class="btn btn-primary w-100">
-                            <i class="fas fa-paper-plane me-2"></i>Soumettre la Demande
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    `;
-
-    document.body.appendChild(requestModal);
-    const modal = new bootstrap.Modal(requestModal);
-    modal.show();
-
-    // Gérer la soumission
-    document.getElementById('prayerRequestForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        const subject = document.getElementById('prayerSubject').value;
-        const details = document.getElementById('prayerDetails').value;
-        const isAnonymous = document.getElementById('prayerAnonymous').checked;
-
-        try {
-            // Simulation d'envoi - en production, envoyer à l'API
-            showAlert('Votre demande de prière a été soumise. La communauté priera pour vous.', 'success');
-            modal.hide();
-        } catch (error) {
-            showAlert('Erreur lors de la soumission de votre demande', 'danger');
-        }
-    });
-
-    // Nettoyer après fermeture
-    requestModal.addEventListener('hidden.bs.modal', () => {
-        requestModal.remove();
-    });
-}
 
 // Méditation guidée
 function startMeditation() {
@@ -416,11 +428,11 @@ function startMeditation() {
 // Partage de prière
 function sharePrayer(prayerType) {
     const shareUrl = `${window.location.origin}#prayer-${prayerType}`;
-    const shareText = "Découvrez cette belle prière sur Foi & Raison";
+    const shareText = "Découvrez cette belle prière sur Croire & Penser";
     
     if (navigator.share) {
         navigator.share({
-            title: 'Prière - Foi & Raison',
+            title: 'Prière - Croire & Penser',
             text: shareText,
             url: shareUrl
         });
@@ -430,4 +442,208 @@ function sharePrayer(prayerType) {
             showAlert('Lien copié dans le presse-papier', 'success');
         });
     }
+}
+
+// Fonctions de la communauté de prière
+function showPrayerRequests() {
+    const modal = document.createElement('div');
+    modal.className = 'modal fade';
+    modal.innerHTML = `
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-hands-helping me-2"></i>Demandes de Prière
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-4">
+                        <button class="btn btn-primary" onclick="showAddPrayerRequest()">
+                            <i class="fas fa-plus me-2"></i>Ajouter une demande
+                        </button>
+                    </div>
+                    <div id="prayerRequestsList">
+                        <div class="prayer-request-item p-3 mb-3 border rounded">
+                            <h6>Prière pour la guérison</h6>
+                            <p class="text-muted">Merci de prier pour la guérison de ma grand-mère qui est hospitalisée.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">Il y a 2 heures</small>
+                                <button class="btn btn-sm btn-outline-primary" onclick="prayForRequest(1)">
+                                    <i class="fas fa-praying-hands me-1"></i>Je prie (12)
+                                </button>
+                            </div>
+                        </div>
+                        <div class="prayer-request-item p-3 mb-3 border rounded">
+                            <h6>Sagesse pour une décision importante</h6>
+                            <p class="text-muted">J'ai besoin de la sagesse de Dieu pour prendre une décision professionnelle importante.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">Il y a 5 heures</small>
+                                <button class="btn btn-sm btn-outline-primary" onclick="prayForRequest(2)">
+                                    <i class="fas fa-praying-hands me-1"></i>Je prie (8)
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+    const bootstrapModal = new bootstrap.Modal(modal);
+    bootstrapModal.show();
+    
+    modal.addEventListener('hidden.bs.modal', () => {
+        modal.remove();
+    });
+}
+
+function showPrayerChain() {
+    const modal = document.createElement('div');
+    modal.className = 'modal fade';
+    modal.innerHTML = `
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-link me-2"></i>Chaîne de Prière
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center mb-4">
+                        <div class="prayer-chain-stats">
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="stat-card">
+                                        <h3 class="text-primary">247</h3>
+                                        <small>Personnes en prière</small>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="stat-card">
+                                        <h3 class="text-success">1,432</h3>
+                                        <small>Prières aujourd'hui</small>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="stat-card">
+                                        <h3 class="text-info">24/7</h3>
+                                        <small>Couverture</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center">
+                        <p class="lead">Rejoignez notre chaîne de prière continue</p>
+                        <p class="text-muted">Ensemble, nous maintenons une couverture de prière 24h/24</p>
+                        <button class="btn btn-primary btn-lg" onclick="joinPrayerChain()">
+                            <i class="fas fa-hands me-2"></i>Rejoindre la chaîne
+                        </button>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <h6>Créneaux disponibles aujourd'hui:</h6>
+                        <div class="prayer-slots">
+                            <button class="btn btn-outline-primary btn-sm me-2 mb-2">14:00 - 15:00</button>
+                            <button class="btn btn-outline-primary btn-sm me-2 mb-2">18:00 - 19:00</button>
+                            <button class="btn btn-outline-primary btn-sm me-2 mb-2">22:00 - 23:00</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+    const bootstrapModal = new bootstrap.Modal(modal);
+    bootstrapModal.show();
+    
+    modal.addEventListener('hidden.bs.modal', () => {
+        modal.remove();
+    });
+}
+
+function showTestimonies() {
+    const modal = document.createElement('div');
+    modal.className = 'modal fade';
+    modal.innerHTML = `
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-heart me-2"></i>Témoignages de Prières Exaucées
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-4">
+                        <button class="btn btn-primary" onclick="showAddTestimony()">
+                            <i class="fas fa-plus me-2"></i>Partager un témoignage
+                        </button>
+                    </div>
+                    
+                    <div class="testimonies-list">
+                        <div class="testimony-item p-3 mb-3 bg-light rounded">
+                            <div class="d-flex align-items-start">
+                                <i class="fas fa-quote-left text-primary me-3 mt-1"></i>
+                                <div>
+                                    <p>"Dieu a répondu à nos prières ! Mon mari a retrouvé un emploi après 6 mois de recherche. Merci à tous ceux qui ont prié avec nous."</p>
+                                    <small class="text-muted">- Marie, il y a 3 jours</small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="testimony-item p-3 mb-3 bg-light rounded">
+                            <div class="d-flex align-items-start">
+                                <i class="fas fa-quote-left text-primary me-3 mt-1"></i>
+                                <div>
+                                    <p>"Ma fille a été guérie de sa maladie. Les médecins n'y comprennent rien, mais nous savons que c'est un miracle de Dieu !"</p>
+                                    <small class="text-muted">- Jean, il y a 1 semaine</small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="testimony-item p-3 mb-3 bg-light rounded">
+                            <div class="d-flex align-items-start">
+                                <i class="fas fa-quote-left text-primary me-3 mt-1"></i>
+                                <div>
+                                    <p>"Dieu m'a donné la paix et la sagesse pour réconcilier ma famille. Nos relations sont maintenant restaurées."</p>
+                                    <small class="text-muted">- Sophie, il y a 2 semaines</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+    const bootstrapModal = new bootstrap.Modal(modal);
+    bootstrapModal.show();
+    
+    modal.addEventListener('hidden.bs.modal', () => {
+        modal.remove();
+    });
+}
+
+// Fonctions utilitaires pour la communauté
+function prayForRequest(requestId) {
+    showAlert('Merci d\'avoir prié ! Votre prière compte.', 'success');
+}
+
+function joinPrayerChain() {
+    showAlert('Merci de rejoindre notre chaîne de prière !', 'success');
+}
+
+function showAddPrayerRequest() {
+    showAlert('Fonctionnalité en développement', 'info');
+}
+
+function showAddTestimony() {
+    showAlert('Fonctionnalité en développement', 'info');
 }
