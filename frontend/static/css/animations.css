@@ -2,27 +2,30 @@
 
 /* Hero Section Plein Écran */
 .hero-fullscreen {
-    height: 100vh;
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+    min-height: 85vh;
+    background:
+        linear-gradient(120deg, rgba(63, 42, 109, 0.9), rgba(31, 155, 183, 0.65)),
+        url('https://images.unsplash.com/photo-1493246507139-91e8fad9978e?auto=format&fit=crop&w=1600&q=80');
+    background-size: cover, cover;
+    background-position: center, center;
     position: relative;
     overflow: hidden;
+    padding: 6rem 0 4rem;
+    --hero-shift: 0px;
+    background-position: center, center calc(50% + var(--hero-shift));
 }
 
 .hero-bg-animated {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="cross-pattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M10 0v20M0 10h20" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23cross-pattern)"/></svg>');
-    animation: backgroundMove 20s ease-in-out infinite;
+    inset: 0;
+    background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.18), transparent 55%),
+                radial-gradient(circle at bottom right, rgba(255, 255, 255, 0.12), transparent 50%);
+    animation: backgroundMove 18s ease-in-out infinite;
 }
 
 @keyframes backgroundMove {
-    0%, 100% { transform: translateX(0) translateY(0); }
-    25% { transform: translateX(-10px) translateY(-5px); }
-    50% { transform: translateX(10px) translateY(5px); }
-    75% { transform: translateX(-5px) translateY(10px); }
+    0%, 100% { transform: scale(1) translate(0, 0); }
+    50% { transform: scale(1.05) translate(-12px, 8px); }
 }
 
 /* Éléments flottants */
@@ -301,7 +304,7 @@
 /* Responsive animations */
 @media (max-width: 768px) {
     .hero-fullscreen {
-        height: 100vh;
+        min-height: 100vh;
     }
     
     .hero-icon-main {

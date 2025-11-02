@@ -1,4 +1,4 @@
--- Script d'initialisation de la base de données Foi & Raison
+-- Script d'initialisation de la base de données Croire & Penser
 
 -- Extension pour UUID (optionnel)
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
@@ -218,7 +218,7 @@ ON CONFLICT (username) DO NOTHING;
 
 -- Insertion de contenus d'exemple
 INSERT INTO contents (title, description, content_type, author_id, is_published) VALUES
-('Bienvenue sur Foi & Raison', 'Découvrez notre plateforme communautaire dédiée à l''exploration de la foi et de la raison.', 'article', 1, true),
+('Bienvenue sur Croire & Penser', 'Découvrez Croire & Penser, plateforme communautaire pour une foi qui réfléchit à la lumière de la Parole.', 'article', 1, true),
 ('Première méditation guidée', 'Une méditation de 10 minutes pour commencer votre journée dans la paix.', 'podcast', 1, true),
 ('Les fondements de la foi', 'Une série vidéo explorant les bases de la spiritualité moderne.', 'video', 1, true)
 ON CONFLICT DO NOTHING;

@@ -1,15 +1,19 @@
 {
-  "name": "Foi & Raison - Plateforme Communautaire",
-  "short_name": "Foi & Raison",
-  "description": "Plateforme communautaire pour contenus religieux avec gestion multimédia, Q&A, et administration complète",
+  "name": "Croire & Penser - Foi et réflexion biblique",
+  "short_name": "Croire & Penser",
+  "description": "Plateforme Croire & Penser : ressources bibliques, sciences et questions de société pour une foi réfléchie.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#2c3e50",
+  "theme_color": "#3f2a6d",
   "orientation": "portrait-primary",
   "scope": "/",
-  "lang": "fr-CA",
-  "categories": ["education", "lifestyle", "social"],
+  "lang": "fr-FR",
+  "categories": [
+    "education",
+    "lifestyle",
+    "social"
+  ],
   "icons": [
     {
       "src": "icons/icon-72x72.png",

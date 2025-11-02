@@ -235,7 +235,7 @@ function renderContentPlayer(content) {
 // Partage de contenu
 function shareContent(platform, contentId) {
     const url = encodeURIComponent(window.location.origin + `#content-${contentId}`);
-    const title = encodeURIComponent('Découvrez ce contenu sur Foi & Raison');
+    const title = encodeURIComponent('Découvrez ce contenu sur Croire & Penser');
     
     let shareUrl;
     

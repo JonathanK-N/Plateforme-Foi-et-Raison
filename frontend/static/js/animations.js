@@ -16,24 +16,13 @@ function animateOnScroll() {
 
 // Initialisation des animations
 document.addEventListener('DOMContentLoaded', function() {
-    // Animation au scroll
-    window.addEventListener('scroll', animateOnScroll);
-    animateOnScroll(); // Vérifier au chargement
-    
     // Ajouter les classes d'animation aux éléments existants
-    setTimeout(() => {
-        const featureCards = document.querySelectorAll('.feature-card');
-        featureCards.forEach((card, index) => {
-            card.classList.add('animate-on-scroll');
-            card.style.animationDelay = `${index * 0.2}s`;
-        });
-        
-        const contentCards = document.querySelectorAll('.content-card');
-        contentCards.forEach((card, index) => {
-            card.classList.add('animate-on-scroll');
-            card.style.animationDelay = `${index * 0.1}s`;
-        });
-    }, 100);
+    enhanceAnimatedElements();
+    window.addEventListener('scroll', animateOnScroll, { passive: true });
+    animateOnScroll(); // Vérifier au chargement
+
+    initHeroParallax();
+    initMegaNavHover();
 });
 
 // Effet de particules flottantes
@@ -74,3 +63,115 @@ document.head.appendChild(particleStyle);
 
 // Initialiser les particules
 setTimeout(createFloatingParticles, 1000);
+
+function enhanceAnimatedElements() {
+    setTimeout(() => {
+        const featureCards = document.querySelectorAll('.feature-card');
+        featureCards.forEach((card, index) => {
+            card.classList.add('animate-on-scroll');
+            card.style.transitionDelay = `${index * 0.15}s`;
+        });
+
+        const contentCards = document.querySelectorAll('.content-card');
+        contentCards.forEach((card, index) => {
+            card.classList.add('animate-on-scroll');
+            card.style.transitionDelay = `${index * 0.1}s`;
+        });
+
+        const heroElements = document.querySelectorAll('.hero-content, .hero-featured-card, .hero-highlight-pills .pill, .hero-stat');
+        heroElements.forEach((element, index) => {
+            element.classList.add('animate-on-scroll');
+            element.style.transitionDelay = `${0.1 + index * 0.1}s`;
+        });
+
+        const introItems = document.querySelectorAll('.intro-item');
+        introItems.forEach((item, index) => {
+            item.classList.add('animate-on-scroll');
+            item.style.transitionDelay = `${index * 0.15}s`;
+        });
+
+        const highlightedBlocks = document.querySelectorAll('.featured-highlight, .cta-section, .sidebar-card');
+        highlightedBlocks.forEach((block, index) => {
+            block.classList.add('animate-on-scroll');
+            block.style.transitionDelay = `${index * 0.1}s`;
+        });
+
+        const ctaItems = document.querySelectorAll('.cta-list li');
+        ctaItems.forEach((item, index) => {
+            item.classList.add('animate-on-scroll');
+            item.style.transitionDelay = `${0.2 + index * 0.1}s`;
+        });
+
+        const actionCards = document.querySelectorAll('.content-action-card');
+        actionCards.forEach((card, index) => {
+            card.classList.add('animate-on-scroll');
+            card.style.transitionDelay = `${index * 0.1}s`;
+        });
+
+        const resourceSections = document.querySelectorAll('.resource-section, .content-section');
+        resourceSections.forEach((section, index) => {
+            section.classList.add('animate-on-scroll');
+            section.style.transitionDelay = `${index * 0.1}s`;
+        });
+
+        const questionElements = document.querySelectorAll('.questions-hero, .questions-card, .question-shortcut, .questions-list-wrapper');
+        questionElements.forEach((element, index) => {
+            element.classList.add('animate-on-scroll');
+            element.style.transitionDelay = `${index * 0.12}s`;
+        });
+
+        animateOnScroll();
+    }, 150);
+}
+
+function initHeroParallax() {
+    const hero = document.querySelector('.hero-fullscreen');
+    if (!hero) return;
+
+    let ticking = false;
+    const updateParallax = () => {
+        const offset = Math.min(window.scrollY * 0.18, 120);
+        hero.style.setProperty('--hero-shift', `${offset}px`);
+        ticking = false;
+    };
+
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            window.requestAnimationFrame(updateParallax);
+            ticking = true;
+        }
+    }, { passive: true });
+}
+
+function initMegaNavHover() {
+    if (typeof bootstrap === 'undefined') return;
+    const mediaQuery = window.matchMedia('(min-width: 992px)');
+
+    const setupHover = () => {
+        document.querySelectorAll('.mega-nav').forEach(item => {
+            if (item.dataset.hoverBound === 'true') return;
+            const trigger = item.querySelector('[data-bs-toggle="dropdown"]');
+            if (!trigger) return;
+            const dropdown = bootstrap.Dropdown.getOrCreateInstance(trigger, { autoClose: false });
+
+            item.addEventListener('mouseenter', () => {
+                if (mediaQuery.matches) dropdown.show();
+            });
+            item.addEventListener('mouseleave', () => {
+                if (mediaQuery.matches) dropdown.hide();
+            });
+            item.dataset.hoverBound = 'true';
+
+            item.querySelectorAll('.mega-menu a, .mega-menu button').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (!mediaQuery.matches) {
+                        dropdown.hide();
+                    }
+                });
+            });
+        });
+    };
+
+    setupHover();
+    mediaQuery.addEventListener('change', setupHover);
+}
