@@ -1,0 +1,496 @@
+/* Styles pour les nouvelles pages */
+
+/* Page À propos */
+.about-card {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.about-card:hover {
+    transform: translateY(-5px);
+}
+
+.about-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    color: white;
+    font-size: 2rem;
+}
+
+.about-card h3 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.about-card p {
+    color: #6c757d;
+    line-height: 1.6;
+}
+
+/* Page Donation */
+.donation-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.donation-amounts .btn {
+    border-radius: 10px;
+    padding: 1rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.donation-amounts .btn:hover {
+    background: #667eea;
+    border-color: #667eea;
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Page Contact */
+.contact-form {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.contact-info {
+    background: #f8f9fa;
+    padding: 2rem;
+    border-radius: 15px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    font-size: 1.1rem;
+}
+
+.contact-item i {
+    width: 20px;
+}
+
+/* Formulaires */
+.form-control {
+    border-radius: 10px;
+    border: 2px solid #e9ecef;
+    padding: 0.75rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+}
+
+/* Boutons */
+.btn-lg {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    border-radius: 25px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .about-card, .contact-form, .contact-info {
+        margin-bottom: 2rem;
+    }
+    
+    .donation-amounts .btn {
+        margin-bottom: 0.5rem;
+    }
+}
+
+/* Sections transverses */
+.section-kicker {
+    display: inline-block;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #667eea;
+}
+
+.highlight-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.highlight-list li {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 0.75rem;
+    font-weight: 500;
+    color: #4a5568;
+}
+
+.highlight-list li i {
+    margin-top: 0.15rem;
+}
+
+.resource-highlight-grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.resource-highlight-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 1.75rem;
+    box-shadow: 0 15px 35px rgba(100, 116, 139, 0.12);
+    border: 1px solid rgba(102, 126, 234, 0.18);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.resource-highlight-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(102, 126, 234, 0.18);
+}
+
+.resource-highlight-card .btn-link {
+    font-weight: 600;
+    color: #4c51bf;
+    text-decoration: none;
+}
+
+.resource-highlight-card .btn-link:hover {
+    color: #2b2f7f;
+    text-decoration: underline;
+}
+
+.badge.bg-soft-primary {
+    background: rgba(102, 126, 234, 0.15);
+    color: #4c51bf;
+}
+
+.icon-wrap {
+    width: 64px;
+    height: 64px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #4c51bf;
+    font-size: 1.5rem;
+    transition: transform 0.3s ease;
+}
+
+.question-shortcut-card,
+.prayer-highlight-card {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 1.75rem;
+    box-shadow: 0 10px 30px rgba(59, 130, 246, 0.08);
+    border: 1px solid rgba(226, 232, 240, 0.9);
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.question-shortcut-card:hover,
+.prayer-highlight-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 18px 45px rgba(79, 70, 229, 0.18);
+    color: inherit;
+}
+
+.question-shortcut-card h4,
+.prayer-highlight-card h4 {
+    color: #2c3e50;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+}
+
+.question-shortcut-card p,
+.prayer-highlight-card p {
+    color: #64748b;
+    margin-bottom: 1rem;
+}
+
+.prayer-highlight-card .btn-link {
+    color: #4c51bf;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.prayer-highlight-card .btn-link:hover {
+    color: #2b2f7f;
+}
+
+/* Donation sections */
+.donation-section {
+    border-radius: 24px;
+    margin: 0 1rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.donation-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(circle at top right, rgba(102, 126, 234, 0.18), transparent 55%);
+    pointer-events: none;
+}
+
+.donation-section .container {
+    position: relative;
+    z-index: 1;
+}
+
+.donation-section--gradient {
+    background: linear-gradient(135deg, #764ba2, #667eea);
+    color: #ffffff;
+}
+
+.donation-section--gradient .donation-kicker {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.donation-section--gradient .btn {
+    color: #764ba2;
+    background: #ffffff;
+    border: none;
+}
+
+.donation-section--gradient .btn:hover {
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.donation-section--muted {
+    background: #f4f5ff;
+    border: 1px solid rgba(99, 102, 241, 0.12);
+}
+
+.donation-kicker {
+    display: inline-block;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #4c51bf;
+    margin-bottom: 0.75rem;
+}
+
+.home-feature-card {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 2rem 1.75rem;
+    box-shadow: 0 12px 30px rgba(79, 70, 229, 0.08);
+    border: 1px solid rgba(226, 232, 240, 0.9);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: left;
+}
+
+.home-feature-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 24px 45px rgba(79, 70, 229, 0.18);
+}
+
+.home-feature-card h4 {
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 0.75rem;
+}
+
+.home-feature-card p {
+    color: #64748b;
+    margin-bottom: 1.5rem;
+}
+
+.home-feature-card .btn {
+    font-weight: 600;
+}
+
+.home-latest {
+    position: relative;
+}
+
+.home-latest::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top left, rgba(102, 126, 234, 0.2), transparent 55%);
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.home-latest .container {
+    position: relative;
+    z-index: 1;
+}
+
+.home-latest-card {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 1.75rem;
+    box-shadow: 0 12px 30px rgba(148, 163, 184, 0.15);
+    border: 1px solid rgba(203, 213, 225, 0.8);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.home-latest-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 45px rgba(100, 116, 139, 0.18);
+}
+
+.home-latest-card h5 {
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.home-latest-card p {
+    color: #6b7280;
+    font-size: 0.95rem;
+}
+
+.home-latest-card .btn-link {
+    font-weight: 600;
+    color: #4c51bf;
+}
+
+.home-latest-card .btn-link:hover {
+    color: #2b2f7f;
+    text-decoration: underline;
+}
+
+.badge.bg-primary-soft {
+    background: rgba(102, 126, 234, 0.18);
+    color: #4c51bf;
+    border-radius: 999px;
+    letter-spacing: 0.05em;
+}
+
+.contents-showcase-card {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    box-shadow: 0 10px 28px rgba(15, 73, 181, 0.08);
+    border: 1px solid rgba(226, 232, 240, 0.9);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.contents-showcase-card i {
+    font-size: 2rem;
+    color: #4c51bf;
+    margin-bottom: 1rem;
+}
+
+.contents-showcase-card h5 {
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+}
+
+.contents-showcase-card p {
+    color: #6b7280;
+    margin-bottom: 1.25rem;
+}
+
+.contents-showcase-card .btn-link {
+    font-weight: 600;
+    color: #4c51bf;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.contents-showcase-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 38px rgba(79, 70, 229, 0.16);
+}
+
+.qa-overview-card {
+    background: linear-gradient(145deg, #ffffff 0%, #f8f9ff 100%);
+    border-radius: 18px;
+    padding: 2rem;
+    box-shadow: 0 12px 35px rgba(67, 56, 202, 0.12);
+    border: 1px solid rgba(99, 102, 241, 0.15);
+    transition: transform 0.25s ease;
+}
+
+.qa-overview-card:hover {
+    transform: translateY(-6px);
+}
+
+.qa-overview-card p {
+    color: #64748b;
+}
+
+.content-detail-hero {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #4c51bf, #764ba2);
+}
+
+.content-detail-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0.4;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><linearGradient id="grad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="%23ffffff" stop-opacity="0.2"/><stop offset="100%" stop-color="%23ffffff" stop-opacity="0"/></linearGradient></defs><rect width="200" height="200" fill="url(%23grad)"/><circle cx="50" cy="50" r="25" fill="rgba(255,255,255,0.1)"/><circle cx="150" cy="120" r="35" fill="rgba(255,255,255,0.1)"/></svg>');
+}
+
+.content-detail-loading {
+    background: #f8f9ff;
+}
+
+.loading-wrapper {
+    max-width: 540px;
+    margin: 0 auto;
+}
+
+.loading-icon {
+    animation: floatPulse 2s ease-in-out infinite;
+}
+
+@keyframes floatPulse {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+    100% { transform: translateY(0); }
+}
+
+.content-detail-body .card {
+    border-radius: 18px;
+    box-shadow: 0 12px 35px rgba(15, 73, 181, 0.12);
+    border: 1px solid rgba(226, 232, 240, 0.9);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.content-detail-body .card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 45px rgba(15, 73, 181, 0.18);
+}
+
+.content-detail-actions {
+    border-top: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+@media (max-width: 768px) {
+    .content-detail-hero h1 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .donation-section {
+        margin: 0 0 2rem;
+    }
+}
