@@ -21,6 +21,9 @@
 .hero-carousel {
     position: relative;
     min-height: 100vh;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    overflow: hidden;
 }
 
 .hero-carousel .carousel-inner,
@@ -32,7 +35,10 @@
 .hero-slide {
     position: relative;
     width: 100%;
-    display: flex;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .hero-image {
@@ -59,7 +65,8 @@
     transform: translate(-50%, -50%);
     width: 100%;
     text-align: center;
-    z-index: 2;
+    z-index: 3;
+    animation: fadeInUp 1s ease-out;
 }
 
 .hero-content-wrapper .container,
@@ -270,6 +277,17 @@
 }
 
 /* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 @keyframes slideInUp {
     from {
         opacity: 0;
