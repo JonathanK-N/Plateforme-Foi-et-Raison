@@ -36,9 +36,6 @@
     position: relative;
     width: 100%;
     height: 100vh;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
 }
 
 .hero-slide-bg {
@@ -50,6 +47,10 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    transform: scale(1.02);
+    transform-origin: center;
+    transition: transform 0.8s ease-out;
+    z-index: 1;
 }
 
 .hero-overlay {
@@ -106,6 +107,17 @@
 
 .carousel-indicators button.active {
     background-color: #ffffff;
+}
+
+.carousel-item.active .hero-slide-bg {
+    animation: heroZoom 8s ease-in-out forwards;
+}
+
+.carousel-item.carousel-item-start .hero-slide-bg,
+.carousel-item.carousel-item-end .hero-slide-bg,
+.carousel-item:not(.active) .hero-slide-bg {
+    animation: none;
+    transform: scale(1.02);
 }
 
 .hero-title {
@@ -322,6 +334,18 @@
     to {
         opacity: 1;
         transform: translateX(0);
+    }
+}
+
+@keyframes heroZoom {
+    0% {
+        transform: scale(1.02);
+    }
+    50% {
+        transform: scale(1.08);
+    }
+    100% {
+        transform: scale(1.02);
     }
 }
 
