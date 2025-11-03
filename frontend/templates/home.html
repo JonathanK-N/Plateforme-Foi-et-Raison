@@ -300,3 +300,28 @@
 </section>
 </div>
 {% endblock %}
+
+{% block extra_scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const heroCarousel = document.getElementById('heroCarousel');
+    if (heroCarousel && typeof bootstrap !== 'undefined') {
+        const existing = bootstrap.Carousel.getInstance(heroCarousel);
+        if (existing) {
+            existing.dispose();
+        }
+        new bootstrap.Carousel(heroCarousel, {
+            interval: 6000,
+            ride: true,
+            pause: false,
+            touch: true,
+            wrap: true
+        });
+    }
+
+    if (typeof showHome === 'function') {
+        showHome();
+    }
+});
+</script>
+{% endblock %}
