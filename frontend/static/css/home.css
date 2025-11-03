@@ -38,6 +38,8 @@
     background: linear-gradient(135deg, rgba(102, 126, 234, 0.8) 0%, rgba(118, 75, 162, 0.8) 100%);
     display: flex;
     align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
 .carousel-control-prev,
@@ -59,32 +61,36 @@
 .hero-title {
     font-size: 4.5rem;
     font-weight: 800;
-    background: linear-gradient(45deg, #fff, #f8f9fa);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: white;
     margin-bottom: 2rem;
-    text-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    line-height: 1.2;
 }
 
 .hero-subtitle {
-    font-size: 1.5rem;
-    color: rgba(255,255,255,0.9);
+    font-size: 1.8rem;
+    color: white;
     margin-bottom: 3rem;
-    font-weight: 300;
+    font-weight: 400;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.4);
+    line-height: 1.4;
 }
 
 .hero-cta {
-    background: rgba(255,255,255,0.2);
-    border: 2px solid rgba(255,255,255,0.3);
+    background: rgba(255,255,255,0.25);
+    border: 2px solid rgba(255,255,255,0.4);
     color: white;
-    padding: 15px 40px;
+    padding: 18px 45px;
     border-radius: 50px;
     font-weight: 600;
+    font-size: 1.1rem;
     text-transform: uppercase;
     letter-spacing: 1px;
     transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(15px);
+    text-decoration: none;
+    display: inline-block;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
 }
 
 .hero-cta:hover {
