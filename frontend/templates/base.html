@@ -24,15 +24,10 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav mx-auto align-items-lg-center">
+                    <ul class="navbar-nav mx-auto align-items-lg-center gap-lg-2">
                         <li class="nav-item">
                             <a class="nav-link fw-medium px-3" href="{{ url_for('home') }}">
                                 <i class="fas fa-home me-2"></i>Accueil
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link fw-medium px-3" href="{{ url_for('about') }}">
-                                <i class="fas fa-info-circle me-2"></i>&Agrave; propos
                             </a>
                         </li>
                         <li class="nav-item">
@@ -41,18 +36,18 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link fw-medium px-3" href="{{ url_for('prayers') }}">
-                                <i class="fas fa-praying-hands me-2"></i>Pri&egrave;re
+                            <a class="nav-link fw-medium px-3" href="{{ url_for('about') }}">
+                                <i class="fas fa-people-group me-2"></i>Qui sommes-nous
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link fw-medium px-3" href="{{ url_for('qa') }}">
-                                <i class="fas fa-question-circle me-2"></i>Q&amp;A
+                                <i class="fas fa-question-circle me-2"></i>Questions
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link fw-medium px-3" href="{{ url_for('donation') }}">
-                                <i class="fas fa-heart me-2"></i>Faire un don
+                            <a class="nav-link fw-medium px-3" href="{{ url_for('prayers') }}">
+                                <i class="fas fa-praying-hands me-2"></i>Pri&egrave;re
                             </a>
                         </li>
                         <li class="nav-item">
@@ -60,27 +55,19 @@
                                 <i class="fas fa-envelope me-2"></i>Contact
                             </a>
                         </li>
-                    </ul>
-                    <div class="d-flex align-items-center gap-3 ms-lg-3">
-                        <button id="askQuestionBtn" class="btn btn-sm btn-primary rounded-pill px-3" type="button" style="display: none;" onclick="showQuestionForm()">
-                            <i class="fas fa-comment-dots me-2"></i>Poser une question
-                        </button>
-                        <div id="authNav" class="d-flex align-items-center gap-2">
-                            <button class="btn btn-outline-primary btn-sm rounded-pill px-3" type="button" data-bs-toggle="modal" data-bs-target="#authModal">
-                                <i class="fas fa-user-lock me-2"></i>Connexion
-                            </button>
-                            <button class="btn btn-primary btn-sm rounded-pill px-3" type="button" data-bs-toggle="modal" data-bs-target="#registerModal">
-                                <i class="fas fa-user-plus me-2"></i>S'inscrire
-                            </button>
-                        </div>
-                        <div id="userNav" class="d-none align-items-center gap-3">
-                            <span class="fw-semibold small text-muted">Bonjour, <span id="username"></span></span>
-                            <a id="adminLink" href="#" class="btn btn-outline-primary btn-sm rounded-pill px-3" style="display: none;">
-                                <i class="fas fa-gauge me-2"></i>Admin
+                        <li class="nav-item">
+                            <a class="nav-link fw-medium px-3" href="{{ url_for('donation') }}">
+                                <i class="fas fa-heart me-2"></i>Don
                             </a>
-                            <button class="btn btn-primary btn-sm rounded-pill px-3" type="button" onclick="logout()">
-                                <i class="fas fa-right-from-bracket me-2"></i>Se d&eacute;connecter
-                            </button>
+                        </li>
+                    </ul>
+                    <div class="d-none">
+                        <button id="askQuestionBtn" type="button"></button>
+                        <div id="authNav"></div>
+                        <div id="userNav">
+                            <span id="username"></span>
+                            <a id="adminLink" href="#"></a>
+                            <button type="button" onclick="logout()"></button>
                         </div>
                     </div>
                 </div>
