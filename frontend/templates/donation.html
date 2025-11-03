@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Faire un don - Croire & Penser{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="text-center animate-fade-up">
+        <h1 class="mb-5">Faire un don</h1>
+    </div>
+    
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="preparation-card text-center animate-fade-right delay-2">
+                <div class="animate-float mb-4">
+                    <i class="fas fa-heart fa-4x mb-3"></i>
+                </div>
+                <h3 class="mb-3">Contenu en cours de préparation</h3>
+                <p class="mb-4">Notre équipe prépare des contenus adaptés pour vous<span class="loading-dots"></span></p>
+                <div class="d-flex justify-content-center">
+                    <div class="spinner-border text-light animate-pulse" role="status">
+                        <span class="visually-hidden">Chargement...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -436,8 +436,32 @@ def create_thematic_content():
     return jsonify({'message': 'Contenu créé avec succès', 'id': content.id}), 201
 
 @app.route('/')
-def index():
-    return render_template('index.html')
+def home():
+    return render_template('home.html')
+
+@app.route('/contenus')
+def contents():
+    return render_template('contents.html')
+
+@app.route('/qa')
+def qa():
+    return render_template('qa.html')
+
+@app.route('/priere')
+def prayers():
+    return render_template('prayers.html')
+
+@app.route('/a-propos')
+def about():
+    return render_template('about.html')
+
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')
+
+@app.route('/don')
+def donation():
+    return render_template('donation.html')
 
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
