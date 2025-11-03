@@ -71,7 +71,15 @@
     width: 100%;
     text-align: center;
     z-index: 3;
-    animation: fadeInUp 1s ease-out;
+}
+
+.carousel-item.active .hero-content-wrapper {
+    animation: heroContentFadeIn 1.2s ease-out;
+}
+
+.carousel-item:not(.active) .hero-content-wrapper {
+    opacity: 0;
+    transform: translate(-50%, -40%);
 }
 
 .hero-content-wrapper .container,
@@ -293,6 +301,17 @@
 }
 
 /* Animations */
+@keyframes heroContentFadeIn {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -40%);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
 @keyframes fadeInUp {
     from {
         opacity: 0;
