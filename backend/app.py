@@ -463,6 +463,14 @@ def contact():
 def donation():
     return render_template('donation.html')
 
+@app.route('/evenements')
+def events():
+    return render_template('events.html')
+
+@app.route('/partenariats')
+def partnerships():
+    return render_template('partnerships.html')
+
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)

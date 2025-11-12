@@ -1,0 +1,256 @@
+/* Partnerships Page Styles */
+.partner-card {
+    background: white;
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: 0 10px 40px rgba(30, 58, 138, 0.08);
+    border: 1px solid rgba(30, 58, 138, 0.05);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    transform: translateY(50px) rotateX(10deg);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.partner-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(45deg, var(--primary-blue), var(--accent-gold), var(--secondary-blue));
+    background-size: 200% 100%;
+    animation: gradientShift 3s ease-in-out infinite;
+}
+
+@keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+.partner-card.animate-in {
+    opacity: 1;
+    transform: translateY(0) rotateX(0deg);
+}
+
+.partner-card:hover {
+    transform: translateY(-15px) scale(1.03);
+    box-shadow: 0 25px 60px rgba(30, 58, 138, 0.2);
+}
+
+.partner-icon {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 2rem;
+    color: white;
+    font-size: 2.5rem;
+    transition: all 0.4s ease;
+    position: relative;
+}
+
+.partner-icon::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    background: linear-gradient(45deg, var(--accent-gold), var(--primary-blue));
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.partner-card:hover .partner-icon::before {
+    opacity: 1;
+}
+
+.partner-card:hover .partner-icon {
+    transform: rotate(360deg) scale(1.1);
+}
+
+.collaboration-card {
+    background: linear-gradient(135deg, #f8fafc, rgba(59, 130, 246, 0.05));
+    border-radius: 20px;
+    padding: 2.5rem;
+    border: 2px solid rgba(30, 58, 138, 0.1);
+    transition: all 0.4s ease;
+    opacity: 0;
+    transform: translateX(-30px);
+    position: relative;
+}
+
+.collaboration-card.animate-in {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.collaboration-card:hover {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(217, 119, 6, 0.05));
+    border-color: var(--secondary-blue);
+    transform: translateX(10px);
+}
+
+.collaboration-icon {
+    color: var(--accent-gold);
+    font-size: 2rem;
+    margin-right: 1rem;
+    transition: all 0.3s ease;
+}
+
+.collaboration-card:hover .collaboration-icon {
+    transform: scale(1.2) rotate(10deg);
+    color: var(--primary-blue);
+}
+
+.process-step {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 8px 30px rgba(30, 58, 138, 0.1);
+    transition: all 0.4s ease;
+    opacity: 0;
+    transform: scale(0.8);
+    position: relative;
+}
+
+.process-step.animate-in {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.process-step:hover {
+    transform: scale(1.05) translateY(-10px);
+    box-shadow: 0 20px 50px rgba(30, 58, 138, 0.2);
+}
+
+.process-number {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--accent-gold), #f59e0b);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    color: white;
+    font-size: 2rem;
+    font-weight: 800;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.process-step:hover .process-number {
+    transform: rotate(360deg) scale(1.2);
+}
+
+.process-number::after {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    border: 3px solid var(--accent-gold);
+    border-radius: 50%;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.3s ease;
+}
+
+.process-step:hover .process-number::after {
+    opacity: 0.5;
+    transform: scale(1);
+}
+
+.cta-section {
+    background: linear-gradient(135deg, var(--primary-blue), var(--dark-navy));
+    border-radius: 25px;
+    padding: 4rem;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(217, 119, 6, 0.2) 0%, transparent 70%);
+    animation: float 8s ease-in-out infinite;
+}
+
+.btn-partnership {
+    background: linear-gradient(45deg, var(--accent-gold), #f59e0b);
+    border: none;
+    color: white;
+    padding: 15px 35px;
+    border-radius: 30px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-partnership::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.5s ease;
+}
+
+.btn-partnership:hover::before {
+    left: 100%;
+}
+
+.btn-partnership:hover {
+    background: linear-gradient(45deg, #f59e0b, var(--accent-gold));
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(217, 119, 6, 0.4);
+    color: white;
+}
+
+/* Staggered animations */
+.partner-card:nth-child(1) { animation-delay: 0.1s; }
+.partner-card:nth-child(2) { animation-delay: 0.3s; }
+.partner-card:nth-child(3) { animation-delay: 0.5s; }
+
+.collaboration-card:nth-child(1) { animation-delay: 0.2s; }
+.collaboration-card:nth-child(2) { animation-delay: 0.4s; }
+
+.process-step:nth-child(1) { animation-delay: 0.1s; }
+.process-step:nth-child(2) { animation-delay: 0.3s; }
+.process-step:nth-child(3) { animation-delay: 0.5s; }
+
+@media (max-width: 768px) {
+    .partner-card, .collaboration-card {
+        padding: 2rem;
+        margin-bottom: 2rem;
+    }
+    
+    .cta-section {
+        padding: 3rem 2rem;
+    }
+    
+    .process-step {
+        margin-bottom: 2rem;
+    }
+}
