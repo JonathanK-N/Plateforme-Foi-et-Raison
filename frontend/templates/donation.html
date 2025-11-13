@@ -1,0 +1,295 @@
+{% extends "base.html" %}
+
+{% block title %}Faire un don - Croire & Penser{% endblock %}
+
+{% block extra_head %}
+<link href="{{ url_for('static', filename='css/donation.css') }}" rel="stylesheet">
+<script src="https://js.stripe.com/v3/"></script>
+<script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=CAD"></script>
+{% endblock %}
+
+{% block content %}
+<div class="donation-page">
+    <!-- Hero animé avec particules -->
+    <section class="donation-hero">
+        <div class="hero-particles"></div>
+        <div class="hero-waves"></div>
+        <div class="container">
+            <div class="hero-content animate-hero-in">
+                <div class="hero-icon">
+                    <i class="fas fa-heart pulse-heart"></i>
+                </div>
+                <h1 class="hero-title">Soutenez notre mission</h1>
+                <p class="hero-subtitle">"Amener les croyants à penser, et les penseurs à croire"</p>
+                <p class="hero-description">Votre générosité nous permet de continuer à offrir des contenus de qualité et d'accompagner chacun dans sa quête de vérité.</p>
+                <div class="hero-stats">
+                    <div class="stat-item animate-counter" data-target="2847">
+                        <span class="stat-number">0</span>
+                        <span class="stat-label">Donateurs</span>
+                    </div>
+                    <div class="stat-item animate-counter" data-target="156">
+                        <span class="stat-number">0</span>
+                        <span class="stat-label">k$ Collectés</span>
+                    </div>
+                    <div class="stat-item animate-counter" data-target="89">
+                        <span class="stat-number">0</span>
+                        <span class="stat-label">% Objectif</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <!-- Sélection du montant -->
+        <section class="amount-selection animate-slide-up">
+            <h2 class="section-title">Choisissez votre don</h2>
+            <div class="amount-grid">
+                <div class="amount-card" data-amount="25">
+                    <div class="amount-icon">
+                        <i class="fas fa-coffee"></i>
+                    </div>
+                    <div class="amount-value">25$</div>
+                    <div class="amount-description">Un café pour l'équipe</div>
+                </div>
+                <div class="amount-card" data-amount="50">
+                    <div class="amount-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="amount-value">50$</div>
+                    <div class="amount-description">Financer un article</div>
+                </div>
+                <div class="amount-card popular" data-amount="100">
+                    <div class="popular-badge">Populaire</div>
+                    <div class="amount-icon">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <div class="amount-value">100$</div>
+                    <div class="amount-description">Produire une vidéo</div>
+                </div>
+                <div class="amount-card" data-amount="250">
+                    <div class="amount-icon">
+                        <i class="fas fa-microphone"></i>
+                    </div>
+                    <div class="amount-value">250$</div>
+                    <div class="amount-description">Un épisode podcast</div>
+                </div>
+                <div class="amount-card" data-amount="500">
+                    <div class="amount-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <div class="amount-value">500$</div>
+                    <div class="amount-description">Organiser un événement</div>
+                </div>
+                <div class="amount-card custom" data-amount="custom">
+                    <div class="amount-icon">
+                        <i class="fas fa-hand-holding-heart"></i>
+                    </div>
+                    <div class="amount-value">Autre</div>
+                    <div class="amount-description">Montant personnalisé</div>
+                </div>
+            </div>
+            
+            <div class="custom-amount-input">
+                <input type="number" id="customAmount" placeholder="Entrez votre montant" min="5" step="5">
+                <span class="currency">CAD $</span>
+            </div>
+        </section>
+
+        <!-- Type de don -->
+        <section class="donation-type animate-slide-up delay-1">
+            <h3 class="mb-4">Type de don</h3>
+            <div class="donation-type-toggle">
+                <button class="type-btn active" data-type="one-time">
+                    <i class="fas fa-hand-holding-usd"></i>
+                    Don unique
+                </button>
+                <button class="type-btn" data-type="monthly">
+                    <i class="fas fa-calendar-check"></i>
+                    Don mensuel
+                    <span class="monthly-badge">+20% d'impact</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Méthodes de paiement -->
+        <section class="payment-methods animate-slide-up delay-2">
+            <h3 class="mb-4">Méthode de paiement</h3>
+            <div class="payment-grid">
+                <div class="payment-card" data-method="paypal">
+                    <div class="payment-icon">
+                        <i class="fab fa-paypal"></i>
+                    </div>
+                    <div class="payment-name">PayPal</div>
+                    <div class="payment-description">Rapide et sécurisé</div>
+                </div>
+                <div class="payment-card" data-method="stripe">
+                    <div class="payment-icon">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <div class="payment-name">Carte bancaire</div>
+                    <div class="payment-description">Visa, MasterCard, Amex</div>
+                </div>
+                <div class="payment-card" data-method="interac">
+                    <div class="payment-icon">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <div class="payment-name">Interac</div>
+                    <div class="payment-description">Virement bancaire</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Informations donateur -->
+        <section class="donor-info animate-slide-up delay-3">
+            <h3 class="mb-4">Vos informations</h3>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <input type="text" class="form-control" placeholder="Prénom" required>
+                </div>
+                <div class="col-md-6">
+                    <input type="text" class="form-control" placeholder="Nom" required>
+                </div>
+                <div class="col-12">
+                    <input type="email" class="form-control" placeholder="Email" required>
+                </div>
+                <div class="col-12">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="newsletter">
+                        <label class="form-check-label" for="newsletter">
+                            Recevoir notre newsletter mensuelle
+                        </label>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="anonymous">
+                        <label class="form-check-label" for="anonymous">
+                            Don anonyme
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bouton de don -->
+        <section class="donation-action animate-slide-up delay-4">
+            <div class="donation-summary">
+                <div class="summary-amount">
+                    <span class="amount-text">Montant: </span>
+                    <span class="amount-display">0$</span>
+                    <span class="frequency-display">CAD</span>
+                </div>
+                <div class="summary-impact">
+                    <i class="fas fa-heart text-danger"></i>
+                    <span class="impact-text">Votre don nous aide à continuer notre mission</span>
+                </div>
+            </div>
+            <button class="btn-donate" id="donateBtn">
+                <span class="btn-text">
+                    <i class="fas fa-heart me-2"></i>
+                    Faire un don maintenant
+                </span>
+                <div class="btn-ripple"></div>
+            </button>
+        </section>
+
+        <!-- Impact du don -->
+        <section class="donation-impact animate-slide-up delay-5">
+            <h2 class="text-center mb-5">L'impact de votre don</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="impact-card">
+                        <div class="impact-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h4>Formation</h4>
+                        <p>Financer des formations théologiques et philosophiques de qualité</p>
+                        <div class="impact-progress">
+                            <div class="progress-bar" data-progress="75"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="impact-card">
+                        <div class="impact-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <h4>Rayonnement</h4>
+                        <p>Étendre notre portée et toucher plus de personnes en quête de vérité</p>
+                        <div class="impact-progress">
+                            <div class="progress-bar" data-progress="60"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="impact-card">
+                        <div class="impact-icon">
+                            <i class="fas fa-hands-helping"></i>
+                        </div>
+                        <h4>Accompagnement</h4>
+                        <p>Offrir un soutien personnalisé aux personnes en questionnement</p>
+                        <div class="impact-progress">
+                            <div class="progress-bar" data-progress="85"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Témoignages -->
+        <section class="testimonials animate-slide-up delay-6">
+            <h2 class="text-center mb-5">Ils nous font confiance</h2>
+            <div class="testimonials-slider">
+                <div class="testimonial-card active">
+                    <div class="testimonial-content">
+                        <p>"Grâce à Croire & Penser, j'ai pu approfondir ma foi tout en gardant mon esprit critique. Leur approche équilibrée est remarquable."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">M</div>
+                        <div class="author-info">
+                            <div class="author-name">Marie Dubois</div>
+                            <div class="author-role">Professeure</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"Une plateforme exceptionnelle qui réconcilie foi et raison. Les contenus sont d'une qualité remarquable."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">J</div>
+                        <div class="author-info">
+                            <div class="author-name">Jean Martin</div>
+                            <div class="author-role">Ingénieur</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Modales de paiement -->
+    <div id="paymentModal" class="payment-modal">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Finaliser votre don</h3>
+                <button class="btn-close" onclick="closePaymentModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="paypal-button-container"></div>
+                <div id="stripe-card-element"></div>
+                <div id="interac-info" class="interac-details">
+                    <h4>Virement Interac</h4>
+                    <p><strong>Email:</strong> dons@foietraison.ca</p>
+                    <p><strong>Question:</strong> Mission</p>
+                    <p><strong>Réponse:</strong> FoiRaison</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/donation.js') }}"></script>
+{% endblock %}
