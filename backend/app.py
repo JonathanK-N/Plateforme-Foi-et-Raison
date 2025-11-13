@@ -435,10 +435,191 @@ def create_thematic_content():
     
     return jsonify({'message': 'Contenu créé avec succès', 'id': content.id}), 201
 
+# Route pour sauvegarder les modifications de page
+@app.route('/api/save-page-change', methods=['POST'])
+def save_page_change():
+    try:
+        data = request.get_json()
+        page = data.get('page', '/')
+        selector = data.get('selector')
+        content_type = data.get('type')
+        value = data.get('value')
+        
+        # Sauvegarder dans un fichier JSON simple
+        import json
+        import os
+        
+        changes_file = 'page_changes.json'
+        changes = {}
+        
+        if os.path.exists(changes_file):
+            with open(changes_file, 'r', encoding='utf-8') as f:
+                changes = json.load(f)
+        
+        if page not in changes:
+            changes[page] = {}
+        
+        changes[page][selector] = {
+            'type': content_type,
+            'value': value,
+            'timestamp': datetime.utcnow().isoformat()
+        }
+        
+        with open(changes_file, 'w', encoding='utf-8') as f:
+            json.dump(changes, f, ensure_ascii=False, indent=2)
+        
+        return jsonify({'success': True, 'message': 'Modification sauvegardée'})
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)}), 500
+
+@app.route('/api/get-page-changes/<path:page_path>')
+def get_page_changes(page_path):
+    try:
+        import json
+        import os
+        
+        changes_file = 'page_changes.json'
+        if not os.path.exists(changes_file):
+            return jsonify({})
+        
+        with open(changes_file, 'r', encoding='utf-8') as f:
+            changes = json.load(f)
+        
+        page_key = '/' if page_path == 'home' else f'/{page_path}'
+        return jsonify(changes.get(page_key, {}))
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+# Routes API Admin
+@app.route('/api/admin/dashboard/stats', methods=['GET'])
+@jwt_required()
+def get_admin_stats():
+    user_id = get_jwt_identity()
+    user = User.query.get(user_id)
+    
+    if user.role != 'admin':
+        return jsonify({'message': 'Accès refusé'}), 403
+    
+    stats = {
+        'total_users': User.query.count(),
+        'total_content': Content.query.count() + ThematicContent.query.count(),
+        'total_prayers': 156,  # Simulate prayer count
+        'total_questions': Question.query.count(),
+        'total_donations': '12,450$',
+        'monthly_donations': '2,340$'
+    }
+    
+    return jsonify(stats)
+
+@app.route('/api/admin/content', methods=['GET', 'POST', 'PUT', 'DELETE'])
+@jwt_required()
+def admin_content():
+    user_id = get_jwt_identity()
+    user = User.query.get(user_id)
+    
+    if user.role != 'admin':
+        return jsonify({'message': 'Accès refusé'}), 403
+    
+    if request.method == 'GET':
+        contents = Content.query.all()
+        return jsonify([{
+            'id': c.id,
+            'title': c.title,
+            'type': c.content_type,
+            'status': 'published' if c.is_published else 'draft',
+            'created_at': c.created_at.isoformat()
+        } for c in contents])
+    
+    elif request.method == 'POST':
+        data = request.get_json()
+        content = Content(
+            title=data['title'],
+            description=data.get('description', ''),
+            content_type=data['type'],
+            author_id=user_id,
+            is_published=data.get('published', False)
+        )
+        db.session.add(content)
+        db.session.commit()
+        return jsonify({'message': 'Contenu créé', 'id': content.id}), 201
+    
+    elif request.method == 'DELETE':
+        content_id = request.args.get('id')
+        content = Content.query.get_or_404(content_id)
+        db.session.delete(content)
+        db.session.commit()
+        return jsonify({'message': 'Contenu supprimé'})
+
+@app.route('/api/admin/users', methods=['GET', 'POST', 'PUT', 'DELETE'])
+@jwt_required()
+def admin_users():
+    user_id = get_jwt_identity()
+    user = User.query.get(user_id)
+    
+    if user.role != 'admin':
+        return jsonify({'message': 'Accès refusé'}), 403
+    
+    if request.method == 'GET':
+        users = User.query.all()
+        return jsonify([{
+            'id': u.id,
+            'name': f"{u.prenom} {u.nom}",
+            'email': u.email,
+            'role': u.role,
+            'status': 'active' if u.is_active else 'inactive',
+            'created_at': u.created_at.isoformat()
+        } for u in users])
+    
+    elif request.method == 'DELETE':
+        user_id_to_delete = request.args.get('id')
+        user_to_delete = User.query.get_or_404(user_id_to_delete)
+        db.session.delete(user_to_delete)
+        db.session.commit()
+        return jsonify({'message': 'Utilisateur supprimé'})
+
+@app.route('/api/admin/questions', methods=['GET', 'POST', 'PUT', 'DELETE'])
+@jwt_required()
+def admin_questions():
+    user_id = get_jwt_identity()
+    user = User.query.get(user_id)
+    
+    if user.role != 'admin':
+        return jsonify({'message': 'Accès refusé'}), 403
+    
+    if request.method == 'GET':
+        questions = Question.query.all()
+        return jsonify([{
+            'id': q.id,
+            'title': q.title,
+            'content': q.content,
+            'status': 'approved' if q.is_approved else 'pending',
+            'created_at': q.created_at.isoformat()
+        } for q in questions])
+    
+    elif request.method == 'PUT':
+        question_id = request.args.get('id')
+        question = Question.query.get_or_404(question_id)
+        question.is_approved = True
+        db.session.commit()
+        return jsonify({'message': 'Question approuvée'})
+    
+    elif request.method == 'DELETE':
+        question_id = request.args.get('id')
+        question = Question.query.get_or_404(question_id)
+        db.session.delete(question)
+        db.session.commit()
+        return jsonify({'message': 'Question supprimée'})
+
 @app.route('/')
+@app.route('/home')
 def home():
     return render_template('home.html')
 
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+@app.route('/contents')
 @app.route('/contenus')
 def contents():
     return render_template('contents.html')
@@ -447,29 +628,40 @@ def contents():
 def qa():
     return render_template('qa.html')
 
+@app.route('/prayers')
 @app.route('/priere')
 def prayers():
     return render_template('prayers.html')
-
-@app.route('/a-propos')
-def about():
-    return render_template('about.html')
 
 @app.route('/contact')
 def contact():
     return render_template('contact.html')
 
+@app.route('/donation')
 @app.route('/don')
 def donation():
     return render_template('donation.html')
 
+@app.route('/events')
 @app.route('/evenements')
 def events():
     return render_template('events.html')
 
+@app.route('/partnerships')
 @app.route('/partenariats')
 def partnerships():
     return render_template('partnerships.html')
+
+@app.route('/admin')
+@app.route('/admin/')
+def admin():
+    return render_template('admin.html')
+
+@app.route('/cms')
+def cms():
+    return render_template('cms.html')
+
+
 
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):

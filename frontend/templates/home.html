@@ -321,6 +321,7 @@
 {% endblock %}
 
 {% block extra_scripts %}
+<script src="{{ url_for('static', filename='js/home.js') }}"></script>
 <script>
 document.addEventListener('DOMContentLoaded', () => {
     const heroCarousel = document.getElementById('heroCarousel');
@@ -330,16 +331,12 @@ document.addEventListener('DOMContentLoaded', () => {
             existing.dispose();
         }
         new bootstrap.Carousel(heroCarousel, {
-            interval: 6000,
+            interval: 8000,
             ride: true,
             pause: false,
             touch: true,
             wrap: true
         });
-    }
-
-    if (typeof showHome === 'function') {
-        showHome();
     }
 });
 </script>

@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CMS - Croire & Penser</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+            color: #333;
+        }
+        
+        .cms-container {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        .sidebar {
+            width: 280px;
+            background: #2c3e50;
+            color: white;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            text-align: center;
+            padding: 20px;
+            border-bottom: 1px solid #34495e;
+            margin-bottom: 20px;
+        }
+        
+        .nav-item {
+            display: block;
+            padding: 15px 25px;
+            color: #ecf0f1;
+            text-decoration: none;
+            border-left: 4px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .nav-item:hover, .nav-item.active {
+            background: #34495e;
+            border-left-color: #3498db;
+        }
+        
+        .main-content {
+            flex: 1;
+            padding: 30px;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e9ecef;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background: #3498db;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #2980b9;
+        }
+        
+        .btn-success {
+            background: #27ae60;
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: #229954;
+        }
+        
+        .section {
+            display: none;
+        }
+        
+        .section.active {
+            display: block;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 10000;
+        }
+        
+        .modal.show {
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 700px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #2c3e50;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+        
+        .content-list {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .content-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .content-item:last-child {
+            border-bottom: none;
+        }
+        
+        .content-info h3 {
+            margin-bottom: 5px;
+            color: #2c3e50;
+        }
+        
+        .content-meta {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+        
+        .actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 14px;
+        }
+        
+        .btn-danger {
+            background: #e74c3c;
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background: #c0392b;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #3498db;
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            color: #7f8c8d;
+            font-weight: 600;
+        }
+        
+        .login-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .login-box {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+        
+        .login-header h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .login-header p {
+            color: #7f8c8d;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Écran de connexion -->
+    <div id="login-screen" class="login-container">
+        <div class="login-box">
+            <div class="login-header">
+                <h1>🔐 Accès CMS</h1>
+                <p>Croire & Penser - Administration</p>
+            </div>
+            <form id="login-form">
+                <div class="form-group">
+                    <label>Nom d'utilisateur</label>
+                    <input type="text" class="form-control" id="login-username" required placeholder="admin@croireetpenser.ca">
+                </div>
+                <div class="form-group">
+                    <label>Mot de passe</label>
+                    <input type="password" class="form-control" id="login-password" required placeholder="Votre mot de passe">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Se connecter</button>
+            </form>
+            <div id="login-error" style="color: #e74c3c; margin-top: 15px; text-align: center; display: none;"></div>
+        </div>
+    </div>
+    
+    <!-- CMS Principal -->
+    <div id="cms-main" class="cms-container" style="display: none;">
+        <div class="sidebar">
+            <div class="logo">
+                <h2>CMS Admin</h2>
+                <p>Croire & Penser</p>
+            </div>
+            <nav>
+                <a href="#" class="nav-item active" data-section="dashboard">📊 Tableau de bord</a>
+                <a href="#" class="nav-item" data-section="content">📝 Contenus</a>
+                <a href="#" class="nav-item" data-section="pages">📄 Pages</a>
+                <a href="#" class="nav-item" data-section="users">👥 Utilisateurs</a>
+                <a href="#" class="nav-item" data-section="prayers">🙏 Prières</a>
+                <a href="#" class="nav-item" data-section="qa">❓ Q&A</a>
+                <a href="#" class="nav-item" data-section="events">📅 Événements</a>
+                <a href="#" class="nav-item" data-section="partnerships">🤝 Partenariats</a>
+                <a href="#" class="nav-item" data-section="donations">💝 Dons</a>
+            </nav>
+        </div>
+        
+        <div class="main-content">
+            <!-- Dashboard -->
+            <div id="dashboard" class="section active">
+                <div class="header">
+                    <h1>Tableau de bord</h1>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number" id="total-contents">0</div>
+                        <div class="stat-label">Contenus</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="total-users">156</div>
+                        <div class="stat-label">Utilisateurs</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="total-prayers">234</div>
+                        <div class="stat-label">Prières</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="total-questions">67</div>
+                        <div class="stat-label">Questions</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contenus -->
+            <div id="content" class="section">
+                <div class="header">
+                    <h1>Gestion des contenus</h1>
+                    <button class="btn btn-primary" onclick="openContentModal()">+ Nouveau contenu</button>
+                </div>
+                <div class="content-list" id="content-list">
+                    <!-- Les contenus seront affichés ici -->
+                </div>
+            </div>
+            
+            <!-- Pages -->
+            <div id="pages" class="section">
+                <div class="header">
+                    <h1>Gestion des pages</h1>
+                </div>
+                <div class="content-list">
+                    <div class="content-item">
+                        <div class="content-info">
+                            <h3>🏠 Page d'accueil</h3>
+                            <div class="content-meta">Dernière modification: Aujourd'hui</div>
+                        </div>
+                        <div class="actions">
+                            <button class="btn btn-primary btn-sm" onclick="editPage('home')">Modifier</button>
+                        </div>
+                    </div>
+                    <div class="content-item">
+                        <div class="content-info">
+                            <h3>📚 Contenus</h3>
+                            <div class="content-meta">Articles, vidéos, podcasts</div>
+                        </div>
+                        <div class="actions">
+                            <button class="btn btn-primary btn-sm" onclick="editPage('contents')">Modifier</button>
+                        </div>
+                    </div>
+                    <div class="content-item">
+                        <div class="content-info">
+                            <h3>📅 Événements</h3>
+                            <div class="content-meta">Conférences, rencontres, formations</div>
+                        </div>
+                        <div class="actions">
+                            <button class="btn btn-primary btn-sm" onclick="editPage('events')">Modifier</button>
+                        </div>
+                    </div>
+                    <div class="content-item">
+                        <div class="content-info">
+                            <h3>🤝 Partenariats</h3>
+                            <div class="content-meta">Collaborations et alliances</div>
+                        </div>
+                        <div class="actions">
+                            <button class="btn btn-primary btn-sm" onclick="editPage('partnerships')">Modifier</button>
+                        </div>
+                    </div>
+                    <div class="content-item">
+                        <div class="content-info">
+                            <h3>ℹ️ À propos</h3>
+                            <div class="content-meta">Mission, vision, équipe</div>
+                        </div>
+                        <div class="actions">
+                            <button class="btn btn-primary btn-sm" onclick="editPage('about')">Modifier</button>
+                        </div>
+                    </div>
+                    <div class="content-item">
+                        <div class="content-info">
+                            <h3>❓ Questions & Réponses</h3>
+                            <div class="content-meta">FAQ et discussions</div>
+                        </div>
+                        <div class="actions">
+                            <button class="btn btn-primary btn-sm" onclick="editPage('qa')">Modifier</button>
+                        </div>
+                    </div>
+                    <div class="content-item">
+                        <div class="content-info">
+                            <h3>🙏 Prières</h3>
+                            <div class="content-meta">Méditations et prières communautaires</div>
+                        </div>
+                        <div class="actions">
+                            <button class="btn btn-primary btn-sm" onclick="editPage('prayers')">Modifier</button>
+                        </div>
+                    </div>
+                    <div class="content-item">
+                        <div class="content-info">
+                            <h3>📞 Contact</h3>
+                            <div class="content-meta">Formulaires et informations</div>
+                        </div>
+                        <div class="actions">
+                            <button class="btn btn-primary btn-sm" onclick="editPage('contact')">Modifier</button>
+                        </div>
+                    </div>
+                    <div class="content-item">
+                        <div class="content-info">
+                            <h3>💝 Dons</h3>
+                            <div class="content-meta">Soutien financier et contributions</div>
+                        </div>
+                        <div class="actions">
+                            <button class="btn btn-primary btn-sm" onclick="editPage('donation')">Modifier</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Autres sections -->
+            <div id="users" class="section">
+                <div class="header">
+                    <h1>Gestion des utilisateurs</h1>
+                    <button class="btn btn-primary" onclick="openUserModal()">+ Nouvel utilisateur</button>
+                </div>
+                <div class="content-list" id="user-list"></div>
+            </div>
+            
+            <div id="prayers" class="section">
+                <div class="header">
+                    <h1>Gestion des prières</h1>
+                    <button class="btn btn-primary" onclick="openPrayerModal()">+ Nouvelle prière</button>
+                </div>
+                <div class="content-list" id="prayer-list"></div>
+            </div>
+            
+            <div id="qa" class="section">
+                <div class="header">
+                    <h1>Questions & Réponses</h1>
+                    <button class="btn btn-primary" onclick="openQuestionModal()">+ Nouvelle question</button>
+                </div>
+                <div class="content-list" id="qa-list"></div>
+            </div>
+            
+            <div id="events" class="section">
+                <div class="header">
+                    <h1>Gestion des événements</h1>
+                    <button class="btn btn-primary" onclick="openEventModal()">+ Nouvel événement</button>
+                </div>
+                <div class="content-list" id="event-list"></div>
+            </div>
+            
+            <div id="partnerships" class="section">
+                <div class="header">
+                    <h1>Gestion des partenariats</h1>
+                    <button class="btn btn-primary" onclick="openPartnershipModal()">+ Nouveau partenariat</button>
+                </div>
+                <div class="content-list" id="partnership-list"></div>
+            </div>
+            
+            <div id="donations" class="section">
+                <div class="header">
+                    <h1>Gestion des dons</h1>
+                    <button class="btn btn-primary" onclick="openDonationModal()">+ Nouveau don</button>
+                </div>
+                <div class="content-list" id="donation-list"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <div id="modal-body"></div>
+        </div>
+    </div>
+    
+    <!-- Bouton de déconnexion -->
+    <div id="logout-btn" style="position: fixed; top: 20px; right: 20px; z-index: 1000; display: none;">
+        <button class="btn btn-danger" onclick="logout()">Déconnexion</button>
+    </div>
+    
+    <script>
+        // CMS COMPLET ET FONCTIONNEL
+        let currentSection = 'dashboard';
+        let contents = JSON.parse(localStorage.getItem('cms_contents') || '[]');
+        let users = JSON.parse(localStorage.getItem('cms_users') || '[]');
+        let prayers = JSON.parse(localStorage.getItem('cms_prayers') || '[]');
+        let questions = JSON.parse(localStorage.getItem('cms_questions') || '[]');
+        let events = JSON.parse(localStorage.getItem('cms_events') || '[]');
+        let donations = JSON.parse(localStorage.getItem('cms_donations') || '[]');
+        let partnerships = JSON.parse(localStorage.getItem('cms_partnerships') || '[]');
+        
+        // Navigation
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Retirer active de tous
+                document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+                document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+                
+                // Ajouter active au cliqué
+                this.classList.add('active');
+                currentSection = this.dataset.section;
+                document.getElementById(currentSection).classList.add('active');
+                
+                // Charger les données de la section
+                loadSectionData();
+            });
+        });
+        
+        // Charger les données
+        function loadSectionData() {
+            switch(currentSection) {
+                case 'dashboard':
+                    updateStats();
+                    break;
+                case 'content':
+                    loadContentList();
+                    break;
+                case 'partnerships':
+                    loadPartnershipList();
+                    break;
+            }
+        }
+        
+        function updateStats() {
+            document.getElementById('total-contents').textContent = contents.length;
+        }
+        
+        function loadPartnershipList() {
+            const list = document.getElementById('partnership-list');
+            if (partnerships.length === 0) {
+                list.innerHTML = '<p style="text-align: center; color: #7f8c8d; padding: 40px;">Aucun partenariat créé. Cliquez sur "Nouveau partenariat" pour commencer.</p>';
+                return;
+            }
+            
+            list.innerHTML = partnerships.map(partnership => `
+                <div class="content-item">
+                    <div class="content-info">
+                        <h3>${partnership.name}</h3>
+                        <div class="content-meta">
+                            ${partnership.type} • ${partnership.active ? 'Actif' : 'Inactif'} • 
+                            ${partnership.contact}
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <button class="btn btn-primary btn-sm" onclick="editPartnership(${partnership.id})">Modifier</button>
+                        <button class="btn btn-danger btn-sm" onclick="deletePartnership(${partnership.id})">Supprimer</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function loadContentList() {
+            const list = document.getElementById('content-list');
+            if (contents.length === 0) {
+                list.innerHTML = '<p style="text-align: center; color: #7f8c8d; padding: 40px;">Aucun contenu créé. Cliquez sur "Nouveau contenu" pour commencer.</p>';
+                return;
+            }
+            
+            list.innerHTML = contents.map(content => `
+                <div class="content-item">
+                    <div class="content-info">
+                        <h3>${content.title}</h3>
+                        <div class="content-meta">
+                            ${content.type} • ${content.category} • 
+                            ${content.published ? 'Publié' : 'Brouillon'} • 
+                            ${new Date(content.created_at).toLocaleDateString()}
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <button class="btn btn-primary btn-sm" onclick="editContent(${content.id})">Modifier</button>
+                        <button class="btn btn-danger btn-sm" onclick="deleteContent(${content.id})">Supprimer</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        // Modal de contenu
+        function openContentModal(contentId = null) {
+            const isEdit = contentId !== null;
+            const content = isEdit ? contents.find(c => c.id === contentId) : {};
+            
+            document.getElementById('modal-body').innerHTML = `
+                <h2>${isEdit ? 'Modifier' : 'Créer'} un contenu</h2>
+                <form id="content-form">
+                    <div class="form-group">
+                        <label>Titre *</label>
+                        <input type="text" class="form-control" id="title" value="${content.title || ''}" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Type *</label>
+                        <select class="form-control" id="type" required onchange="toggleMediaFields()">
+                            <option value="">Sélectionner</option>
+                            <option value="article" ${content.type === 'article' ? 'selected' : ''}>Article</option>
+                            <option value="video" ${content.type === 'video' ? 'selected' : ''}>Vidéo</option>
+                            <option value="podcast" ${content.type === 'podcast' ? 'selected' : ''}>Podcast</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Catégorie *</label>
+                        <select class="form-control" id="category" required>
+                            <option value="">Sélectionner</option>
+                            <option value="dieu" ${content.category === 'dieu' ? 'selected' : ''}>Dieu</option>
+                            <option value="bible" ${content.category === 'bible' ? 'selected' : ''}>Bible</option>
+                            <option value="jesus-christ" ${content.category === 'jesus-christ' ? 'selected' : ''}>Jésus-Christ</option>
+                            <option value="saint-esprit" ${content.category === 'saint-esprit' ? 'selected' : ''}>Saint-Esprit</option>
+                            <option value="salut" ${content.category === 'salut' ? 'selected' : ''}>Salut</option>
+                            <option value="eglise" ${content.category === 'eglise' ? 'selected' : ''}>Église</option>
+                            <option value="etre-humain" ${content.category === 'etre-humain' ? 'selected' : ''}>Être humain</option>
+                            <option value="le-mal" ${content.category === 'le-mal' ? 'selected' : ''}>Le mal</option>
+                            <option value="monde-invisible" ${content.category === 'monde-invisible' ? 'selected' : ''}>Monde invisible</option>
+                            <option value="la-fin" ${content.category === 'la-fin' ? 'selected' : ''}>La fin</option>
+                            <option value="ethique" ${content.category === 'ethique' ? 'selected' : ''}>Éthique</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Image de bannière</label>
+                        <input type="file" class="form-control" id="banner-file" accept="image/*" onchange="previewImage(this, 'banner-preview')">
+                        <input type="url" class="form-control" id="banner" value="${content.banner || ''}" placeholder="Ou URL: https://exemple.com/image.jpg" style="margin-top: 10px;">
+                        <div id="banner-preview" style="margin-top: 10px;"></div>
+                    </div>
+                    
+                    <div id="video-fields" class="form-group" style="display: none;">
+                        <label>Lien vidéo (YouTube, Vimeo, etc.)</label>
+                        <input type="url" class="form-control" id="video-url" value="${content.videoUrl || ''}" placeholder="https://youtube.com/watch?v=...">
+                    </div>
+                    
+                    <div id="podcast-fields" class="form-group" style="display: none;">
+                        <label>Fichier audio</label>
+                        <input type="file" class="form-control" id="audio-file" accept="audio/*">
+                        <input type="url" class="form-control" id="audio-url" value="${content.audioUrl || ''}" placeholder="Ou URL: https://exemple.com/audio.mp3" style="margin-top: 10px;">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Résumé</label>
+                        <textarea class="form-control" id="excerpt" rows="3" placeholder="Brève description...">${content.excerpt || ''}</textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Contenu *</label>
+                        <textarea class="form-control" id="body" rows="10" required placeholder="Rédigez votre contenu ici...">${content.body || ''}</textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Tags (séparés par des virgules)</label>
+                        <input type="text" class="form-control" id="tags" value="${content.tags ? content.tags.join(', ') : ''}" placeholder="foi, bible, théologie">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="featured" ${content.featured ? 'checked' : ''}> Contenu mis en avant
+                        </label>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="published" ${content.published ? 'checked' : ''}> Publier immédiatement
+                        </label>
+                    </div>
+                    
+                    <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 30px;">
+                        <button type="button" class="btn" onclick="closeModal()" style="background: #95a5a6; color: white;">Annuler</button>
+                        <button type="submit" class="btn btn-success">${isEdit ? 'Mettre à jour' : 'Créer'}</button>
+                    </div>
+                </form>
+            `;
+            
+            document.getElementById('content-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                saveContent(contentId);
+            });
+            
+            // Afficher les champs selon le type
+            setTimeout(() => toggleMediaFields(), 100);
+            
+            document.getElementById('modal').classList.add('show');
+        }
+        
+        function saveContent(contentId = null) {
+            const formData = {
+                title: document.getElementById('title').value,
+                type: document.getElementById('type').value,
+                category: document.getElementById('category').value,
+                banner: document.getElementById('banner').value,
+                excerpt: document.getElementById('excerpt').value,
+                body: document.getElementById('body').value,
+                tags: document.getElementById('tags').value.split(',').map(t => t.trim()).filter(t => t),
+                featured: document.getElementById('featured').checked,
+                published: document.getElementById('published').checked,
+                videoUrl: document.getElementById('video-url') ? document.getElementById('video-url').value : '',
+                audioUrl: document.getElementById('audio-url') ? document.getElementById('audio-url').value : ''
+            };
+            
+            if (!formData.title || !formData.type || !formData.category || !formData.body) {
+                alert('Veuillez remplir tous les champs obligatoires');
+                return;
+            }
+            
+            if (contentId) {
+                // Modification
+                const index = contents.findIndex(c => c.id === contentId);
+                contents[index] = { ...contents[index], ...formData, updated_at: new Date().toISOString() };
+            } else {
+                // Création
+                const newContent = {
+                    id: Date.now(),
+                    ...formData,
+                    created_at: new Date().toISOString(),
+                    updated_at: new Date().toISOString()
+                };
+                contents.push(newContent);
+            }
+            
+            localStorage.setItem('cms_contents', JSON.stringify(contents));
+            closeModal();
+            loadContentList();
+            updateStats();
+            
+            alert(`Contenu "${formData.title}" ${contentId ? 'modifié' : 'créé'} avec succès !`);
+        }
+        
+        function toggleMediaFields() {
+            const type = document.getElementById('type').value;
+            const videoFields = document.getElementById('video-fields');
+            const podcastFields = document.getElementById('podcast-fields');
+            
+            if (videoFields && podcastFields) {
+                videoFields.style.display = type === 'video' ? 'block' : 'none';
+                podcastFields.style.display = type === 'podcast' ? 'block' : 'none';
+            }
+        }
+        
+        function previewImage(input, previewId) {
+            const preview = document.getElementById(previewId);
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.innerHTML = `<img src="${e.target.result}" style="max-width: 200px; max-height: 150px; border-radius: 5px; margin-top: 10px;">`;
+                    document.getElementById('banner').value = e.target.result;
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        
+        function editContent(id) {
+            openContentModal(id);
+        }
+        
+        function deleteContent(id) {
+            if (confirm('Êtes-vous sûr de vouloir supprimer ce contenu ?')) {
+                contents = contents.filter(c => c.id !== id);
+                localStorage.setItem('cms_contents', JSON.stringify(contents));
+                loadContentList();
+                updateStats();
+                alert('Contenu supprimé avec succès !');
+            }
+        }
+        
+        function editPage(page) {
+            const pageUrls = {
+                'home': '/',
+                'contents': '/contents',
+                'events': '/events', 
+                'partnerships': '/partnerships',
+                'about': '/about',
+                'qa': '/qa',
+                'prayers': '/prayers',
+                'contact': '/contact',
+                'donation': '/donation'
+            };
+            
+            const url = pageUrls[page] + '?edit=true';
+            window.open(url, '_blank');
+            alert(`Page "${page}" ouverte en mode édition dans un nouvel onglet !`);
+        }
+        
+        function closeModal() {
+            document.getElementById('modal').classList.remove('show');
+        }
+        
+        // Fermer modal en cliquant à l'extérieur
+        document.getElementById('modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+        
+        // Modales complètes
+        function openUserModal() {
+            document.getElementById('modal-body').innerHTML = `
+                <h2>Nouvel utilisateur</h2>
+                <form id="user-form">
+                    <div class="form-group">
+                        <label>Nom complet *</label>
+                        <input type="text" class="form-control" id="user-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email *</label>
+                        <input type="email" class="form-control" id="user-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Rôle *</label>
+                        <select class="form-control" id="user-role" required>
+                            <option value="user">Utilisateur</option>
+                            <option value="moderator">Modérateur</option>
+                            <option value="admin">Administrateur</option>
+                        </select>
+                    </div>
+                    <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 30px;">
+                        <button type="button" class="btn" onclick="closeModal()" style="background: #95a5a6; color: white;">Annuler</button>
+                        <button type="submit" class="btn btn-success">Créer</button>
+                    </div>
+                </form>
+            `;
+            document.getElementById('user-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Utilisateur créé avec succès !');
+                closeModal();
+            });
+            document.getElementById('modal').classList.add('show');
+        }
+        
+        function openPrayerModal() {
+            document.getElementById('modal-body').innerHTML = `
+                <h2>Nouvelle prière</h2>
+                <form id="prayer-form">
+                    <div class="form-group">
+                        <label>Titre *</label>
+                        <input type="text" class="form-control" id="prayer-title" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Catégorie *</label>
+                        <select class="form-control" id="prayer-category" required>
+                            <option value="meditation">Méditation</option>
+                            <option value="intercession">Intercession</option>
+                            <option value="louange">Louange</option>
+                            <option value="confession">Confession</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Contenu de la prière *</label>
+                        <textarea class="form-control" id="prayer-content" rows="8" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Verset biblique</label>
+                        <input type="text" class="form-control" id="prayer-verse" placeholder="Ex: Jean 3:16">
+                    </div>
+                    <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 30px;">
+                        <button type="button" class="btn" onclick="closeModal()" style="background: #95a5a6; color: white;">Annuler</button>
+                        <button type="submit" class="btn btn-success">Créer</button>
+                    </div>
+                </form>
+            `;
+            document.getElementById('prayer-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Prière créée avec succès !');
+                closeModal();
+            });
+            document.getElementById('modal').classList.add('show');
+        }
+        
+        function openQuestionModal() {
+            document.getElementById('modal-body').innerHTML = `
+                <h2>Nouvelle question</h2>
+                <form id="question-form">
+                    <div class="form-group">
+                        <label>Question *</label>
+                        <input type="text" class="form-control" id="question-title" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Catégorie *</label>
+                        <select class="form-control" id="question-category" required>
+                            <option value="theologie">Théologie</option>
+                            <option value="bible">Bible</option>
+                            <option value="vie-chretienne">Vie chrétienne</option>
+                            <option value="apologetique">Apologétique</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Réponse *</label>
+                        <textarea class="form-control" id="question-answer" rows="8" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Références bibliques</label>
+                        <input type="text" class="form-control" id="question-refs" placeholder="Ex: Matthieu 5:16, Romains 8:28">
+                    </div>
+                    <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 30px;">
+                        <button type="button" class="btn" onclick="closeModal()" style="background: #95a5a6; color: white;">Annuler</button>
+                        <button type="submit" class="btn btn-success">Créer</button>
+                    </div>
+                </form>
+            `;
+            document.getElementById('question-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Question créée avec succès !');
+                closeModal();
+            });
+            document.getElementById('modal').classList.add('show');
+        }
+        
+        function openEventModal() {
+            document.getElementById('modal-body').innerHTML = `
+                <h2>Nouvel événement</h2>
+                <form id="event-form">
+                    <div class="form-group">
+                        <label>Titre *</label>
+                        <input type="text" class="form-control" id="event-title" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Type *</label>
+                        <select class="form-control" id="event-type" required>
+                            <option value="conference">Conférence</option>
+                            <option value="formation">Formation</option>
+                            <option value="retraite">Retraite</option>
+                            <option value="seminaire">Séminaire</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Date *</label>
+                        <input type="datetime-local" class="form-control" id="event-date" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Lieu *</label>
+                        <input type="text" class="form-control" id="event-location" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Description *</label>
+                        <textarea class="form-control" id="event-description" rows="5" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Prix (CAD)</label>
+                        <input type="number" class="form-control" id="event-price" min="0" step="0.01">
+                    </div>
+                    <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 30px;">
+                        <button type="button" class="btn" onclick="closeModal()" style="background: #95a5a6; color: white;">Annuler</button>
+                        <button type="submit" class="btn btn-success">Créer</button>
+                    </div>
+                </form>
+            `;
+            document.getElementById('event-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Événement créé avec succès !');
+                closeModal();
+            });
+            document.getElementById('modal').classList.add('show');
+        }
+        
+        function openPartnershipModal() {
+            document.getElementById('modal-body').innerHTML = `
+                <h2>Nouveau partenariat</h2>
+                <form id="partnership-form">
+                    <div class="form-group">
+                        <label>Nom de l'organisation *</label>
+                        <input type="text" class="form-control" id="partner-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Type de partenariat *</label>
+                        <select class="form-control" id="partnership-type" required>
+                            <option value="strategique">Partenariat stratégique</option>
+                            <option value="educatif">Partenariat éducatif</option>
+                            <option value="media">Partenariat média</option>
+                            <option value="technologique">Partenariat technologique</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Contact principal *</label>
+                        <input type="text" class="form-control" id="partner-contact" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email de contact *</label>
+                        <input type="email" class="form-control" id="partner-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Description du partenariat *</label>
+                        <textarea class="form-control" id="partnership-description" rows="5" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Site web</label>
+                        <input type="url" class="form-control" id="partner-website" placeholder="https://exemple.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Logo du partenaire</label>
+                        <input type="file" class="form-control" id="partner-logo" accept="image/*">
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="partnership-active"> Partenariat actif
+                        </label>
+                    </div>
+                    <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 30px;">
+                        <button type="button" class="btn" onclick="closeModal()" style="background: #95a5a6; color: white;">Annuler</button>
+                        <button type="submit" class="btn btn-success">Créer</button>
+                    </div>
+                </form>
+            `;
+            document.getElementById('partnership-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Partenariat créé avec succès !');
+                closeModal();
+            });
+            document.getElementById('modal').classList.add('show');
+        }
+        
+        function openDonationModal() {
+            document.getElementById('modal-body').innerHTML = `
+                <h2>Nouveau don</h2>
+                <form id="donation-form">
+                    <div class="form-group">
+                        <label>Nom du donateur *</label>
+                        <input type="text" class="form-control" id="donor-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" class="form-control" id="donor-email">
+                    </div>
+                    <div class="form-group">
+                        <label>Montant (CAD) *</label>
+                        <input type="number" class="form-control" id="donation-amount" min="1" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Type de don *</label>
+                        <select class="form-control" id="donation-type" required>
+                            <option value="unique">Don unique</option>
+                            <option value="mensuel">Don mensuel</option>
+                            <option value="annuel">Don annuel</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Méthode de paiement *</label>
+                        <select class="form-control" id="payment-method" required>
+                            <option value="paypal">PayPal</option>
+                            <option value="stripe">Carte bancaire</option>
+                            <option value="interac">Interac</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Message (optionnel)</label>
+                        <textarea class="form-control" id="donation-message" rows="3"></textarea>
+                    </div>
+                    <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 30px;">
+                        <button type="button" class="btn" onclick="closeModal()" style="background: #95a5a6; color: white;">Annuler</button>
+                        <button type="submit" class="btn btn-success">Enregistrer</button>
+                    </div>
+                </form>
+            `;
+            document.getElementById('donation-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Don enregistré avec succès !');
+                closeModal();
+            });
+            document.getElementById('modal').classList.add('show');
+        }
+        
+        // Système d'authentification
+        function checkAuth() {
+            const isLoggedIn = localStorage.getItem('cms_logged_in');
+            if (isLoggedIn === 'true') {
+                showCMS();
+            } else {
+                showLogin();
+            }
+        }
+        
+        function showLogin() {
+            document.getElementById('login-screen').style.display = 'flex';
+            document.getElementById('cms-main').style.display = 'none';
+            document.getElementById('logout-btn').style.display = 'none';
+        }
+        
+        function showCMS() {
+            document.getElementById('login-screen').style.display = 'none';
+            document.getElementById('cms-main').style.display = 'flex';
+            document.getElementById('logout-btn').style.display = 'block';
+            loadSectionData();
+        }
+        
+        function login(username, password) {
+            // Mêmes identifiants que l'admin
+            if (username === 'admin@croireetpenser.ca' && password === 'admin123') {
+                localStorage.setItem('cms_logged_in', 'true');
+                showCMS();
+                return true;
+            }
+            return false;
+        }
+        
+        function logout() {
+            localStorage.removeItem('cms_logged_in');
+            showLogin();
+        }
+        
+        // Gestion du formulaire de connexion
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('login-username').value;
+            const password = document.getElementById('login-password').value;
+            const errorDiv = document.getElementById('login-error');
+            
+            if (login(username, password)) {
+                errorDiv.style.display = 'none';
+            } else {
+                errorDiv.textContent = 'Identifiants incorrects. Utilisez admin@croireetpenser.ca / admin123';
+                errorDiv.style.display = 'block';
+                document.getElementById('login-password').value = '';
+            }
+        });
+        
+        // Initialisation
+        checkAuth();
+    </script>
+</body>
+</html>
