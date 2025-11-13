@@ -2,6 +2,79 @@
 const API_BASE = window.location.origin + '/api';
 let currentUser = null;
 
+const contentDetailData = {
+    article: [
+        {
+            badge: 'Article',
+            title: 'Foi et raison : regards croisés',
+            meta: 'Lecture 7 min',
+            description: 'Un parcours biblique et philosophique pour articuler intelligence et foi vivante.',
+        },
+        {
+            badge: 'Article',
+            title: 'Pratiquer la prière quotidienne',
+            meta: 'Lecture 5 min',
+            description: 'Des pistes concrètes pour instaurer un rythme de prière personnel et communautaire.',
+        },
+        {
+            badge: 'Article',
+            title: 'Comprendre les paraboles',
+            meta: 'Lecture 9 min',
+            description: 'Contextes culturels et clés d’interprétation pour lire les paraboles aujourd’hui.',
+        },
+    ],
+    video: [
+        {
+            badge: 'Vidéo',
+            title: 'Webinaire – Science et foi dialoguent',
+            meta: '35 min',
+            description: 'Un échange avec un astrophysicien chrétien autour des grandes questions cosmiques.',
+        },
+        {
+            badge: 'Vidéo',
+            title: 'Témoignage – Croire au cœur de la crise',
+            meta: '18 min',
+            description: 'Une histoire de résilience spirituelle et de solidarité communautaire.',
+        },
+    ],
+    podcast: [
+        {
+            badge: 'Podcast',
+            title: 'Foi & Raison – Saison 2',
+            meta: 'Épisode 12 • 28 min',
+            description: 'Conversation avec une théologienne sur la justice sociale et l’Évangile.',
+        },
+        {
+            badge: 'Podcast',
+            title: 'Méditations du matin',
+            meta: 'Série quotidienne',
+            description: 'Méditations guidées et prières pour commencer la journée centré sur Christ.',
+        },
+    ],
+    study: [
+        {
+            badge: 'Guide',
+            title: 'Parcours Évangile de Jean',
+            meta: '8 rencontres',
+            description: 'Questions de discussion, cartes contextuelles et prières pour chaque chapitre clé.',
+        },
+        {
+            badge: 'Guide',
+            title: 'Atelier sur les Psaumes',
+            meta: '4 ateliers',
+            description: 'Un cheminement poétique et théologique pour chanter la fidélité de Dieu.',
+        },
+    ],
+    default: [
+        {
+            badge: 'Ressource',
+            title: 'Compilation multimédia',
+            meta: 'Sélection exclusive',
+            description: 'Articles, podcasts et vidéos pour approfondir le thème choisi.',
+        },
+    ],
+};
+
 // Initialisation de l'application
 document.addEventListener('DOMContentLoaded', function() {
     checkAuthStatus();
@@ -78,7 +151,7 @@ function showQuestions() {
 }
 
 function hideAllPages() {
-    const pages = ['homePage', 'aboutPage', 'contentsPage', 'questionsPage', 'contentsDetailPage', 'qaDetailPage', 'thematicPage', 'donationPage', 'contactPage', 'prayersPage'];
+const pages = ['homePage', 'aboutPage', 'contentsPage', 'questionsPage', 'contentsDetailPage', 'qaDetailPage', 'thematicPage', 'donationPage', 'contactPage', 'prayersPage', 'contentDetailView'];
     pages.forEach(pageId => {
         const page = document.getElementById(pageId);
         if (page) {
@@ -145,6 +218,62 @@ function showQADetail() {
     hideAllPages();
     document.getElementById('qaDetailPage').classList.remove('d-none');
     refreshPageAnimations();
+}
+
+function openContentDetail(type, title, subtitle) {
+    hideAllPages();
+    const detailPage = document.getElementById('contentDetailView');
+    if (!detailPage) return;
+
+    const safeSubtitle = subtitle || 'Découvrez nos ressources en profondeur.';
+    document.getElementById('contentDetailTitle').textContent = title;
+    document.getElementById('contentDetailSubtitle').textContent = safeSubtitle;
+
+    const loadingSection = detailPage.querySelector('.content-detail-loading');
+    const bodySection = document.getElementById('contentDetailBody');
+    const listWrapper = document.getElementById('contentDetailList');
+
+    if (loadingSection) loadingSection.classList.remove('d-none');
+    if (bodySection) bodySection.classList.add('d-none');
+
+    const entries = contentDetailData[type] || contentDetailData.default;
+    if (listWrapper) {
+        listWrapper.innerHTML = entries.map(buildContentDetailCard).join('');
+    }
+
+    detailPage.classList.remove('d-none');
+    refreshPageAnimations();
+
+    setTimeout(() => {
+        if (loadingSection) loadingSection.classList.add('d-none');
+        if (bodySection) {
+            bodySection.classList.remove('d-none');
+            refreshPageAnimations();
+        }
+    }, 1500);
+}
+
+function buildContentDetailCard(item) {
+    const badge = item.badge || 'Ressource';
+    const title = item.title || 'Contenu disponible prochainement';
+    const meta = item.meta || '';
+    const description = item.description || '';
+
+    return `
+        <div class="col-md-6 col-lg-4">
+            <div class="card h-100 animate-on-scroll">
+                <div class="card-body d-flex flex-column">
+                    <span class="badge rounded-pill text-bg-light text-primary mb-3">${badge}</span>
+                    <h5 class="card-title">${title}</h5>
+                    ${meta ? `<p class="text-muted small mb-3">${meta}</p>` : ''}
+                    <p class="card-text flex-grow-1">${description}</p>
+                    <button class="btn btn-outline-primary mt-3 align-self-start">
+                        <i class="fas fa-arrow-right me-2"></i>Consulter
+                    </button>
+                </div>
+            </div>
+        </div>
+    `;
 }
 
 // Chargement des contenus récents pour la grille
@@ -788,3 +917,4 @@ async function handleNewLogin(e) {
 // Fonctions globales pour les nouvelles pages
 window.showContentsDetail = showContentsDetail;
 window.showQADetail = showQADetail;
+window.openContentDetail = openContentDetail;
