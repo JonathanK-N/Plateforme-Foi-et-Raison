@@ -487,13 +487,63 @@
     <script>
         // CMS COMPLET ET FONCTIONNEL
         let currentSection = 'dashboard';
-        let contents = JSON.parse(localStorage.getItem('cms_contents') || '[]');
-        let users = JSON.parse(localStorage.getItem('cms_users') || '[]');
-        let prayers = JSON.parse(localStorage.getItem('cms_prayers') || '[]');
-        let questions = JSON.parse(localStorage.getItem('cms_questions') || '[]');
-        let events = JSON.parse(localStorage.getItem('cms_events') || '[]');
-        let donations = JSON.parse(localStorage.getItem('cms_donations') || '[]');
-        let partnerships = JSON.parse(localStorage.getItem('cms_partnerships') || '[]');
+        let contents = [];
+        let users = [];
+        let prayers = [];
+        let questions = [];
+        let events = [];
+        let donations = [];
+        let partnerships = [];
+        
+        // Fonctions API avec fallback localStorage
+        async function apiCall(url, method = 'GET', data = null) {
+            const options = {
+                method,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            };
+            
+            if (data) {
+                options.body = JSON.stringify(data);
+            }
+            
+            try {
+                const response = await fetch(url, options);
+                if (response.ok) {
+                    return await response.json();
+                } else {
+                    console.warn('API call failed, using localStorage fallback');
+                    return handleLocalStorage(url, method, data);
+                }
+            } catch (error) {
+                console.warn('API Error, using localStorage fallback:', error);
+                return handleLocalStorage(url, method, data);
+            }
+        }
+        
+        function handleLocalStorage(url, method, data) {
+            const key = url.split('/').pop();
+            
+            switch (method) {
+                case 'GET':
+                    return JSON.parse(localStorage.getItem(`cms_${key}`) || '[]');
+                case 'POST':
+                    const items = JSON.parse(localStorage.getItem(`cms_${key}`) || '[]');
+                    const newItem = { ...data, id: Date.now(), created_at: new Date().toISOString() };
+                    items.push(newItem);
+                    localStorage.setItem(`cms_${key}`, JSON.stringify(items));
+                    return { success: true, id: newItem.id };
+                case 'PUT':
+                    // Pour les modifications
+                    return { success: true };
+                case 'DELETE':
+                    // Pour les suppressions
+                    return { success: true };
+                default:
+                    return null;
+            }
+        }
         
         // Navigation
         document.querySelectorAll('.nav-item').forEach(item => {
@@ -515,25 +565,49 @@
         });
         
         // Charger les données
-        function loadSectionData() {
+        async function loadSectionData() {
             switch(currentSection) {
                 case 'dashboard':
-                    updateStats();
+                    await updateStats();
                     break;
                 case 'content':
-                    loadContentList();
+                    await loadContentList();
                     break;
                 case 'partnerships':
-                    loadPartnershipList();
+                    await loadPartnershipList();
                     break;
             }
         }
         
-        function updateStats() {
+        async function updateStats() {
+            await loadAllData();
             document.getElementById('total-contents').textContent = contents.length;
         }
         
-        function loadPartnershipList() {
+        async function loadAllData() {
+            // Charger depuis localStorage d'abord, puis synchroniser avec l'API
+            contents = JSON.parse(localStorage.getItem('cms_contents') || '[]');
+            users = JSON.parse(localStorage.getItem('cms_users') || '[]');
+            prayers = JSON.parse(localStorage.getItem('cms_prayers') || '[]');
+            questions = JSON.parse(localStorage.getItem('cms_questions') || '[]');
+            events = JSON.parse(localStorage.getItem('cms_events') || '[]');
+            donations = JSON.parse(localStorage.getItem('cms_donations') || '[]');
+            partnerships = JSON.parse(localStorage.getItem('cms_partnerships') || '[]');
+            
+            // Essayer de synchroniser avec l'API en arrière-plan
+            try {
+                const apiContents = await fetch('/api/cms/contents').then(r => r.json()).catch(() => null);
+                if (apiContents) {
+                    contents = apiContents;
+                    localStorage.setItem('cms_contents', JSON.stringify(contents));
+                }
+            } catch (e) {
+                console.log('API non disponible, utilisation du cache local');
+            }
+        }
+        
+        async function loadPartnershipList() {
+            partnerships = await apiCall('/api/cms/partnerships') || [];
             const list = document.getElementById('partnership-list');
             if (partnerships.length === 0) {
                 list.innerHTML = '<p style="text-align: center; color: #7f8c8d; padding: 40px;">Aucun partenariat créé. Cliquez sur "Nouveau partenariat" pour commencer.</p>';
@@ -557,7 +631,8 @@
             `).join('');
         }
         
-        function loadContentList() {
+        async function loadContentList() {
+            contents = await apiCall('/api/cms/contents') || [];
             const list = document.getElementById('content-list');
             if (contents.length === 0) {
                 list.innerHTML = '<p style="text-align: center; color: #7f8c8d; padding: 40px;">Aucun contenu créé. Cliquez sur "Nouveau contenu" pour commencer.</p>';
@@ -686,7 +761,7 @@
             document.getElementById('modal').classList.add('show');
         }
         
-        function saveContent(contentId = null) {
+        async function saveContent(contentId = null) {
             const formData = {
                 title: document.getElementById('title').value,
                 type: document.getElementById('type').value,
@@ -706,12 +781,22 @@
                 return;
             }
             
+            let result;
             if (contentId) {
                 // Modification
-                const index = contents.findIndex(c => c.id === contentId);
-                contents[index] = { ...contents[index], ...formData, updated_at: new Date().toISOString() };
+                result = await apiCall(`/api/cms/contents/${contentId}`, 'PUT', formData);
             } else {
                 // Création
+                result = await apiCall('/api/cms/contents', 'POST', formData);
+            }
+            
+            // Sauvegarder
+            if (contentId) {
+                const index = contents.findIndex(c => c.id === contentId);
+                if (index !== -1) {
+                    contents[index] = { ...contents[index], ...formData, updated_at: new Date().toISOString() };
+                }
+            } else {
                 const newContent = {
                     id: Date.now(),
                     ...formData,
@@ -721,12 +806,25 @@
                 contents.push(newContent);
             }
             
+            // Sauvegarder dans localStorage
             localStorage.setItem('cms_contents', JSON.stringify(contents));
-            closeModal();
-            loadContentList();
-            updateStats();
+            localStorage.setItem('cms_last_update', Date.now().toString());
             
-            alert(`Contenu "${formData.title}" ${contentId ? 'modifié' : 'créé'} avec succès !`);
+            console.log('Contenu sauvegardé:', formData.title);
+            console.log('Total contenus:', contents.length);
+            
+            closeModal();
+            await loadContentList();
+            await updateStats();
+            
+            showNotification(`Contenu "${formData.title}" ${contentId ? 'modifié' : 'créé'} avec succès !`, 'success');
+            
+            // Forcer le rechargement sur le site
+            setTimeout(() => {
+                if (window.reloadCMSContent) {
+                    window.reloadCMSContent();
+                }
+            }, 500);
         }
         
         function toggleMediaFields() {
@@ -756,13 +854,24 @@
             openContentModal(id);
         }
         
-        function deleteContent(id) {
+        async function deleteContent(id) {
             if (confirm('Êtes-vous sûr de vouloir supprimer ce contenu ?')) {
                 contents = contents.filter(c => c.id !== id);
                 localStorage.setItem('cms_contents', JSON.stringify(contents));
-                loadContentList();
-                updateStats();
-                alert('Contenu supprimé avec succès !');
+                localStorage.setItem('cms_last_update', Date.now().toString());
+                
+                console.log('Contenu supprimé, reste:', contents.length);
+                
+                await loadContentList();
+                await updateStats();
+                showNotification('Contenu supprimé avec succès !', 'success');
+                
+                // Forcer le rechargement
+                setTimeout(() => {
+                    if (window.reloadCMSContent) {
+                        window.reloadCMSContent();
+                    }
+                }, 500);
             }
         }
         
@@ -822,10 +931,20 @@
                     </div>
                 </form>
             `;
-            document.getElementById('user-form').addEventListener('submit', function(e) {
+            document.getElementById('user-form').addEventListener('submit', async function(e) {
                 e.preventDefault();
-                alert('Utilisateur créé avec succès !');
-                closeModal();
+                const userData = {
+                    name: document.getElementById('user-name').value,
+                    email: document.getElementById('user-email').value,
+                    role: document.getElementById('user-role').value
+                };
+                const result = await apiCall('/api/cms/users', 'POST', userData);
+                if (result && result.success) {
+                    alert('Utilisateur créé avec succès !');
+                    closeModal();
+                } else {
+                    alert('Erreur lors de la création');
+                }
             });
             document.getElementById('modal').classList.add('show');
         }
@@ -900,10 +1019,21 @@
                     </div>
                 </form>
             `;
-            document.getElementById('question-form').addEventListener('submit', function(e) {
+            document.getElementById('question-form').addEventListener('submit', async function(e) {
                 e.preventDefault();
-                alert('Question créée avec succès !');
-                closeModal();
+                const questionData = {
+                    title: document.getElementById('question-title').value,
+                    category: document.getElementById('question-category').value,
+                    answer: document.getElementById('question-answer').value,
+                    refs: document.getElementById('question-refs').value
+                };
+                const result = await apiCall('/api/cms/questions', 'POST', questionData);
+                if (result && result.success) {
+                    alert('Question créée avec succès !');
+                    closeModal();
+                } else {
+                    alert('Erreur lors de la création');
+                }
             });
             document.getElementById('modal').classList.add('show');
         }
@@ -1115,8 +1245,61 @@
             }
         });
         
+        // Fonction de notification
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 15px 20px;
+                border-radius: 5px;
+                color: white;
+                font-weight: 600;
+                z-index: 10001;
+                max-width: 400px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                animation: slideIn 0.3s ease;
+            `;
+            
+            if (type === 'success') {
+                notification.style.background = '#27ae60';
+            } else if (type === 'error') {
+                notification.style.background = '#e74c3c';
+            } else {
+                notification.style.background = '#3498db';
+            }
+            
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 4000);
+        }
+        
+        // Ajouter les animations CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+        
         // Initialisation
         checkAuth();
+        
+        // Charger les données au démarrage
+        loadAllData();
     </script>
 </body>
 </html>

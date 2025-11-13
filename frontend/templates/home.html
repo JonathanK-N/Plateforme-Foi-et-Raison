@@ -318,10 +318,15 @@
     </div>
 </section>
 </div>
+
+
+
 {% endblock %}
 
 {% block extra_scripts %}
 <script src="{{ url_for('static', filename='js/home.js') }}"></script>
+<script src="{{ url_for('static', filename='js/simple-edit.js') }}"></script>
+<script src="{{ url_for('static', filename='js/cms-sync.js') }}"></script>
 <script>
 document.addEventListener('DOMContentLoaded', () => {
     const heroCarousel = document.getElementById('heroCarousel');
