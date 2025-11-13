@@ -2,27 +2,168 @@
 
 {% block title %}Contact - Croire & Penser{% endblock %}
 
+{% block extra_head %}
+<link href="{{ url_for('static', filename='css/contact.css') }}" rel="stylesheet">
+{% endblock %}
+
 {% block content %}
-<div class="container mt-5">
-    <div class="text-center animate-fade-up">
-        <h1 class="mb-5">Contact</h1>
-    </div>
-    
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="preparation-card text-center animate-fade-left delay-1">
-                <div class="animate-float mb-4">
-                    <i class="fas fa-envelope fa-4x mb-3"></i>
-                </div>
-                <h3 class="mb-3">Contenu en cours de préparation</h3>
-                <p class="mb-4">Notre équipe prépare des contenus adaptés pour vous<span class="loading-dots"></span></p>
-                <div class="d-flex justify-content-center">
-                    <div class="spinner-grow text-light animate-pulse" role="status">
-                        <span class="visually-hidden">Chargement...</span>
+<div class="container mt-5 pt-4">
+    <!-- Hero Section -->
+    <section class="contact-hero animate-fade-up">
+        <h1 class="display-4 fw-bold mb-4">Contactez-nous</h1>
+        <p class="lead mb-4">Nous sommes là pour vous accompagner dans votre cheminement spirituel et intellectuel</p>
+        <p class="mb-0">"Demandez, et l'on vous donnera; cherchez, et vous trouverez" - Matthieu 7:7</p>
+    </section>
+
+    <div class="row g-5 mt-4">
+        <!-- Formulaire de contact -->
+        <div class="col-lg-8">
+            <div class="contact-form-card animate-slide-left">
+                <h2 class="h3 mb-4">Envoyez-nous un message</h2>
+                <form id="contactForm" class="contact-form">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Prénom *</label>
+                            <input type="text" class="form-control" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Nom *</label>
+                            <input type="text" class="form-control" required>
+                        </div>
                     </div>
+                    <div class="mb-3">
+                        <label class="form-label">Email *</label>
+                        <input type="email" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Téléphone</label>
+                        <input type="tel" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Sujet *</label>
+                        <select class="form-select" required>
+                            <option value="">Choisir un sujet</option>
+                            <option value="question-foi">Question de foi</option>
+                            <option value="partenariat">Partenariat</option>
+                            <option value="evenement">Événement</option>
+                            <option value="technique">Support technique</option>
+                            <option value="autre">Autre</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label">Message *</label>
+                        <textarea class="form-control" rows="6" placeholder="Partagez votre message, vos questions ou vos préoccupations..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn-contact">
+                        <i class="fas fa-paper-plane me-2"></i>
+                        Envoyer le message
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Informations de contact -->
+        <div class="col-lg-4">
+            <div class="contact-info animate-slide-right">
+                <h3 class="mb-4">Nos coordonnées</h3>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div>
+                        <h5>Email</h5>
+                        <p>contact@foietraison.ca</p>
+                        <p class="small text-muted">Réponse sous 24h</p>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div>
+                        <h5>Téléphone</h5>
+                        <p>+1 (514) 123-4567</p>
+                        <p class="small text-muted">Lun-Ven 9h-17h</p>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div>
+                        <h5>Adresse</h5>
+                        <p>123 Rue de la Foi<br>Montréal, QC H1A 1A1<br>Canada</p>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div>
+                        <h5>Horaires</h5>
+                        <p>Lundi - Vendredi: 9h - 17h<br>
+                        Samedi: 10h - 14h<br>
+                        Dimanche: Fermé</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Réseaux sociaux -->
+            <div class="social-links animate-fade-up delay-2">
+                <h4 class="mb-3">Suivez-nous</h4>
+                <div class="d-flex gap-3">
+                    <a href="#" class="social-link">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-twitter"></i>
+                    </a>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- FAQ rapide -->
+    <section class="quick-faq animate-fade-up delay-3">
+        <h2 class="text-center mb-5">Questions fréquentes</h2>
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="faq-item">
+                    <h5><i class="fas fa-question-circle me-2"></i>Comment puis-je poser une question théologique ?</h5>
+                    <p>Utilisez notre section <a href="{{ url_for('qa') }}">Questions & Réponses</a> ou contactez-nous directement via ce formulaire.</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="faq-item">
+                    <h5><i class="fas fa-calendar me-2"></i>Comment participer à vos événements ?</h5>
+                    <p>Consultez notre page <a href="{{ url_for('events') }}">Événements</a> pour voir le calendrier et vous inscrire.</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="faq-item">
+                    <h5><i class="fas fa-handshake me-2"></i>Puis-je proposer un partenariat ?</h5>
+                    <p>Bien sûr ! Visitez notre page <a href="{{ url_for('partnerships') }}">Partenariats</a> ou contactez-nous directement.</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="faq-item">
+                    <h5><i class="fas fa-heart me-2"></i>Comment soutenir votre mission ?</h5>
+                    <p>Vous pouvez nous soutenir par un <a href="{{ url_for('donation') }}">don</a> ou en partageant nos contenus.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
+
+<script src="{{ url_for('static', filename='js/contact.js') }}"></script>
 {% endblock %}
