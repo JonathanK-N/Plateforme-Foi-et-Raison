@@ -19,7 +19,7 @@
         <div class="carousel-inner">
             <div class="carousel-item active">
                 <div class="hero-slide">
-                    <div class="hero-slide-bg" style="background-image: url('https://images.unsplash.com/photo-1507692049790-de58290a4334?w=2560&h=1440&fit=crop&crop=center')"></div>
+                    <div class="hero-slide-bg" style="background-image: url('{{ url_for('static', filename='img/hero/hero-croyance.jpg') }}')"></div>
                     <div class="hero-overlay"></div>
                     <div class="hero-content-wrapper">
                         <div class="container">
@@ -35,7 +35,7 @@
             </div>
             <div class="carousel-item">
                 <div class="hero-slide">
-                    <div class="hero-slide-bg" style="background-image: url('https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=2560&h=1440&fit=crop&crop=center')"></div>
+                    <div class="hero-slide-bg" style="background-image: url('{{ url_for('static', filename='img/hero/hero-sagesse.jpg') }}')"></div>
                     <div class="hero-overlay"></div>
                     <div class="hero-content-wrapper">
                         <div class="container">
@@ -51,7 +51,7 @@
             </div>
             <div class="carousel-item">
                 <div class="hero-slide">
-                    <div class="hero-slide-bg" style="background-image: url('https://images.unsplash.com/photo-1438032005730-c779502df39b?w=2560&h=1440&fit=crop&crop=center')"></div>
+                    <div class="hero-slide-bg" style="background-image: url('{{ url_for('static', filename='img/hero/hero-penser.jpg') }}')"></div>
                     <div class="hero-overlay"></div>
                     <div class="hero-content-wrapper">
                         <div class="container">
@@ -87,7 +87,7 @@
                 <p class="section-subtitle">Une plateforme d'excellence dédiée à l'approfondissement de la foi chrétienne par une approche rigoureuse et bienveillante.</p>
             </div>
             <div class="col-lg-5 text-lg-end">
-                <a class="btn btn-outline-primary rounded-pill px-4" href="{{ url_for('about') }}">D&eacute;couvrir la mission</a>
+                <a class="btn btn-outline-primary rounded-pill px-4" href="{{ url_for('about') }}">Lire notre charte &eacute;ditoriale</a>
             </div>
         </div>
         <div class="row g-4">
@@ -136,7 +136,7 @@
         <div class="text-center mb-5">
             <span class="section-kicker">Ressources</span>
             <h2 class="section-title">Ressources en avant</h2>
-            <p class="section-subtitle mx-auto" style="max-width: 680px;">Articles, vid&eacute;os, podcasts et parcours pour approfondir la foi, la pens&eacute;e et l'engagement.</p>
+            <p class="section-subtitle mx-auto" style="max-width: 680px;">Chaque semaine, une s&eacute;lection d'articles, de formats audio-visuels et de parcours guid&eacute;s pour nourrir la m&eacute;ditation, l'enseignement et l'action.</p>
         </div>
         <div class="row g-4">
             <div class="col-lg-4">
@@ -145,7 +145,7 @@
                         <i class="fas fa-feather-pointed"></i>
                     </div>
                     <h3 class="h5 fw-semibold mb-3">Articles de fond</h3>
-                    <p class="mb-4 text-muted">Des dossiers pour relire sciences, histoire et culture &agrave; la lumi&egrave;re de l'&Eacute;vangile.</p>
+                    <p class="mb-4 text-muted">Analyses th&eacute;ologiques, perspectives historiques et lectures culturelles audacieuses pour approfondir l'&Eacute;vangile.</p>
                     <div class="d-flex align-items-center justify-content-between pt-3 border-top">
                         <span class="badge rounded-pill bg-white text-primary px-3 py-2">Lecture guid&eacute;e</span>
                         <a class="btn btn-link fw-semibold text-primary p-0" href="{{ url_for('contents') }}">Lire</a>
@@ -158,7 +158,7 @@
                         <i class="fas fa-play-circle"></i>
                     </div>
                     <h3 class="h5 fw-semibold mb-3">Dialogues vid&eacute;o</h3>
-                    <p class="mb-4 text-muted">Des conversations avec chercheurs, pasteurs et acteurs de terrain.</p>
+                    <p class="mb-4 text-muted">Entretiens avec chercheurs, pasteurs et penseurs pour nourrir le discernement et l'engagement.</p>
                     <div class="d-flex align-items-center justify-content-between pt-3 border-top">
                         <span class="badge rounded-pill bg-white text-primary px-3 py-2">Visionnage</span>
                         <a class="btn btn-link fw-semibold text-primary p-0" href="{{ url_for('contents') }}">Regarder</a>
@@ -171,7 +171,7 @@
                         <i class="fas fa-headphones"></i>
                     </div>
                     <h3 class="h5 fw-semibold mb-3">Podcasts &amp; pri&egrave;res</h3>
-                    <p class="mb-4 text-muted">Des m&eacute;ditations guid&eacute;es pour accompagner chaque moment de la journ&eacute;e.</p>
+                    <p class="mb-4 text-muted">M&eacute;ditations, temps de silence et formats immersifs pour soutenir la vie de pri&egrave;re personnelle ou communautaire.</p>
                     <div class="d-flex align-items-center justify-content-between pt-3 border-top">
                         <span class="badge rounded-pill bg-white text-primary px-3 py-2">&Eacute;coute</span>
                         <a class="btn btn-link fw-semibold text-primary p-0" href="{{ url_for('prayers') }}">&Eacute;couter</a>
@@ -188,19 +188,19 @@
             <div class="col-lg-5">
                 <span class="section-kicker">Impact</span>
                 <h2 class="section-title">Une communaut&eacute; en mouvement</h2>
-                <p class="section-subtitle">Croire &amp; Penser rassemble croyants, chercheurs et curieux autour d'un m&ecirc;me d&eacute;sir&nbsp;: comprendre le monde &agrave; la lumi&egrave;re de l'&Eacute;vangile.</p>
+                <p class="section-subtitle">Croire &amp; Penser r&eacute;unit croyants, chercheuses, responsables d'&Eacute;glise et curieux engag&eacute;s pour comprendre le monde &agrave; la lumi&egrave;re de l'&Eacute;vangile.</p>
                 <ul class="list-unstyled mt-4 mb-0">
                     <li class="d-flex align-items-center mb-3">
                         <span class="me-3 text-primary fs-4"><i class="fas fa-check-circle"></i></span>
-                        <span>Accompagnement de groupes de r&eacute;flexion et d'&eacute;tudes bibliques.</span>
+                        <span>Accompagnement de groupes de r&eacute;flexion, cercles th&eacute;ologiques et parcours d'&eacute;tudes bibliques.</span>
                     </li>
                     <li class="d-flex align-items-center mb-3">
                         <span class="me-3 text-primary fs-4"><i class="fas fa-check-circle"></i></span>
-                        <span>D&eacute;bats et ateliers pour &eacute;tudiants, jeunes pros et responsables.</span>
+                        <span>Ateliers, d&eacute;bats et masterclasses pour &eacute;tudiants, jeunes professionnels et responsables.</span>
                     </li>
                     <li class="d-flex align-items-center">
                         <span class="me-3 text-primary fs-4"><i class="fas fa-check-circle"></i></span>
-                        <span>Guides pratiques pour servir les &Eacute;glises locales et les familles.</span>
+                        <span>Guides pratiques pour soutenir les &Eacute;glises locales, les familles et les acteurs sociaux.</span>
                     </li>
                 </ul>
             </div>
@@ -236,7 +236,7 @@
             <div class="col-lg-5">
                 <span class="section-kicker">Questions cl&eacute;s</span>
                 <h2 class="section-title">R&eacute;pondre aux grandes questions</h2>
-                <p class="section-subtitle">Nos parcours th&eacute;matiques accompagnent croyants et curieux face aux enjeux spirituels et philosophiques de notre &eacute;poque.</p>
+                <p class="section-subtitle">Nos dossiers th&eacute;matiques accompagnent croyants et curieux face aux enjeux spirituels, culturels et soci&eacute;taux contemporains.</p>
                 <a class="btn btn-primary rounded-pill px-4 mt-4" href="{{ url_for('qa') }}">Voir les questions fr&eacute;quentes</a>
             </div>
             <div class="col-lg-7">
@@ -247,7 +247,7 @@
                                 <i class="fas fa-infinity"></i>
                             </div>
                             <h3 class="h6 fw-semibold">Foi &amp; science</h3>
-                            <p class="mb-0 text-muted">Comprendre comment r&eacute;v&eacute;lation et recherche se compl&egrave;tent.</p>
+                            <p class="mb-0 text-muted">Comprendre comment r&eacute;v&eacute;lation et recherche s&#39;&eacute;clairent mutuellement face aux questions actuelles.</p>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -256,7 +256,7 @@
                                 <i class="fas fa-earth-europe"></i>
                             </div>
                             <h3 class="h6 fw-semibold">Spiritualit&eacute; &amp; soci&eacute;t&eacute;</h3>
-                            <p class="mb-0 text-muted">Penser la justice, l'&eacute;cologie et l'engagement citoyen.</p>
+                            <p class="mb-0 text-muted">Penser la justice, l'&eacute;cologie, la culture num&eacute;rique et l'engagement citoyen &agrave; la lumi&egrave;re de l'&Eacute;vangile.</p>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -265,7 +265,7 @@
                                 <i class="fas fa-heart"></i>
                             </div>
                             <h3 class="h6 fw-semibold">Accompagnement pastoral</h3>
-                            <p class="mb-0 text-muted">Outils pour l'&eacute;coute, le soutien et la croissance communautaire.</p>
+                            <p class="mb-0 text-muted">Outils pour l'&eacute;coute, la pr&eacute;vention et la croissance communautaire au service des &Eacute;glises.</p>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -274,7 +274,7 @@
                                 <i class="fas fa-graduation-cap"></i>
                             </div>
                             <h3 class="h6 fw-semibold">Formation continue</h3>
-                            <p class="mb-0 text-muted">Modules pour responsables, enseignants et animateurs.</p>
+                            <p class="mb-0 text-muted">Formations modulaires pour responsables, enseignants et animateurs de groupes de discussion.</p>
                         </div>
                     </div>
                 </div>
@@ -283,7 +283,7 @@
     </div>
 </section>
 
-<section class="newsletter-section py-5">
+<section id="newsletterSection" class="newsletter-section py-5">
     <div class="container position-relative text-white">
         <div class="row align-items-center gy-4">
             <div class="col-lg-7">
@@ -346,3 +346,10 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 {% endblock %}
+
+
+
+
+
+
+
