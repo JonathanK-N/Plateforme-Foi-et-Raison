@@ -23,7 +23,7 @@
 - 🗺️ Roadmap 2025-2026
 - 🤝 Support & communauté
 - 🧾 Licence & crédits
-- 📐 Annexe – Design System intégral
+- 📐 Design System intégral
 
 ## 🎯 Vision immersive
 
@@ -569,18 +569,9 @@ flask run
 - Images : Sélection Unsplash + créations internes Cognito Inc.
 - Animations : CSS3 + JavaScript natif, courbes cubic-bezier personnalisées.
 
-## 🏁 Signature
+---
 
-<div align="center">
-  <p><strong>Croire &amp; Penser – Croire avec rigueur, penser avec foi.</strong></p>
-  <p>Développé par <a href="https://cognito-inc.com">Cognito Inc.</a> – Novembre 2025</p>
-</div>
-
-## 📐 Annexe – Design System intégral
-
-Le référentiel complet du fichier `DESIGN_SYSTEM.md` est reproduit ci-dessous pour garantir une consultation unique.
-
-# 🎨 Design System - Croire & Penser
+# 📐 Design System Intégral - Croire & Penser
 *Plateforme Communautaire Chrétienne Ultra-Dynamique*
 
 ---
@@ -739,92 +730,6 @@ body {
     transition: left 0.6s ease;
 }
 ```
-
----
-
-## 📱 **Architecture des Pages**
-
-### **Pages Principales (9 pages)**
-
-#### 1. **🏠 Accueil** (`/`)
-- **Hero Carousel** ultra-dynamique (3 slides)
-- **Section Mission** avec cartes animées
-- **Ressources** avec effets hover sophistiqués
-- **Statistiques** avec compteurs animés
-- **Newsletter** avec formulaire interactif
-- **Verset biblique** avec typographie élégante
-
-#### 2. **📚 Contenus** (`/contents`)
-- **Filtres dynamiques** par catégorie/type
-- **Grille responsive** avec animations de chargement
-- **Modales détaillées** avec références bibliques
-- **Système de likes** avec animations
-- **Pagination** fluide
-
-#### 3. **❓ Questions & Réponses** (`/qa`)
-- **Interface FAQ** interactive
-- **Formulaire de soumission** avec validation
-- **Système de recherche** en temps réel
-- **Accordéons animés**
-- **Catégorisation thématique**
-
-#### 4. **🙏 Prières** (`/prayers`)
-- **Méditations guidées** avec lecteur audio
-- **Prières communautaires** interactives
-- **Versets quotidiens** avec animations
-- **Formulaire de demandes** spirituel
-- **Ambiance contemplative**
-
-#### 5. **📞 Contact** (`/contact`)
-- **Formulaire multi-étapes** avec validation
-- **Informations de contact** stylisées
-- **FAQ intégrée** avec recherche
-- **Carte interactive** (si applicable)
-- **Réseaux sociaux** avec effets hover
-
-#### 6. **💝 Donation** (`/donation`)
-- **Interface ultra-moderne** de paiement
-- **Intégration PayPal/Stripe/Interac**
-- **Montants prédéfinis** avec animations
-- **Témoignages** de donateurs
-- **Transparence financière**
-
-#### 7. **📅 Événements** (`/events`)
-- **Calendrier interactif** avec filtres
-- **Cartes d'événements** animées
-- **Système d'inscription** intégré
-- **Galerie photos/vidéos**
-- **Partage social** dynamique
-
-#### 8. **🤝 Partenariats** (`/partnerships`)
-- **Présentation des partenaires** avec logos animés
-- **Formulaire de collaboration** professionnel
-- **Témoignages** avec carrousel
-- **Opportunités** de partenariat
-- **Processus** de candidature
-
-#### 9. **ℹ️ À Propos** (`/about`)
-- **Histoire de la mission** avec timeline
-- **Équipe** avec profils animés
-- **Valeurs** avec icônes interactives
-- **Vision** avec éléments visuels
-- **Témoignages** de la communauté
-
-### **Pages Administratives (2 pages)**
-
-#### 10. **⚙️ Administration** (`/admin`)
-- **Dashboard** avec statistiques en temps réel
-- **Gestion des contenus** avec éditeur WYSIWYG
-- **Modération** des questions/commentaires
-- **Analytics** avec graphiques animés
-- **Paramètres** système
-
-#### 11. **📝 CMS** (`/cms`)
-- **Interface de gestion** complète
-- **Éditeur de contenu** professionnel
-- **Gestion des utilisateurs**
-- **Système de médias**
-- **Sauvegarde automatique**
 
 ---
 
@@ -1026,5 +931,12 @@ Ce design system crée une expérience utilisateur **exceptionnelle** qui reflè
 
 ---
 
-*Dernière mise à jour : Décembre 2024*
-*Version : 1.0*
+<div align="center">
+  <p><strong>Croire &amp; Penser – Croire avec rigueur, penser avec foi.</strong></p>
+  <p>Développé par <a href="https://cognito-inc.com">Cognito Inc.</a> – Novembre 2025</p>
+</div>
+
+---
+
+*Dernière mise à jour : Novembre 2025*
+*Version : 2.0*
