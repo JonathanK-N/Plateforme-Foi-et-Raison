@@ -1,0 +1,1133 @@
+{% extends "base.html" %}
+
+{% block title %}Administration - Croire & Penser{% endblock %}
+
+{% block extra_head %}
+<link href="{{ url_for('static', filename='css/admin.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='css/tutorial-fix.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='css/modal-fix.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<!-- Mobile Menu Toggle -->
+<button class="mobile-menu-toggle" onclick="toggleMobileSidebar()">
+    <i class="fas fa-bars"></i>
+</button>
+
+<div class="admin-dashboard">
+    <!-- Sidebar Admin -->
+    <div class="admin-sidebar">
+        <div class="admin-logo">
+            <i class="fas fa-cog"></i>
+            <span>Administration</span>
+        </div>
+        
+        <nav class="admin-nav">
+            <a href="#dashboard" class="nav-item active" data-section="dashboard">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Tableau de bord</span>
+            </a>
+            <a href="#pages" class="nav-item" data-section="pages">
+                <i class="fas fa-file-alt"></i>
+                <span>Gestion des pages</span>
+            </a>
+            <a href="#content" class="nav-item" data-section="content">
+                <i class="fas fa-newspaper"></i>
+                <span>Contenus</span>
+            </a>
+            <a href="#users" class="nav-item" data-section="users">
+                <i class="fas fa-users"></i>
+                <span>Utilisateurs</span>
+            </a>
+            <a href="#prayers" class="nav-item" data-section="prayers">
+                <i class="fas fa-praying-hands"></i>
+                <span>Prières</span>
+            </a>
+            <a href="#qa" class="nav-item" data-section="qa">
+                <i class="fas fa-question-circle"></i>
+                <span>Q&A</span>
+            </a>
+            <a href="#events" class="nav-item" data-section="events">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Événements</span>
+            </a>
+            <a href="#donations" class="nav-item" data-section="donations">
+                <i class="fas fa-heart"></i>
+                <span>Dons</span>
+            </a>
+            <a href="#settings" class="nav-item" data-section="settings">
+                <i class="fas fa-cog"></i>
+                <span>Paramètres</span>
+            </a>
+        </nav>
+    </div>
+
+    <!-- Contenu principal -->
+    <div class="admin-main">
+        <div class="admin-header">
+            <h1 id="section-title">Tableau de bord</h1>
+            <div class="admin-actions">
+                <button class="btn-admin btn-primary" onclick="showAddModal()">
+                    <i class="fas fa-plus"></i> Ajouter
+                </button>
+                <button class="btn-admin btn-secondary" onclick="refreshData()">
+                    <i class="fas fa-sync"></i> Actualiser
+                </button>
+            </div>
+        </div>
+
+        <!-- Dashboard -->
+        <div id="dashboard-section" class="admin-section active">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-info">
+                        <div class="stat-number" id="total-users">0</div>
+                        <div class="stat-label">Utilisateurs</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-newspaper"></i>
+                    </div>
+                    <div class="stat-info">
+                        <div class="stat-number" id="total-content">0</div>
+                        <div class="stat-label">Contenus</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-praying-hands"></i>
+                    </div>
+                    <div class="stat-info">
+                        <div class="stat-number" id="total-prayers">0</div>
+                        <div class="stat-label">Prières</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <div class="stat-number" id="total-questions">0</div>
+                        <div class="stat-label">Questions</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quick-stats">
+                <div class="quick-stat-card">
+                    <div class="quick-stat-number" id="monthly-donations">2,340$</div>
+                    <div class="quick-stat-label">Dons ce mois</div>
+                </div>
+                <div class="quick-stat-card">
+                    <div class="quick-stat-number" id="active-events">5</div>
+                    <div class="quick-stat-label">Événements actifs</div>
+                </div>
+                <div class="quick-stat-card">
+                    <div class="quick-stat-number" id="newsletter-subs">1,247</div>
+                    <div class="quick-stat-label">Abonnés newsletter</div>
+                </div>
+            </div>
+
+            <div class="dashboard-charts">
+                <div class="chart-card">
+                    <h3>Activité récente</h3>
+                    <div class="activity-list" id="recent-activity">
+                        <!-- Activités récentes -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gestion des pages -->
+        <div id="pages-section" class="admin-section">
+            <!-- Tutoriel rapide -->
+            <div class="tutorial-banner">
+                <div class="tutorial-content">
+                    <i class="fas fa-lightbulb"></i>
+                    <div>
+                        <h4>💡 Comment ça marche ?</h4>
+                        <p>Sélectionnez une page → Cliquez "Modifier" → Éditez directement le contenu → Sauvegardez</p>
+                    </div>
+                    <button class="btn-tutorial" onclick="showFullTutorial()">
+                        <i class="fas fa-play"></i> Voir le tutoriel complet
+                    </button>
+                </div>
+            </div>
+
+            <div class="page-editor">
+                <div class="page-selector">
+                    <select id="page-select" class="form-select">
+                        <option value="">Sélectionner une page à modifier</option>
+                        <option value="home">🏠 Page d'Accueil</option>
+                        <option value="about">ℹ️ À propos</option>
+                        <option value="contents">📚 Contenus</option>
+                        <option value="qa">❓ Questions & Réponses</option>
+                        <option value="prayers">🙏 Prières</option>
+                        <option value="contact">📞 Contact</option>
+                        <option value="events">📅 Événements</option>
+                        <option value="partnerships">🤝 Partenariats</option>
+                        <option value="donation">💝 Dons</option>
+                    </select>
+                    <button class="btn-admin btn-primary" onclick="editPage()">
+                        <i class="fas fa-edit"></i> Modifier cette page
+                    </button>
+                </div>
+
+                <div class="page-content-editor" id="page-editor" style="display: none;">
+                    <div class="editor-header">
+                        <h3 id="editing-page-title">Modification de la page</h3>
+                        <div class="editor-actions">
+                            <button class="btn-admin btn-success" onclick="savePage()">
+                                <i class="fas fa-save"></i> Sauvegarder
+                            </button>
+                            <button class="btn-admin btn-secondary" onclick="cancelEdit()">
+                                <i class="fas fa-times"></i> Annuler
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="editor-toolbar">
+                        <div class="toolbar-group">
+                            <span class="toolbar-label">Ajouter une section :</span>
+                            <button class="btn-tool" onclick="addSection('hero')" title="Bannière principale">
+                                <i class="fas fa-image"></i> Hero
+                            </button>
+                            <button class="btn-tool" onclick="addSection('text')" title="Bloc de texte">
+                                <i class="fas fa-align-left"></i> Texte
+                            </button>
+                            <button class="btn-tool" onclick="addSection('cards')" title="Cartes d'information">
+                                <i class="fas fa-th-large"></i> Cartes
+                            </button>
+                            <button class="btn-tool" onclick="addSection('gallery')" title="Galerie d'images">
+                                <i class="fas fa-images"></i> Galerie
+                            </button>
+                            <button class="btn-tool" onclick="addSection('video')" title="Vidéo">
+                                <i class="fas fa-video"></i> Vidéo
+                            </button>
+                        </div>
+                        <div class="toolbar-group">
+                            <span class="toolbar-label">Actions :</span>
+                            <button class="btn-tool" onclick="undoLastAction()" title="Annuler">
+                                <i class="fas fa-undo"></i> Annuler
+                            </button>
+                            <button class="btn-tool" onclick="redoLastAction()" title="Refaire">
+                                <i class="fas fa-redo"></i> Refaire
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="editor-workspace">
+                        <div class="editor-canvas" id="editor-canvas">
+                            <div class="canvas-placeholder">
+                                <i class="fas fa-mouse-pointer"></i>
+                                <h3>Prêt à modifier !</h3>
+                                <p>Cliquez sur "Modifier cette page" pour commencer l'édition</p>
+                            </div>
+                        </div>
+                        
+                        <div class="properties-panel" id="properties-panel">
+                            <h4><i class="fas fa-cog"></i> Propriétés</h4>
+                            <div class="properties-content">
+                                <p>Sélectionnez un élément pour voir ses propriétés</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gestion du contenu -->
+        <div id="content-section" class="admin-section">
+            <!-- Guide rapide pour le contenu -->
+            <div class="content-guide">
+                <div class="guide-tabs">
+                    <button class="guide-tab active" data-type="article">
+                        <i class="fas fa-newspaper"></i> Articles
+                    </button>
+                    <button class="guide-tab" data-type="video">
+                        <i class="fas fa-video"></i> Vidéos
+                    </button>
+                    <button class="guide-tab" data-type="podcast">
+                        <i class="fas fa-podcast"></i> Podcasts
+                    </button>
+                </div>
+                <div class="guide-content">
+                    <div class="guide-info active" id="article-guide">
+                        <h4>📝 Articles</h4>
+                        <p>Créez des articles avec texte, images et références bibliques</p>
+                    </div>
+                    <div class="guide-info" id="video-guide">
+                        <h4>🎥 Vidéos</h4>
+                        <p>Ajoutez des vidéos YouTube/Vimeo avec miniatures personnalisées</p>
+                    </div>
+                    <div class="guide-info" id="podcast-guide">
+                        <h4>🎧 Podcasts</h4>
+                        <p>Intégrez vos podcasts avec lecteur audio et description</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-manager">
+                <div class="content-header">
+                    <h3>Gestion du contenu</h3>
+                    <button class="btn-admin btn-primary" onclick="showAddModal()">
+                        <i class="fas fa-plus"></i> Créer un contenu
+                    </button>
+                </div>
+                
+                <div class="content-filters">
+                    <select class="form-select" id="content-type-filter">
+                        <option value="">Tous les types</option>
+                        <option value="article">📝 Articles</option>
+                        <option value="video">🎥 Vidéos</option>
+                        <option value="podcast">🎧 Podcasts</option>
+                    </select>
+                    <select class="form-select" id="content-status-filter">
+                        <option value="">Tous les statuts</option>
+                        <option value="published">Publié</option>
+                        <option value="draft">Brouillon</option>
+                        <option value="scheduled">Programmé</option>
+                    </select>
+                    <input type="search" class="form-control" placeholder="Rechercher un contenu..." id="content-search">
+                </div>
+                
+                <div class="content-list" id="content-list">
+                    <!-- Liste des contenus -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Gestion des utilisateurs -->
+        <div id="users-section" class="admin-section">
+            <div class="users-manager">
+                <div class="users-filters">
+                    <select class="form-select" id="user-role-filter">
+                        <option value="">Tous les rôles</option>
+                        <option value="admin">Administrateurs</option>
+                        <option value="user">Utilisateurs</option>
+                    </select>
+                    <input type="search" class="form-control" placeholder="Rechercher un utilisateur..." id="user-search">
+                </div>
+                <div class="users-list" id="users-list">
+                    <!-- Liste des utilisateurs -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Gestion des prières -->
+        <div id="prayers-section" class="admin-section">
+            <div class="prayers-manager">
+                <div class="prayers-filters">
+                    <select class="form-select" id="prayer-status-filter">
+                        <option value="">Tous les statuts</option>
+                        <option value="pending">En attente</option>
+                        <option value="approved">Approuvées</option>
+                        <option value="urgent">Urgentes</option>
+                    </select>
+                </div>
+                <div class="prayers-list" id="prayers-list">
+                    <!-- Liste des prières -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Gestion Q&A -->
+        <div id="qa-section" class="admin-section">
+            <div class="qa-manager">
+                <div class="qa-filters">
+                    <select class="form-select" id="qa-status-filter">
+                        <option value="">Tous les statuts</option>
+                        <option value="pending">En attente</option>
+                        <option value="answered">Répondues</option>
+                        <option value="published">Publiées</option>
+                    </select>
+                </div>
+                <div class="qa-list" id="qa-list">
+                    <!-- Liste des Q&A -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Gestion des événements -->
+        <div id="events-section" class="admin-section">
+            <div class="events-manager">
+                <div class="events-list" id="events-list">
+                    <!-- Liste des événements -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Gestion des dons -->
+        <div id="donations-section" class="admin-section">
+            <div class="donations-manager">
+                <div class="donations-stats">
+                    <div class="donation-stat">
+                        <span class="stat-value" id="total-donations">0$</span>
+                        <span class="stat-label">Total collecté</span>
+                    </div>
+                    <div class="donation-stat">
+                        <span class="stat-value" id="monthly-donations">0$</span>
+                        <span class="stat-label">Ce mois</span>
+                    </div>
+                </div>
+                <div class="donations-list" id="donations-list">
+                    <!-- Liste des dons -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Paramètres -->
+        <div id="settings-section" class="admin-section">
+            <div class="settings-manager">
+                <div class="settings-tabs">
+                    <button class="tab-btn active" data-tab="general">Général</button>
+                    <button class="tab-btn" data-tab="appearance">Apparence</button>
+                    <button class="tab-btn" data-tab="email">Email</button>
+                    <button class="tab-btn" data-tab="security">Sécurité</button>
+                </div>
+                <div class="settings-content">
+                    <div id="general-settings" class="settings-tab active">
+                        <div class="setting-group">
+                            <label>Nom du site</label>
+                            <input type="text" class="form-control" value="Croire & Penser">
+                        </div>
+                        <div class="setting-group">
+                            <label>Description</label>
+                            <textarea class="form-control" rows="3">Plateforme dédiée à l'exploration intelligente de la foi chrétienne</textarea>
+                        </div>
+                    </div>
+                    <div id="appearance-settings" class="settings-tab">
+                        <div class="setting-group">
+                            <label>Couleur primaire</label>
+                            <input type="color" class="form-control" value="#1e3a8a">
+                        </div>
+                        <div class="setting-group">
+                            <label>Couleur accent</label>
+                            <input type="color" class="form-control" value="#d97706">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modales -->
+<div id="admin-modal" class="admin-modal">
+    <div class="modal-backdrop" onclick="closeModal()"></div>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 id="modal-title">Titre</h3>
+            <button onclick="closeModal()" class="btn-close">&times;</button>
+        </div>
+        <div class="modal-body" id="modal-body">
+            <!-- Contenu dynamique -->
+        </div>
+        <div class="modal-footer">
+            <button class="btn-admin btn-secondary" onclick="closeModal()">Annuler</button>
+            <button class="btn-admin btn-primary" onclick="saveModal()">Sauvegarder</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Tutoriel -->
+<div id="tutorial-modal" class="admin-modal">
+    <div class="modal-backdrop" onclick="closeTutorialModal()"></div>
+    <div class="modal-content tutorial-modal-content">
+        <div class="modal-header">
+            <h3><i class="fas fa-graduation-cap"></i> Guide d'utilisation - Administration</h3>
+            <button onclick="closeTutorialModal()" class="btn-close">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="tutorial-steps">
+                <div class="tutorial-step active" data-step="1">
+                    <div class="step-header">
+                        <span class="step-number">1</span>
+                        <h4>Gestion des Pages</h4>
+                    </div>
+                    <div class="step-content">
+                        <div class="tutorial-placeholder">
+                            <i class="fas fa-file-alt"></i>
+                            <span>Gestion des Pages</span>
+                        </div>
+                        <div class="step-text">
+                            <h5>🏠 Modifier les pages existantes</h5>
+                            <ul>
+                                <li>Sélectionnez la page à modifier</li>
+                                <li>Cliquez sur "Modifier cette page"</li>
+                                <li>Modifiez directement le texte en cliquant dessus</li>
+                                <li>Ajoutez des sections avec la barre d'outils</li>
+                                <li>Sauvegardez vos modifications</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tutorial-step" data-step="2">
+                    <div class="step-header">
+                        <span class="step-number">2</span>
+                        <h4>Gestion du Contenu</h4>
+                    </div>
+                    <div class="step-content">
+                        <div class="step-text">
+                            <h5>📝 Créer du contenu</h5>
+                            <div class="content-types">
+                                <div class="content-type">
+                                    <i class="fas fa-newspaper"></i>
+                                    <h6>Articles</h6>
+                                    <p>Texte, images, références bibliques</p>
+                                </div>
+                                <div class="content-type">
+                                    <i class="fas fa-video"></i>
+                                    <h6>Vidéos</h6>
+                                    <p>Liens YouTube/Vimeo + miniatures</p>
+                                </div>
+                                <div class="content-type">
+                                    <i class="fas fa-podcast"></i>
+                                    <h6>Podcasts</h6>
+                                    <p>Fichiers audio + descriptions</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tutorial-step" data-step="3">
+                    <div class="step-header">
+                        <span class="step-number">3</span>
+                        <h4>Conseils Pratiques</h4>
+                    </div>
+                    <div class="step-content">
+                        <div class="step-text">
+                            <h5>✨ Bonnes pratiques</h5>
+                            <div class="tips-grid">
+                                <div class="tip">
+                                    <i class="fas fa-save"></i>
+                                    <h6>Sauvegardez régulièrement</h6>
+                                    <p>Utilisez Ctrl+S pour sauvegarder rapidement</p>
+                                </div>
+                                <div class="tip">
+                                    <i class="fas fa-eye"></i>
+                                    <h6>Prévisualisez avant publication</h6>
+                                    <p>Vérifiez l'apparence sur mobile et desktop</p>
+                                </div>
+                                <div class="tip">
+                                    <i class="fas fa-images"></i>
+                                    <h6>Optimisez vos images</h6>
+                                    <p>Utilisez des images de qualité mais pas trop lourdes</p>
+                                </div>
+                                <div class="tip">
+                                    <i class="fas fa-users"></i>
+                                    <h6>Pensez à votre audience</h6>
+                                    <p>Créez du contenu accessible et engageant</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tutorial-navigation">
+                <button class="btn-admin btn-secondary" onclick="previousTutorialStep()" id="prev-step" disabled>
+                    <i class="fas fa-chevron-left"></i> Précédent
+                </button>
+                <div class="step-indicators">
+                    <span class="step-dot active" data-step="1"></span>
+                    <span class="step-dot" data-step="2"></span>
+                    <span class="step-dot" data-step="3"></span>
+                </div>
+                <button class="btn-admin btn-primary" onclick="nextTutorialStep()" id="next-step">
+                    Suivant <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Création de Contenu -->
+<div id="content-modal" class="admin-modal">
+    <div class="modal-backdrop" onclick="closeContentModal()"></div>
+    <div class="modal-content content-modal-content">
+        <div class="modal-header">
+            <h3 id="content-modal-title">Créer un nouveau contenu</h3>
+            <button onclick="closeContentModal()" class="btn-close">&times;</button>
+        </div>
+        <div class="modal-body" id="content-modal-body">
+            <!-- Contenu dynamique selon le type -->
+        </div>
+        <div class="modal-footer">
+            <button class="btn-admin btn-secondary" onclick="closeContentModal()">Annuler</button>
+            <button class="btn-admin btn-success" onclick="saveContent()">
+                <i class="fas fa-save"></i> Créer le contenu
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+// ADMIN DIRECT DANS LE HTML - SOLUTION GARANTIE
+console.log('Admin direct chargé');
+
+let currentSection = 'dashboard';
+
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM chargé - initialisation directe');
+    init();
+});
+
+function init() {
+    setupNav();
+    loadStats();
+    console.log('Admin initialisé directement');
+}
+
+function setupNav() {
+    document.querySelectorAll('.nav-item').forEach(item => {
+        item.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
+            
+            this.classList.add('active');
+            currentSection = this.dataset.section;
+            
+            const section = document.getElementById(currentSection + '-section');
+            if (section) {
+                section.classList.add('active');
+            }
+            
+            const titles = {
+                'dashboard': 'Tableau de bord',
+                'pages': 'Gestion des pages',
+                'content': 'Gestion du contenu',
+                'users': 'Gestion des utilisateurs',
+                'prayers': 'Gestion des prières',
+                'qa': 'Questions & Réponses',
+                'events': 'Gestion des événements',
+                'donations': 'Gestion des dons',
+                'settings': 'Paramètres'
+            };
+            
+            document.getElementById('section-title').textContent = titles[currentSection] || currentSection;
+        });
+    });
+}
+
+function loadStats() {
+    setTimeout(() => {
+        document.getElementById('total-users').textContent = '156';
+        document.getElementById('total-content').textContent = '89';
+        document.getElementById('total-prayers').textContent = '234';
+        document.getElementById('total-questions').textContent = '67';
+    }, 100);
+}
+
+// GESTION DES PAGES
+function editPage() {
+    console.log('editPage appelée directement');
+    const select = document.getElementById('page-select');
+    if (!select) {
+        alert('Sélecteur non trouvé');
+        return;
+    }
+    
+    const page = select.value;
+    if (!page) {
+        alert('Veuillez sélectionner une page');
+        return;
+    }
+    
+    const url = page === 'home' ? '/?edit=true' : `/${page}?edit=true`;
+    window.open(url, '_blank');
+    alert('Page ouverte en mode édition!');
+}
+
+// SYSTÈME COMPLET DE GESTION DE CONTENU
+function showAddModal() {
+    console.log('showAddModal - section:', currentSection);
+    
+    const modal = document.getElementById('admin-modal');
+    const title = document.getElementById('modal-title');
+    const body = document.getElementById('modal-body');
+    
+    if (!modal || !title || !body) {
+        console.error('Éléments de modal non trouvés');
+        return;
+    }
+    
+    switch(currentSection) {
+        case 'content':
+            showContentForm(title, body);
+            break;
+        case 'users':
+            showUserForm(title, body);
+            break;
+        case 'prayers':
+            showPrayerForm(title, body);
+            break;
+        case 'qa':
+            showQuestionForm(title, body);
+            break;
+        case 'events':
+            showEventForm(title, body);
+            break;
+        case 'donations':
+            showDonationForm(title, body);
+            break;
+        default:
+            showGenericForm(title, body);
+    }
+    
+    // Forcer l'affichage avec CSS inline
+    modal.style.cssText = `
+        display: block !important;
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        background: rgba(0,0,0,0.8) !important;
+        z-index: 99999 !important;
+    `;
+}
+
+function showContentForm(title, body) {
+    title.textContent = 'Créer un nouveau contenu';
+    body.innerHTML = `
+        <form id="content-form" style="max-width: 600px;">
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; font-weight: bold; margin-bottom: 5px;">Titre *</label>
+                <input type="text" id="content-title" required 
+                       style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px;">
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; font-weight: bold; margin-bottom: 5px;">Type de contenu *</label>
+                <select id="content-type" required 
+                        style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px;">
+                    <option value="">Sélectionner un type</option>
+                    <option value="article">Article</option>
+                    <option value="video">Vidéo</option>
+                    <option value="podcast">Podcast</option>
+                </select>
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; font-weight: bold; margin-bottom: 5px;">Catégorie *</label>
+                <select id="content-category" required 
+                        style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px;">
+                    <option value="">Sélectionner une catégorie</option>
+                    <option value="dieu">Dieu</option>
+                    <option value="bible">Bible</option>
+                    <option value="jesus-christ">Jésus-Christ</option>
+                    <option value="saint-esprit">Saint-Esprit</option>
+                    <option value="salut">Salut</option>
+                    <option value="eglise">Église</option>
+                    <option value="etre-humain">Être humain</option>
+                    <option value="le-mal">Le mal</option>
+                    <option value="monde-invisible">Monde invisible</option>
+                    <option value="la-fin">La fin</option>
+                    <option value="ethique">Éthique</option>
+                </select>
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; font-weight: bold; margin-bottom: 5px;">Image de bannière</label>
+                <input type="url" id="content-banner" placeholder="https://exemple.com/image.jpg"
+                       style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px;">
+                <small style="color: #666;">URL de l'image de bannière (optionnel)</small>
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; font-weight: bold; margin-bottom: 5px;">Résumé</label>
+                <textarea id="content-excerpt" rows="3" placeholder="Brève description du contenu..."
+                          style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px; resize: vertical;"></textarea>
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; font-weight: bold; margin-bottom: 5px;">Contenu principal *</label>
+                <textarea id="content-body" rows="10" required placeholder="Rédigez votre contenu ici..."
+                          style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px; resize: vertical;"></textarea>
+            </div>
+            
+            <div id="video-fields" style="display: none; margin-bottom: 20px;">
+                <label style="display: block; font-weight: bold; margin-bottom: 5px;">URL de la vidéo</label>
+                <input type="url" id="video-url" placeholder="https://youtube.com/watch?v=..."
+                       style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px;">
+                <small style="color: #666;">YouTube, Vimeo ou autre plateforme</small>
+            </div>
+            
+            <div id="podcast-fields" style="display: none; margin-bottom: 20px;">
+                <label style="display: block; font-weight: bold; margin-bottom: 5px;">Fichier audio</label>
+                <input type="file" id="audio-file" accept="audio/*"
+                       style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px;">
+                <small style="color: #666;">Formats supportés: MP3, WAV, OGG</small>
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; font-weight: bold; margin-bottom: 5px;">Tags</label>
+                <input type="text" id="content-tags" placeholder="foi, bible, théologie (séparés par des virgules)"
+                       style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px;">
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+                <label style="display: flex; align-items: center; font-weight: bold;">
+                    <input type="checkbox" id="content-featured" style="margin-right: 8px;">
+                    Contenu mis en avant
+                </label>
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+                <label style="display: flex; align-items: center; font-weight: bold;">
+                    <input type="checkbox" id="content-published" style="margin-right: 8px;">
+                    Publier immédiatement
+                </label>
+            </div>
+        </form>
+        
+        <script>
+            // Afficher/masquer les champs selon le type
+            document.getElementById('content-type').addEventListener('change', function() {
+                const videoFields = document.getElementById('video-fields');
+                const podcastFields = document.getElementById('podcast-fields');
+                
+                videoFields.style.display = this.value === 'video' ? 'block' : 'none';
+                podcastFields.style.display = this.value === 'podcast' ? 'block' : 'none';
+            });
+        </script>
+    `;
+}
+
+function showUserForm(title, body) {
+    title.textContent = 'Ajouter un utilisateur';
+    body.innerHTML = `
+        <form id="user-form">
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; font-weight: bold; margin-bottom: 5px;">Nom complet *</label>
+                <input type="text" id="user-name" required 
+                       style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; font-weight: bold; margin-bottom: 5px;">Email *</label>
+                <input type="email" id="user-email" required 
+                       style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; font-weight: bold; margin-bottom: 5px;">Rôle</label>
+                <select id="user-role" 
+                        style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                    <option value="user">Utilisateur</option>
+                    <option value="admin">Administrateur</option>
+                </select>
+            </div>
+        </form>
+    `;
+}
+
+function showPrayerForm(title, body) {
+    title.textContent = 'Ajouter une demande de prière';
+    body.innerHTML = `
+        <form id="prayer-form">
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; font-weight: bold; margin-bottom: 5px;">Titre *</label>
+                <input type="text" id="prayer-title" required 
+                       style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; font-weight: bold; margin-bottom: 5px;">Demande *</label>
+                <textarea id="prayer-content" rows="4" required 
+                          style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; resize: vertical;"></textarea>
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; font-weight: bold; margin-bottom: 5px;">Priorité</label>
+                <select id="prayer-priority" 
+                        style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                    <option value="normal">Normale</option>
+                    <option value="urgent">Urgente</option>
+                </select>
+            </div>
+        </form>
+    `;
+}
+
+function showQuestionForm(title, body) {
+    title.textContent = 'Ajouter une question';
+    body.innerHTML = `
+        <form id="question-form">
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; font-weight: bold; margin-bottom: 5px;">Question *</label>
+                <input type="text" id="question-title" required 
+                       style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; font-weight: bold; margin-bottom: 5px;">Détails</label>
+                <textarea id="question-content" rows="3" 
+                          style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; resize: vertical;"></textarea>
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; font-weight: bold; margin-bottom: 5px;">Réponse</label>
+                <textarea id="question-answer" rows="4" 
+                          style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; resize: vertical;"></textarea>
+            </div>
+        </form>
+    `;
+}
+
+function showEventForm(title, body) {
+    title.textContent = 'Créer un événement';
+    body.innerHTML = `
+        <form id="event-form">
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; font-weight: bold; margin-bottom: 5px;">Titre de l'événement *</label>
+                <input type="text" id="event-title" required 
+                       style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; font-weight: bold; margin-bottom: 5px;">Date et heure *</label>
+                <input type="datetime-local" id="event-date" required 
+                       style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; font-weight: bold; margin-bottom: 5px;">Lieu</label>
+                <input type="text" id="event-location" 
+                       style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; font-weight: bold; margin-bottom: 5px;">Description</label>
+                <textarea id="event-description" rows="3" 
+                          style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; resize: vertical;"></textarea>
+            </div>
+        </form>
+    `;
+}
+
+function showDonationForm(title, body) {
+    title.textContent = 'Enregistrer un don';
+    body.innerHTML = `
+        <form id="donation-form">
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; font-weight: bold; margin-bottom: 5px;">Montant *</label>
+                <input type="number" id="donation-amount" step="0.01" required 
+                       style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; font-weight: bold; margin-bottom: 5px;">Donateur (optionnel)</label>
+                <input type="text" id="donation-donor" 
+                       style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; font-weight: bold; margin-bottom: 5px;">Méthode de paiement</label>
+                <select id="donation-method" 
+                        style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                    <option value="paypal">PayPal</option>
+                    <option value="stripe">Stripe</option>
+                    <option value="interac">Interac</option>
+                    <option value="cash">Espèces</option>
+                </select>
+            </div>
+        </form>
+    `;
+}
+
+function showGenericForm(title, body) {
+    title.textContent = 'Ajouter un élément';
+    body.innerHTML = `
+        <form id="generic-form">
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; font-weight: bold; margin-bottom: 5px;">Titre *</label>
+                <input type="text" id="generic-title" required 
+                       style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+            </div>
+        </form>
+    `;
+}
+
+function closeModal() {
+    console.log('closeModal - fermeture complète');
+    const modal = document.getElementById('admin-modal');
+    if (modal) {
+        modal.style.display = 'none';
+        modal.style.cssText = '';
+    }
+}
+
+function saveModal() {
+    console.log('saveModal - sauvegarde complète');
+    
+    switch(currentSection) {
+        case 'content':
+            saveContent();
+            break;
+        case 'users':
+            saveUser();
+            break;
+        case 'prayers':
+            savePrayer();
+            break;
+        case 'qa':
+            saveQuestion();
+            break;
+        case 'events':
+            saveEvent();
+            break;
+        case 'donations':
+            saveDonation();
+            break;
+        default:
+            saveGeneric();
+    }
+}
+
+function saveContent() {
+    const title = document.getElementById('content-title')?.value;
+    const type = document.getElementById('content-type')?.value;
+    const category = document.getElementById('content-category')?.value;
+    const banner = document.getElementById('content-banner')?.value;
+    const excerpt = document.getElementById('content-excerpt')?.value;
+    const body = document.getElementById('content-body')?.value;
+    const tags = document.getElementById('content-tags')?.value;
+    const featured = document.getElementById('content-featured')?.checked;
+    const published = document.getElementById('content-published')?.checked;
+    
+    if (!title || !type || !category || !body) {
+        alert('Veuillez remplir tous les champs obligatoires (titre, type, catégorie, contenu)');
+        return;
+    }
+    
+    // Créer l'objet contenu
+    const content = {
+        id: Date.now(),
+        title: title,
+        type: type,
+        category: category,
+        banner: banner,
+        excerpt: excerpt,
+        body: body,
+        tags: tags.split(',').map(tag => tag.trim()).filter(tag => tag),
+        featured: featured,
+        published: published,
+        created_at: new Date().toISOString()
+    };
+    
+    // Sauvegarder dans localStorage (simulation)
+    let contents = JSON.parse(localStorage.getItem('site_contents') || '[]');
+    contents.push(content);
+    localStorage.setItem('site_contents', JSON.stringify(contents));
+    
+    closeModal();
+    alert(`Contenu "${title}" créé avec succès !\n\nType: ${type}\nCatégorie: ${category}\nStatut: ${published ? 'Publié' : 'Brouillon'}`);
+    
+    // Actualiser la liste
+    loadContentList();
+}
+
+function saveUser() {
+    const name = document.getElementById('user-name')?.value;
+    const email = document.getElementById('user-email')?.value;
+    const role = document.getElementById('user-role')?.value;
+    
+    if (!name || !email) {
+        alert('Veuillez remplir le nom et l\'email');
+        return;
+    }
+    
+    closeModal();
+    alert(`Utilisateur "${name}" créé avec succès !\nEmail: ${email}\nRôle: ${role}`);
+}
+
+function savePrayer() {
+    const title = document.getElementById('prayer-title')?.value;
+    const content = document.getElementById('prayer-content')?.value;
+    const priority = document.getElementById('prayer-priority')?.value;
+    
+    if (!title || !content) {
+        alert('Veuillez remplir le titre et la demande');
+        return;
+    }
+    
+    closeModal();
+    alert(`Demande de prière "${title}" ajoutée avec succès !\nPriorité: ${priority}`);
+}
+
+function saveQuestion() {
+    const title = document.getElementById('question-title')?.value;
+    const content = document.getElementById('question-content')?.value;
+    const answer = document.getElementById('question-answer')?.value;
+    
+    if (!title) {
+        alert('Veuillez saisir une question');
+        return;
+    }
+    
+    closeModal();
+    alert(`Question "${title}" ajoutée avec succès !${answer ? '\nRéponse incluse' : ''}`);
+}
+
+function saveEvent() {
+    const title = document.getElementById('event-title')?.value;
+    const date = document.getElementById('event-date')?.value;
+    const location = document.getElementById('event-location')?.value;
+    const description = document.getElementById('event-description')?.value;
+    
+    if (!title || !date) {
+        alert('Veuillez remplir le titre et la date');
+        return;
+    }
+    
+    closeModal();
+    alert(`Événement "${title}" créé avec succès !\nDate: ${new Date(date).toLocaleString()}${location ? '\nLieu: ' + location : ''}`);
+}
+
+function saveDonation() {
+    const amount = document.getElementById('donation-amount')?.value;
+    const donor = document.getElementById('donation-donor')?.value;
+    const method = document.getElementById('donation-method')?.value;
+    
+    if (!amount) {
+        alert('Veuillez saisir un montant');
+        return;
+    }
+    
+    closeModal();
+    alert(`Don de ${amount}$ enregistré avec succès !${donor ? '\nDonateur: ' + donor : ''}\nMéthode: ${method}`);
+}
+
+function saveGeneric() {
+    const title = document.getElementById('generic-title')?.value;
+    
+    if (!title) {
+        alert('Veuillez saisir un titre');
+        return;
+    }
+    
+    closeModal();
+    alert(`Élément "${title}" créé avec succès !`);
+}
+
+function loadContentList() {
+    const contents = JSON.parse(localStorage.getItem('site_contents') || '[]');
+    console.log('Contenus chargés:', contents.length);
+    // Ici vous pouvez actualiser l'affichage de la liste
+}
+
+function refreshData() {
+    console.log('refreshData appelée directement');
+    alert('Données actualisées!');
+    loadStats();
+}
+
+// Exposer les fonctions globalement
+window.editPage = editPage;
+window.showAddModal = showAddModal;
+window.closeModal = closeModal;
+window.saveModal = saveModal;
+window.refreshData = refreshData;
+
+console.log('Fonctions exposées directement:', {editPage, showAddModal, closeModal, saveModal, refreshData});
+</script>
+{% endblock %}

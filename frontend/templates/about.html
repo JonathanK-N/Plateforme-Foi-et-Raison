@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+
+{% block title %}Qui sommes-nous - Croire & Penser{% endblock %}
+
+{% block extra_head %}
+<link href="{{ url_for('static', filename='css/about.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5 pt-4">
+    <!-- Hero Section -->
+    <section class="about-hero text-center mb-5">
+        <div class="hero-content animate-fade-up">
+            <h1 class="display-4 fw-bold mb-4">Qui sommes-nous ?</h1>
+            <p class="lead mb-4">"Amener les croyants à penser, et les penseurs à croire"</p>
+            <div class="hero-quote">
+                <blockquote class="blockquote">
+                    <p class="mb-3">"Soyez toujours prêts à défendre votre espérance"</p>
+                    <footer class="blockquote-footer">1 Pierre 3:15</footer>
+                </blockquote>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section class="mission-section mb-5">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="mission-content animate-slide-left">
+                    <span class="section-kicker">Notre Mission</span>
+                    <h2 class="section-title text-start">Réconcilier Foi & Raison</h2>
+                    <p class="mb-4">Depuis toujours, la foi chrétienne est perçue comme incompatible avec la raison. Cette perception alimente l'idée que les chrétiens croient "sans réfléchir", ce qui éloigne penseurs, scientifiques et étudiants de l'Évangile.</p>
+                    <p class="mb-4">Nous croyons que <strong>la foi n'est pas irrationnelle : elle dépasse la raison, sans la contredire</strong>. Notre plateforme existe pour démontrer cette vérité.</p>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="mission-visual animate-slide-right">
+                    <div class="visual-card">
+                        <div class="visual-icon">
+                            <i class="fas fa-brain"></i>
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h4>Foi + Raison</h4>
+                        <p>Une synthèse harmonieuse entre intelligence et spiritualité</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Story Section -->
+    <section class="story-section bg-light rounded-4 p-5 mb-5">
+        <div class="text-center mb-5">
+            <span class="section-kicker">Notre Histoire</span>
+            <h2 class="section-title">Une Découverte Transformante</h2>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="story-timeline">
+                    <div class="timeline-item animate-fade-up">
+                        <div class="timeline-marker">2017</div>
+                        <div class="timeline-content">
+                            <h4>Formation en Apologétique</h4>
+                            <p>Formation de 3 mois à l'Académie Ravi Zacharias qui a nourri un émerveillement intellectuel et spirituel, révélant que la foi peut être défendue rationnellement.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item animate-fade-up delay-1">
+                        <div class="timeline-marker">2025</div>
+                        <div class="timeline-content">
+                            <h4>Naissance de Croire & Penser</h4>
+                            <p>Création de cette plateforme pour partager cette découverte : aider chacun à rendre compte clairement de sa foi et encourager une réflexion approfondie.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="values-section mb-5">
+        <div class="text-center mb-5">
+            <span class="section-kicker">Nos Valeurs</span>
+            <h2 class="section-title">Ce qui nous guide</h2>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-4">
+                <div class="value-card animate-fade-up">
+                    <div class="value-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <h4>Excellence Académique</h4>
+                    <p>Contenus rigoureux, recherchés et fondés sur une solide base théologique et philosophique.</p>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="value-card animate-fade-up delay-1">
+                    <div class="value-icon">
+                        <i class="fas fa-hands-helping"></i>
+                    </div>
+                    <h4>Bienveillance</h4>
+                    <p>Dialogue respectueux et encourageant, accueillant toutes les questions avec patience et compréhension.</p>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="value-card animate-fade-up delay-2">
+                    <div class="value-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h4>Accessibilité</h4>
+                    <p>Rendre les concepts complexes compréhensibles pour tous, du débutant au chercheur expérimenté.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Target Audience -->
+    <section class="audience-section mb-5">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="audience-visual animate-slide-left">
+                    <div class="audience-grid">
+                        <div class="audience-item">
+                            <i class="fas fa-user-graduate"></i>
+                            <span>Étudiants</span>
+                        </div>
+                        <div class="audience-item">
+                            <i class="fas fa-pray"></i>
+                            <span>Croyants</span>
+                        </div>
+                        <div class="audience-item">
+                            <i class="fas fa-microscope"></i>
+                            <span>Scientifiques</span>
+                        </div>
+                        <div class="audience-item">
+                            <i class="fas fa-question-circle"></i>
+                            <span>Chercheurs</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="audience-content animate-slide-right">
+                    <span class="section-kicker">Public Cible</span>
+                    <h2 class="section-title text-start">Pour Qui ?</h2>
+                    <ul class="audience-list">
+                        <li><strong>Croyants en quête d'approfondissement</strong> - Ceux qui désirent une foi plus solide et réfléchie</li>
+                        <li><strong>Étudiants et jeunes professionnels</strong> - En recherche de sens et de cohérence intellectuelle</li>
+                        <li><strong>Curieux de la foi</strong> - Ouverts au dialogue entre spiritualité et réflexion</li>
+                        <li><strong>Penseurs et scientifiques</strong> - Désireux d'explorer la dimension spirituelle</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-about text-center text-white rounded-4 p-5">
+        <div class="animate-fade-up">
+            <h2 class="mb-4">Rejoignez Notre Communauté</h2>
+            <p class="lead mb-4">Ensemble, explorons les profondeurs de la foi avec intelligence et bienveillance</p>
+            <div class="d-flex flex-column flex-md-row gap-3 justify-content-center">
+                <a href="{{ url_for('contents') }}" class="btn btn-light btn-lg">Découvrir nos contenus</a>
+                <a href="{{ url_for('contact') }}" class="btn btn-outline-light btn-lg">Nous contacter</a>
+            </div>
+        </div>
+    </section>
+</div>
+
+<script src="{{ url_for('static', filename='js/about.js') }}"></script>
+{% endblock %}
