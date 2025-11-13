@@ -3,53 +3,217 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Croire & Penser{% endblock %}</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <title>{% block title %}Croire &amp; Penser{% endblock %}</title>
+    <meta name="description" content="Croire &amp; Penser relie foi, raison et culture en proposant des parcours et ressources pour nourrir la foi et l'intelligence.">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/typography.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/brand-colors.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/animations.css') }}" rel="stylesheet">
+    {% block extra_head %}{% endblock %}
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container">
-            <a class="navbar-brand fw-bold" href="{{ url_for('home') }}">
-                <i class="fas fa-cross me-2"></i>Croire & Penser
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('home') }}">Accueil</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('contents') }}">Contenus</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('qa') }}">Q&A</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('prayers') }}">Prière</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('about') }}">À propos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('contact') }}">Contact</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link btn btn-outline-light ms-2" href="{{ url_for('donation') }}">Faire un don</a>
-                    </li>
-                </ul>
+    <header class="site-header fixed-top">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm py-2">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center gap-2" href="{{ url_for('home') }}">
+                    <img src="{{ url_for('static', filename='img/logo-croire-penser.png') }}" alt="Logo Croire et Penser" class="brand-logo" style="transform: scale(2.5);">
+                    
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Ouvrir la navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto align-items-lg-center gap-lg-2">
+                        <li class="nav-item">
+                            <a class="nav-link fw-medium px-3" href="{{ url_for('home') }}">
+                                <i class="fas fa-home me-2"></i>Accueil
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle fw-medium px-3" href="#" id="contentsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-book-open me-2"></i>Contenus
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="contentsDropdown">
+                                <li><a class="dropdown-item" href="{{ url_for('contents') }}?type=articles">
+                                    <i class="fas fa-newspaper me-2"></i>Articles
+                                </a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('contents') }}?type=videos">
+                                    <i class="fas fa-video me-2"></i>Vidéos
+                                </a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('contents') }}?type=podcasts">
+                                    <i class="fas fa-podcast me-2"></i>Podcasts
+                                </a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="{{ url_for('events') }}">
+                                    <i class="fas fa-calendar-alt me-2"></i>Événements
+                                </a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('partnerships') }}">
+                                    <i class="fas fa-handshake me-2"></i>Partenariats
+                                </a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fw-medium px-3" href="{{ url_for('about') }}">
+                                <i class="fas fa-people-group me-2"></i>Qui sommes-nous
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fw-medium px-3" href="{{ url_for('qa') }}">
+                                <i class="fas fa-question-circle me-2"></i>Questions
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fw-medium px-3" href="{{ url_for('prayers') }}">
+                                <i class="fas fa-praying-hands me-2"></i>Pri&egrave;re
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fw-medium px-3" href="{{ url_for('contact') }}">
+                                <i class="fas fa-envelope me-2"></i>Contact
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fw-medium px-3" href="{{ url_for('donation') }}">
+                                <i class="fas fa-heart me-2"></i>Don
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="d-none">
+                        <button id="askQuestionBtn" type="button"></button>
+                        <div id="authNav"></div>
+                        <div id="userNav">
+                            <span id="username"></span>
+                            <a id="adminLink" href="#"></a>
+                            <button type="button" onclick="logout()"></button>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
+    </header>
 
-    <main>
+    <main class="site-main">
         {% block content %}{% endblock %}
     </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <footer class="footer-brand text-white py-4">
+        <div class="container d-flex flex-column flex-lg-row gap-3 align-items-center justify-content-between">
+            <div class="d-flex align-items-center gap-3">
+                <img src="{{ url_for('static', filename='img/logo-croire-penser1.png') }}" alt="Logo Croire et Penser" class="brand-logo brand-logo-small" style="transform: scale(1.5);">
+                <span class="small text-white-50">&copy; 2025 Croire &amp; Penser. Propulsé par <a href="https://cognito-inc.ca" target="_blank" class="text-white text-decoration-none fw-semibold hover-gold">Cognito Inc.</a></span>
+            </div>
+            <div class="d-flex gap-3">
+                <a class="text-white-50 small text-decoration-none" href="{{ url_for('about') }}">&Agrave; propos</a>
+                <a class="text-white-50 small text-decoration-none" href="{{ url_for('contact') }}">Contact</a>
+                <a class="text-white-50 small text-decoration-none" href="{{ url_for('donation') }}">Soutenir</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal Connexion -->
+    <div class="modal fade" id="authModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title fw-semibold">Connexion</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="loginForm" class="vstack gap-3" novalidate>
+                        <div>
+                            <label for="loginEmail" class="form-label">E-mail ou nom d'utilisateur</label>
+                            <input type="text" class="form-control" id="loginEmail" required>
+                        </div>
+                        <div>
+                            <label for="loginPassword" class="form-label">Mot de passe</label>
+                            <input type="password" class="form-control" id="loginPassword" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary rounded-pill w-100">Se connecter</button>
+                    </form>
+                </div>
+                <div class="modal-footer border-0">
+                    <p class="mb-0 small text-muted">Pas encore de compte ?
+                        <a href="#" class="fw-semibold text-primary" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#registerModal">Cr&eacute;er un compte</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Inscription -->
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title fw-semibold">Cr&eacute;er un compte</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="registerForm" class="vstack gap-3" novalidate>
+                        <div>
+                            <label for="registerEmail" class="form-label">E-mail</label>
+                            <input type="email" class="form-control" id="registerEmail" required>
+                        </div>
+                        <div>
+                            <label for="dateNaissance" class="form-label">Date de naissance</label>
+                            <input type="date" class="form-control" id="dateNaissance">
+                        </div>
+                        <div>
+                            <label for="accepteJesus" class="form-label">Votre parcours de foi</label>
+                            <select id="accepteJesus" class="form-select">
+                                <option value="converti">Je me reconnais comme disciple de J&eacute;sus</option>
+                                <option value="en-chemin">Je suis en chemin</option>
+                                <option value="curieux">Je d&eacute;couvre</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="registerPassword" class="form-label">Mot de passe</label>
+                            <input type="password" class="form-control" id="registerPassword" required>
+                        </div>
+                        <div>
+                            <label for="registerConfirmPassword" class="form-label">Confirmer le mot de passe</label>
+                            <input type="password" class="form-control" id="registerConfirmPassword" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary rounded-pill w-100">S'inscrire</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Question -->
+    <div class="modal fade" id="questionModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content border-0 shadow-lg">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title fw-semibold">Poser une question</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="questionForm" class="vstack gap-3" novalidate>
+                        <div>
+                            <label for="questionTitle" class="form-label">Sujet</label>
+                            <input type="text" class="form-control" id="questionTitle" required>
+                        </div>
+                        <div>
+                            <label for="questionContent" class="form-label">Question d&eacute;taill&eacute;e</label>
+                            <textarea class="form-control" id="questionContent" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary rounded-pill">Envoyer la question</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/final-edit.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/cms-loader.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/page-editor.js') }}"></script>
+    
+    {% block extra_scripts %}{% endblock %}
 </body>
 </html>

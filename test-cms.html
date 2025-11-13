@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test CMS</title>
+</head>
+<body>
+    <h1>Test CMS Synchronisation</h1>
+    <button onclick="addTestContent()">Ajouter contenu test</button>
+    <button onclick="showContents()">Afficher contenus</button>
+    <div id="result"></div>
+
+    <script>
+        function addTestContent() {
+            const contents = JSON.parse(localStorage.getItem('cms_contents') || '[]');
+            const newContent = {
+                id: Date.now(),
+                title: 'Test Article',
+                type: 'article',
+                category: 'dieu',
+                body: 'Ceci est un test',
+                excerpt: 'Test excerpt',
+                featured: true,
+                published: true,
+                created_at: new Date().toISOString()
+            };
+            contents.push(newContent);
+            localStorage.setItem('cms_contents', JSON.stringify(contents));
+            localStorage.setItem('cms_last_update', Date.now().toString());
+            alert('Contenu ajouté !');
+        }
+
+        function showContents() {
+            const contents = JSON.parse(localStorage.getItem('cms_contents') || '[]');
+            document.getElementById('result').innerHTML = `
+                <h3>Contenus (${contents.length}):</h3>
+                <pre>${JSON.stringify(contents, null, 2)}</pre>
+            `;
+        }
+    </script>
+</body>
+</html>

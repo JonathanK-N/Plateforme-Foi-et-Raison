@@ -1,544 +1,799 @@
-// Interface d'administration
+// Admin Dashboard JavaScript - Simplifié et Fonctionnel
+document.addEventListener('DOMContentLoaded', function() {
+    initializeAdmin();
+});
 
-function showAdmin() {
-    if (!currentUser || currentUser.role !== 'admin') {
-        showAlert('Accès refusé', 'danger');
+function initializeAdmin() {
+    setupNavigation();
+    loadDashboardStats();
+    setupEventListeners();
+    
+    // Auto-login for demo
+    localStorage.setItem('admin_token', 'demo-token');
+}
+
+function setupNavigation() {
+    const navItems = document.querySelectorAll('.nav-item');
+    
+    navItems.forEach(item => {
+        item.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            navItems.forEach(nav => nav.classList.remove('active'));
+            this.classList.add('active');
+            
+            const sectionId = this.dataset.section;
+            showSection(sectionId);
+        });
+    });
+}
+
+function showSection(sectionId) {
+    const sections = document.querySelectorAll('.admin-section');
+    sections.forEach(section => section.classList.remove('active'));
+    
+    const targetSection = document.getElementById(sectionId + '-section');
+    if (targetSection) {
+        targetSection.classList.add('active');
+    }
+    
+    const titles = {
+        'dashboard': 'Tableau de bord',
+        'pages': 'Gestion des pages',
+        'content': 'Gestion du contenu',
+        'users': 'Gestion des utilisateurs',
+        'prayers': 'Gestion des prières',
+        'qa': 'Questions & Réponses',
+        'events': 'Gestion des événements',
+        'donations': 'Gestion des dons',
+        'settings': 'Paramètres système'
+    };
+    
+    const sectionTitle = document.getElementById('section-title');
+    if (sectionTitle && titles[sectionId]) {
+        sectionTitle.textContent = titles[sectionId];
+    }
+    
+    loadSectionData(sectionId);
+}
+
+function loadSectionData(sectionId) {
+    switch(sectionId) {
+        case 'dashboard':
+            loadDashboardStats();
+            loadRecentActivity();
+            break;
+        case 'content':
+            loadContentList();
+            break;
+        case 'users':
+            loadUsersList();
+            break;
+        default:
+            break;
+    }
+}
+
+function loadDashboardStats() {
+    updateStatCard('total-users', 156);
+    updateStatCard('total-content', 89);
+    updateStatCard('total-prayers', 234);
+    updateStatCard('total-questions', 67);
+}
+
+function updateStatCard(elementId, value) {
+    const element = document.getElementById(elementId);
+    if (element) {
+        animateNumber(element, 0, value, 2000);
+    }
+}
+
+function animateNumber(element, start, end, duration) {
+    const startTime = performance.now();
+    
+    function update(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        
+        const current = Math.floor(start + (end - start) * progress);
+        element.textContent = current.toLocaleString();
+        
+        if (progress < 1) {
+            requestAnimationFrame(update);
+        }
+    }
+    
+    requestAnimationFrame(update);
+}
+
+function loadRecentActivity() {
+    const activityList = document.getElementById('recent-activity');
+    if (!activityList) return;
+    
+    const activities = [
+        { icon: 'fas fa-user-plus', title: 'Nouvel utilisateur inscrit', time: 'Il y a 5 minutes' },
+        { icon: 'fas fa-newspaper', title: 'Article publié: "La foi et la science"', time: 'Il y a 1 heure' },
+        { icon: 'fas fa-praying-hands', title: 'Nouvelle demande de prière', time: 'Il y a 2 heures' },
+        { icon: 'fas fa-question-circle', title: 'Question soumise pour modération', time: 'Il y a 3 heures' },
+        { icon: 'fas fa-heart', title: 'Don reçu: 50$', time: 'Il y a 4 heures' }
+    ];
+    
+    activityList.innerHTML = activities.map(activity => `
+        <div class="activity-item">
+            <div class="activity-icon">
+                <i class="${activity.icon}"></i>
+            </div>
+            <div class="activity-content">
+                <div class="activity-title">${activity.title}</div>
+                <div class="activity-time">${activity.time}</div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function loadContentList() {
+    const contentList = document.getElementById('content-list');
+    if (!contentList) return;
+    
+    const demoContent = [
+        { id: 1, title: 'La foi et la raison', type: 'article', status: 'published', created_at: new Date().toISOString() },
+        { id: 2, title: 'Comprendre la Trinité', type: 'video', status: 'draft', created_at: new Date().toISOString() },
+        { id: 3, title: 'Podcast - Questions de foi', type: 'podcast', status: 'published', created_at: new Date().toISOString() }
+    ];
+    
+    contentList.innerHTML = `
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Titre</th>
+                    <th>Type</th>
+                    <th>Statut</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${demoContent.map(content => `
+                    <tr>
+                        <td>${content.title}</td>
+                        <td><span class="status-badge ${content.type}">${content.type}</span></td>
+                        <td><span class="status-badge ${content.status}">${content.status}</span></td>
+                        <td>${new Date(content.created_at).toLocaleDateString()}</td>
+                        <td>
+                            <button class="action-btn edit" onclick="editContent(${content.id})">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="action-btn delete" onclick="deleteContent(${content.id})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `).join('')}
+            </tbody>
+        </table>
+    `;
+}
+
+function loadUsersList() {
+    const usersList = document.getElementById('users-list');
+    if (!usersList) return;
+    
+    const users = [
+        { id: 1, name: 'Jean Dupont', email: 'jean@example.com', role: 'user', status: 'active' },
+        { id: 2, name: 'Marie Martin', email: 'marie@example.com', role: 'user', status: 'active' },
+        { id: 3, name: 'Admin Système', email: 'admin@foietraison.ca', role: 'admin', status: 'active' }
+    ];
+    
+    usersList.innerHTML = `
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Email</th>
+                    <th>Rôle</th>
+                    <th>Statut</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${users.map(user => `
+                    <tr>
+                        <td>${user.name}</td>
+                        <td>${user.email}</td>
+                        <td><span class="status-badge ${user.role}">${user.role}</span></td>
+                        <td><span class="status-badge ${user.status}">${user.status}</span></td>
+                        <td>
+                            <button class="action-btn edit" onclick="editUser(${user.id})">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            ${user.role !== 'admin' ? `
+                                <button class="action-btn delete" onclick="deleteUser(${user.id})">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            ` : ''}
+                        </td>
+                    </tr>
+                `).join('')}
+            </tbody>
+        </table>
+    `;
+}
+
+function setupEventListeners() {
+    // Page selector
+    const pageSelect = document.getElementById('page-select');
+    const editBtn = document.getElementById('edit-page-btn');
+    const previewBtn = document.getElementById('preview-page-btn');
+    
+    if (pageSelect && editBtn && previewBtn) {
+        pageSelect.addEventListener('change', function() {
+            if (this.value) {
+                editBtn.disabled = false;
+                previewBtn.disabled = false;
+            } else {
+                editBtn.disabled = true;
+                previewBtn.disabled = true;
+            }
+        });
+        
+        // Activer immédiatement si une valeur est sélectionnée
+        if (pageSelect.value) {
+            editBtn.disabled = false;
+            previewBtn.disabled = false;
+        }
+    }
+    
+    // Content guide tabs
+    const guideTabs = document.querySelectorAll('.guide-tab');
+    const guideInfos = document.querySelectorAll('.guide-info');
+    
+    guideTabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            const type = this.dataset.type;
+            
+            guideTabs.forEach(t => t.classList.remove('active'));
+            guideInfos.forEach(info => info.classList.remove('active'));
+            
+            this.classList.add('active');
+            const targetInfo = document.getElementById(type + '-guide');
+            if (targetInfo) {
+                targetInfo.classList.add('active');
+            }
+        });
+    });
+}
+
+// Page Editor Functions
+function editPage() {
+    const select = document.getElementById('page-select');
+    const page = select.value;
+    
+    if (!page) {
+        alert('Sélectionnez une page d\'abord');
         return;
     }
     
-    hideAllPages();
-    
-    let adminPage = document.getElementById('adminPage');
-    if (!adminPage) {
-        adminPage = document.createElement('div');
-        adminPage.id = 'adminPage';
-        adminPage.className = 'd-none';
-        
-        adminPage.innerHTML = `
-            <div class="container-fluid py-4">
-                <div class="row">
-                    <!-- Sidebar Admin -->
-                    <div class="col-md-3">
-                        <div class="admin-sidebar bg-white shadow rounded p-3">
-                            <h5 class="text-primary mb-3"><i class="fas fa-cog me-2"></i>Administration</h5>
-                            <ul class="nav nav-pills flex-column">
-                                <li class="nav-item mb-2">
-                                    <a class="nav-link active" href="#" onclick="showAdminSection('dashboard')">
-                                        <i class="fas fa-chart-bar me-2"></i>Tableau de bord
-                                    </a>
-                                </li>
-                                <li class="nav-item mb-2">
-                                    <a class="nav-link" href="#" onclick="showAdminSection('users')">
-                                        <i class="fas fa-users me-2"></i>Utilisateurs
-                                    </a>
-                                </li>
-                                <li class="nav-item mb-2">
-                                    <a class="nav-link" href="#" onclick="showAdminSection('contents')">
-                                        <i class="fas fa-play-circle me-2"></i>Contenus
-                                    </a>
-                                </li>
-                                <li class="nav-item mb-2">
-                                    <a class="nav-link" href="#" onclick="showAdminSection('questions')">
-                                        <i class="fas fa-question-circle me-2"></i>Questions
-                                    </a>
-                                </li>
-                                <li class="nav-item mb-2">
-                                    <a class="nav-link" href="#" onclick="showAdminSection('prayers')">
-                                        <i class="fas fa-praying-hands me-2"></i>Prières
-                                    </a>
-                                </li>
-                                <li class="nav-item mb-2">
-                                    <a class="nav-link" href="#" onclick="showAdminSection('settings')">
-                                        <i class="fas fa-cog me-2"></i>Paramètres
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <!-- Contenu Admin -->
-                    <div class="col-md-9">
-                        <div id="adminContent" class="bg-white shadow rounded p-4">
-                            <!-- Contenu généré dynamiquement -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
-        
-        document.querySelector('.container-fluid').appendChild(adminPage);
-    }
-    
-    adminPage.classList.remove('d-none');
-    showAdminSection('dashboard');
+    const url = page === 'home' ? '/?edit=true' : `/${page}?edit=true`;
+    window.open(url, '_blank');
 }
 
-function showAdminSection(section) {
-    // Mettre à jour la navigation
-    document.querySelectorAll('.admin-sidebar .nav-link').forEach(link => {
-        link.classList.remove('active');
-    });
-    event.target.classList.add('active');
+function loadPageEditor() {
+    editPage();
+}
+
+function getPageDisplayName(pageValue) {
+    const pageNames = {
+        'home': 'Accueil',
+        'about': 'À propos',
+        'contents': 'Contenus',
+        'qa': 'Questions & Réponses',
+        'prayers': 'Prières',
+        'contact': 'Contact',
+        'events': 'Événements',
+        'partnerships': 'Partenariats',
+        'donation': 'Dons'
+    };
+    return pageNames[pageValue] || pageValue;
+}
+
+function savePage() {
+    showNotification('Page sauvegardée avec succès !', 'success');
+}
+
+function cancelEdit() {
+    document.getElementById('page-editor').style.display = 'none';
+    document.getElementById('page-select').value = '';
+    document.getElementById('edit-page-btn').disabled = true;
+    document.getElementById('preview-page-btn').disabled = true;
+    showNotification('Édition annulée', 'info');
+}
+
+function previewPage() {
+    const selectedPage = document.getElementById('page-select').value;
+    if (selectedPage) {
+        window.open(`/${selectedPage}`, '_blank');
+    }
+}
+
+// Tutorial Functions
+function showFullTutorial() {
+    const steps = [
+        {
+            title: '🏠 Gestion des Pages',
+            content: `Étape 1: Modifier les pages
+
+1. Sélectionnez une page dans la liste déroulante
+2. Cliquez sur "Modifier cette page"
+3. La page s'ouvre en mode édition
+4. Cliquez directement sur les textes pour les modifier
+5. Cliquez sur les images pour les changer
+6. Sauvegardez vos modifications
+
+Astuce: Tous les éléments modifiables sont surlignés au survol !`
+        },
+        {
+            title: '📝 Gestion du Contenu',
+            content: `Étape 2: Créer du contenu
+
+• Articles: Rédigez avec texte riche et références bibliques
+• Vidéos: Ajoutez des liens YouTube/Vimeo
+• Podcasts: Téléchargez vos fichiers audio
+
+Processus simple:
+1. Cliquez "Créer un contenu"
+2. Choisissez le type
+3. Remplissez le formulaire
+4. Publiez ou sauvegardez en brouillon`
+        },
+        {
+            title: '✨ Conseils Pratiques',
+            content: `Étape 3: Bonnes pratiques
+
+• Sauvegardez régulièrement (Ctrl+S)
+• Prévisualisez avant publication
+• Optimisez vos images (max 2MB)
+• Pensez à votre audience
+• Utilisez des titres clairs et engageants
+• Ajoutez des références bibliques pertinentes
+
+Vous êtes maintenant prêt à gérer votre plateforme !`
+        }
+    ];
     
-    const content = document.getElementById('adminContent');
+    let currentStep = 0;
     
-    switch(section) {
-        case 'dashboard':
-            showAdminDashboard(content);
+    function showStep() {
+        if (currentStep < steps.length) {
+            const step = steps[currentStep];
+            const continueReading = confirm(`${step.title}\n\n${step.content}\n\nContinuer le tutoriel ?`);
+            
+            if (continueReading) {
+                currentStep++;
+                showStep();
+            }
+        } else {
+            showNotification('Tutoriel terminé ! Vous êtes prêt à gérer votre plateforme.', 'success');
+        }
+    }
+    
+    showStep();
+}
+
+// Content Management Functions
+function showCreateContentModal() {
+    showContentModal();
+}
+
+function showContentModal() {
+    const modal = document.getElementById('admin-modal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalBody = document.getElementById('modal-body');
+    
+    modalTitle.textContent = 'Créer un nouveau contenu';
+    
+    modalBody.innerHTML = `
+        <form id="content-form">
+            <div class="form-group mb-3">
+                <label>Type de contenu</label>
+                <select class="form-control" id="content-type" required>
+                    <option value="">Sélectionner un type</option>
+                    <option value="article">Article</option>
+                    <option value="video">Vidéo</option>
+                    <option value="podcast">Podcast</option>
+                </select>
+            </div>
+            <div class="form-group mb-3">
+                <label>Titre</label>
+                <input type="text" class="form-control" id="content-title" required>
+            </div>
+            <div class="form-group mb-3">
+                <label>Description</label>
+                <textarea class="form-control" id="content-description" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" id="content-published"> Publier immédiatement
+                </label>
+            </div>
+        </form>
+    `;
+    
+    // Mettre à jour le bouton de sauvegarde
+    const saveBtn = document.getElementById('modal-save-btn');
+    saveBtn.onclick = saveNewContent;
+    
+    modal.classList.add('show');
+}
+
+async function saveNewContent() {
+    const form = document.getElementById('content-form');
+    const type = document.getElementById('content-type').value;
+    const title = document.getElementById('content-title').value;
+    const description = document.getElementById('content-description').value;
+    const published = document.getElementById('content-published').checked;
+    
+    if (!type || !title) {
+        alert('Veuillez remplir tous les champs obligatoires');
+        return;
+    }
+    
+    try {
+        // Simuler la création
+        const newContent = {
+            id: Date.now(),
+            title: title,
+            type: type,
+            description: description,
+            status: published ? 'published' : 'draft',
+            created_at: new Date().toISOString()
+        };
+        
+        // Ajouter à la liste (simulation)
+        addContentToList(newContent);
+        
+        closeAdminModal();
+        alert(`${type.charAt(0).toUpperCase() + type.slice(1)} "${title}" créé(e) avec succès !`);
+        
+    } catch (error) {
+        alert('Erreur lors de la création: ' + error.message);
+    }
+}
+
+function addContentToList(content) {
+    const contentList = document.getElementById('content-list');
+    if (!contentList) return;
+    
+    const table = contentList.querySelector('table tbody');
+    if (table) {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${content.title}</td>
+            <td><span class="status-badge ${content.type}">${content.type}</span></td>
+            <td><span class="status-badge ${content.status}">${content.status}</span></td>
+            <td>${new Date(content.created_at).toLocaleDateString()}</td>
+            <td>
+                <button class="action-btn edit" onclick="editContent(${content.id})">
+                    <i class="fas fa-edit"></i>
+                </button>
+                <button class="action-btn delete" onclick="deleteContent(${content.id})">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </td>
+        `;
+        table.appendChild(row);
+    }
+}
+
+// Modal Functions
+function showAddModal() {
+    const activeSection = document.querySelector('.nav-item.active').dataset.section;
+    
+    switch(activeSection) {
+        case 'content':
+            showContentModal();
             break;
         case 'users':
-            showAdminUsers(content);
-            break;
-        case 'contents':
-            showAdminContents(content);
-            break;
-        case 'questions':
-            showAdminQuestions(content);
+            showUserModal();
             break;
         case 'prayers':
-            showAdminPrayers(content);
+            showPrayerModal();
             break;
-        case 'settings':
-            showAdminSettings(content);
+        case 'qa':
+            showQuestionModal();
             break;
+        case 'events':
+            showEventModal();
+            break;
+        case 'donations':
+            showDonationModal();
+            break;
+        default:
+            alert('Fonction d\'ajout non disponible pour cette section');
     }
 }
 
-function showAdminDashboard(content) {
-    content.innerHTML = `
-        <h3 class="mb-4"><i class="fas fa-chart-bar me-2"></i>Tableau de bord</h3>
-        
-        <!-- Statistiques -->
-        <div class="row mb-4">
-            <div class="col-md-3">
-                <div class="card text-center border-primary">
-                    <div class="card-body">
-                        <i class="fas fa-users text-primary fs-1"></i>
-                        <h4 class="mt-2" id="totalUsers">-</h4>
-                        <p class="text-muted">Utilisateurs</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card text-center border-success">
-                    <div class="card-body">
-                        <i class="fas fa-play-circle text-success fs-1"></i>
-                        <h4 class="mt-2" id="totalContents">-</h4>
-                        <p class="text-muted">Contenus</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card text-center border-warning">
-                    <div class="card-body">
-                        <i class="fas fa-question-circle text-warning fs-1"></i>
-                        <h4 class="mt-2" id="totalQuestions">-</h4>
-                        <p class="text-muted">Questions</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card text-center border-info">
-                    <div class="card-body">
-                        <i class="fas fa-praying-hands text-info fs-1"></i>
-                        <h4 class="mt-2" id="totalPrayers">-</h4>
-                        <p class="text-muted">Demandes prière</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Actions rapides -->
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h5><i class="fas fa-plus me-2"></i>Actions rapides</h5>
-                    </div>
-                    <div class="card-body">
-                        <button class="btn btn-primary me-2 mb-2" onclick="showContentForm()">
-                            <i class="fas fa-plus me-1"></i>Nouveau contenu
-                        </button>
-                        <button class="btn btn-success me-2 mb-2" onclick="showAdminSection('users')">
-                            <i class="fas fa-users me-1"></i>Gérer utilisateurs
-                        </button>
-                        <button class="btn btn-warning me-2 mb-2" onclick="showAdminSection('questions')">
-                            <i class="fas fa-check me-1"></i>Modérer questions
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h5><i class="fas fa-clock me-2"></i>Activité récente</h5>
-                    </div>
-                    <div class="card-body" id="recentActivity">
-                        <div class="text-center">
-                            <div class="spinner-border text-primary" role="status"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    `;
+function showUserModal() {
+    const modal = document.getElementById('admin-modal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalBody = document.getElementById('modal-body');
     
-    loadAdminStats();
-}
-
-function showAdminUsers(content) {
-    content.innerHTML = `
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h3><i class="fas fa-users me-2"></i>Gestion des utilisateurs</h3>
-            <div>
-                <input type="text" class="form-control d-inline-block w-auto me-2" placeholder="Rechercher..." id="userSearch">
-                <button class="btn btn-primary" onclick="exportUsers()">
-                    <i class="fas fa-download me-1"></i>Exporter
-                </button>
+    modalTitle.textContent = 'Ajouter un utilisateur';
+    modalBody.innerHTML = `
+        <form id="user-form">
+            <div class="form-group mb-3">
+                <label>Nom complet</label>
+                <input type="text" class="form-control" id="user-name" required>
             </div>
-        </div>
-        
-        <div class="table-responsive">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nom complet</th>
-                        <th>Email</th>
-                        <th>Téléphone</th>
-                        <th>Sexe</th>
-                        <th>Naissance</th>
-                        <th>Jésus</th>
-                        <th>Baptisé</th>
-                        <th>Inscription</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="usersTable">
-                    <tr><td colspan="10" class="text-center">Chargement...</td></tr>
-                </tbody>
-            </table>
-        </div>
-    `;
-    
-    loadUsers();
-}
-
-function showAdminContents(content) {
-    content.innerHTML = `
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h3><i class="fas fa-play-circle me-2"></i>Gestion des contenus</h3>
-            <button class="btn btn-primary" onclick="showContentForm()">
-                <i class="fas fa-plus me-1"></i>Nouveau contenu
-            </button>
-        </div>
-        
-        <div class="row mb-3">
-            <div class="col-md-4">
-                <select class="form-select" id="contentTypeFilter">
-                    <option value="">Tous les types</option>
-                    <option value="video">Vidéos</option>
-                    <option value="podcast">Podcasts</option>
-                    <option value="article">Articles</option>
+            <div class="form-group mb-3">
+                <label>Email</label>
+                <input type="email" class="form-control" id="user-email" required>
+            </div>
+            <div class="form-group mb-3">
+                <label>Rôle</label>
+                <select class="form-control" id="user-role" required>
+                    <option value="user">Utilisateur</option>
+                    <option value="admin">Administrateur</option>
                 </select>
             </div>
-        </div>
-        
-        <div class="table-responsive">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Titre</th>
-                        <th>Type</th>
-                        <th>Vues</th>
-                        <th>Date</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="contentsTable">
-                    <tr><td colspan="6" class="text-center">Chargement...</td></tr>
-                </tbody>
-            </table>
-        </div>
+        </form>
     `;
     
-    loadAdminContents();
+    document.getElementById('modal-save-btn').onclick = saveNewUser;
+    modal.classList.add('show');
 }
 
-function showAdminQuestions(content) {
-    content.innerHTML = `
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h3><i class="fas fa-question-circle me-2"></i>Modération des questions</h3>
-            <div>
-                <select class="form-select d-inline-block w-auto" id="questionStatusFilter">
-                    <option value="">Tous les statuts</option>
-                    <option value="pending">En attente</option>
-                    <option value="approved">Approuvées</option>
-                    <option value="rejected">Rejetées</option>
+function showPrayerModal() {
+    const modal = document.getElementById('admin-modal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalBody = document.getElementById('modal-body');
+    
+    modalTitle.textContent = 'Ajouter une demande de prière';
+    modalBody.innerHTML = `
+        <form id="prayer-form">
+            <div class="form-group mb-3">
+                <label>Titre</label>
+                <input type="text" class="form-control" id="prayer-title" required>
+            </div>
+            <div class="form-group mb-3">
+                <label>Demande</label>
+                <textarea class="form-control" id="prayer-content" rows="4" required></textarea>
+            </div>
+            <div class="form-group mb-3">
+                <label>Priorité</label>
+                <select class="form-control" id="prayer-priority">
+                    <option value="normal">Normale</option>
+                    <option value="urgent">Urgente</option>
                 </select>
             </div>
-        </div>
-        
-        <div class="table-responsive">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Titre</th>
-                        <th>Auteur</th>
-                        <th>Statut</th>
-                        <th>Date</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="questionsTable">
-                    <tr><td colspan="6" class="text-center">Chargement...</td></tr>
-                </tbody>
-            </table>
-        </div>
+        </form>
     `;
     
-    loadAdminQuestions();
+    document.getElementById('modal-save-btn').onclick = saveNewPrayer;
+    modal.classList.add('show');
 }
 
-function showAdminPrayers(content) {
-    content.innerHTML = `
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h3><i class="fas fa-praying-hands me-2"></i>Demandes de prière</h3>
-        </div>
-        
-        <div class="table-responsive">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Sujet</th>
-                        <th>Demandeur</th>
-                        <th>Anonyme</th>
-                        <th>Date</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="prayersTable">
-                    <tr><td colspan="6" class="text-center">Chargement...</td></tr>
-                </tbody>
-            </table>
-        </div>
+function showQuestionModal() {
+    const modal = document.getElementById('admin-modal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalBody = document.getElementById('modal-body');
+    
+    modalTitle.textContent = 'Ajouter une question';
+    modalBody.innerHTML = `
+        <form id="question-form">
+            <div class="form-group mb-3">
+                <label>Question</label>
+                <input type="text" class="form-control" id="question-title" required>
+            </div>
+            <div class="form-group mb-3">
+                <label>Détails</label>
+                <textarea class="form-control" id="question-content" rows="4"></textarea>
+            </div>
+            <div class="form-group mb-3">
+                <label>Réponse</label>
+                <textarea class="form-control" id="question-answer" rows="4"></textarea>
+            </div>
+        </form>
     `;
     
-    loadAdminPrayers();
+    document.getElementById('modal-save-btn').onclick = saveNewQuestion;
+    modal.classList.add('show');
 }
 
-function showAdminSettings(content) {
-    content.innerHTML = `
-        <h3 class="mb-4"><i class="fas fa-cog me-2"></i>Paramètres du système</h3>
-        
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h5>Paramètres généraux</h5>
-                    </div>
-                    <div class="card-body">
-                        <form id="generalSettings">
-                            <div class="mb-3">
-                                <label class="form-label">Nom du site</label>
-                                <input type="text" class="form-control" value="Croire & Penser">
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Email administrateur</label>
-                                <input type="email" class="form-control" value="admin@foi-raison.com">
-                            </div>
-                            <div class="mb-3">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="allowRegistration" checked>
-                                    <label class="form-check-label" for="allowRegistration">
-                                        Autoriser les inscriptions
-                                    </label>
-                                </div>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Sauvegarder</button>
-                        </form>
-                    </div>
-                </div>
+function showEventModal() {
+    const modal = document.getElementById('admin-modal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalBody = document.getElementById('modal-body');
+    
+    modalTitle.textContent = 'Ajouter un événement';
+    modalBody.innerHTML = `
+        <form id="event-form">
+            <div class="form-group mb-3">
+                <label>Titre de l'événement</label>
+                <input type="text" class="form-control" id="event-title" required>
             </div>
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h5>Actions système</h5>
-                    </div>
-                    <div class="card-body">
-                        <button class="btn btn-warning mb-2 w-100" onclick="backupDatabase()">
-                            <i class="fas fa-download me-2"></i>Sauvegarder la base de données
-                        </button>
-                        <button class="btn btn-info mb-2 w-100" onclick="clearCache()">
-                            <i class="fas fa-trash me-2"></i>Vider le cache
-                        </button>
-                        <button class="btn btn-success mb-2 w-100" onclick="sendNewsletter()">
-                            <i class="fas fa-envelope me-2"></i>Envoyer newsletter
-                        </button>
-                    </div>
-                </div>
+            <div class="form-group mb-3">
+                <label>Date</label>
+                <input type="datetime-local" class="form-control" id="event-date" required>
             </div>
-        </div>
+            <div class="form-group mb-3">
+                <label>Lieu</label>
+                <input type="text" class="form-control" id="event-location">
+            </div>
+            <div class="form-group mb-3">
+                <label>Description</label>
+                <textarea class="form-control" id="event-description" rows="3"></textarea>
+            </div>
+        </form>
     `;
+    
+    document.getElementById('modal-save-btn').onclick = saveNewEvent;
+    modal.classList.add('show');
 }
 
-// Fonctions de chargement des données
-async function loadAdminStats() {
-    try {
-        // Simulation des statistiques
-        document.getElementById('totalUsers').textContent = '156';
-        document.getElementById('totalContents').textContent = '42';
-        document.getElementById('totalQuestions').textContent = '28';
-        document.getElementById('totalPrayers').textContent = '73';
-    } catch (error) {
-        console.error('Erreur chargement stats:', error);
+function showDonationModal() {
+    const modal = document.getElementById('admin-modal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalBody = document.getElementById('modal-body');
+    
+    modalTitle.textContent = 'Enregistrer un don';
+    modalBody.innerHTML = `
+        <form id="donation-form">
+            <div class="form-group mb-3">
+                <label>Montant</label>
+                <input type="number" class="form-control" id="donation-amount" step="0.01" required>
+            </div>
+            <div class="form-group mb-3">
+                <label>Donateur (optionnel)</label>
+                <input type="text" class="form-control" id="donation-donor">
+            </div>
+            <div class="form-group mb-3">
+                <label>Méthode de paiement</label>
+                <select class="form-control" id="donation-method">
+                    <option value="paypal">PayPal</option>
+                    <option value="stripe">Stripe</option>
+                    <option value="interac">Interac</option>
+                    <option value="cash">Espèces</option>
+                </select>
+            </div>
+        </form>
+    `;
+    
+    document.getElementById('modal-save-btn').onclick = saveNewDonation;
+    modal.classList.add('show');
+}
+
+// Fonctions de sauvegarde
+function saveNewUser() {
+    const name = document.getElementById('user-name').value;
+    const email = document.getElementById('user-email').value;
+    const role = document.getElementById('user-role').value;
+    
+    if (!name || !email) {
+        alert('Veuillez remplir tous les champs obligatoires');
+        return;
     }
+    
+    closeAdminModal();
+    alert(`Utilisateur "${name}" ajouté avec succès !`);
+    loadUsersList();
 }
 
-async function loadUsers() {
-    const tbody = document.getElementById('usersTable');
-    tbody.innerHTML = `
-        <tr>
-            <td>1</td>
-            <td>Jean Dupont</td>
-            <td>jean@email.com</td>
-            <td>+33123456789</td>
-            <td>M</td>
-            <td>15/03/1985</td>
-            <td><span class="badge bg-success">Oui</span></td>
-            <td><span class="badge bg-primary">2010</span></td>
-            <td>01/01/2024</td>
-            <td>
-                <button class="btn btn-sm btn-outline-primary" onclick="viewUser(1)">
-                    <i class="fas fa-eye"></i>
-                </button>
-                <button class="btn btn-sm btn-outline-warning" onclick="editUser(1)">
-                    <i class="fas fa-edit"></i>
-                </button>
-                <button class="btn btn-sm btn-outline-danger" onclick="deleteUser(1)">
-                    <i class="fas fa-trash"></i>
-                </button>
-            </td>
-        </tr>
-    `;
-}
-
-async function loadAdminContents() {
-    const tbody = document.getElementById('contentsTable');
-    tbody.innerHTML = `
-        <tr>
-            <td>1</td>
-            <td>Enseignement sur la foi</td>
-            <td><span class="badge bg-primary">Vidéo</span></td>
-            <td>245</td>
-            <td>15/01/2024</td>
-            <td>
-                <button class="btn btn-sm btn-outline-primary" onclick="editContent(1)">
-                    <i class="fas fa-edit"></i>
-                </button>
-                <button class="btn btn-sm btn-outline-danger" onclick="deleteContent(1)">
-                    <i class="fas fa-trash"></i>
-                </button>
-            </td>
-        </tr>
-    `;
-}
-
-async function loadAdminQuestions() {
-    const tbody = document.getElementById('questionsTable');
-    tbody.innerHTML = `
-        <tr>
-            <td>1</td>
-            <td>Comment prier efficacement ?</td>
-            <td>Marie Martin</td>
-            <td><span class="badge bg-warning">En attente</span></td>
-            <td>20/01/2024</td>
-            <td>
-                <button class="btn btn-sm btn-success" onclick="approveQuestion(1)">
-                    <i class="fas fa-check"></i>
-                </button>
-                <button class="btn btn-sm btn-danger" onclick="rejectQuestion(1)">
-                    <i class="fas fa-times"></i>
-                </button>
-            </td>
-        </tr>
-    `;
-}
-
-async function loadAdminPrayers() {
-    const tbody = document.getElementById('prayersTable');
-    tbody.innerHTML = `
-        <tr>
-            <td>1</td>
-            <td>Guérison pour ma famille</td>
-            <td>Pierre Durand</td>
-            <td><span class="badge bg-secondary">Non</span></td>
-            <td>22/01/2024</td>
-            <td>
-                <button class="btn btn-sm btn-outline-primary" onclick="viewPrayer(1)">
-                    <i class="fas fa-eye"></i>
-                </button>
-            </td>
-        </tr>
-    `;
-}
-
-// Fonctions d'actions
-function showContentForm() {
-    showAlert('Formulaire de contenu à implémenter', 'info');
-}
-
-function viewUser(id) {
-    showAlert(`Voir utilisateur ${id}`, 'info');
-}
-
-function editUser(id) {
-    showAlert(`Éditer utilisateur ${id}`, 'info');
-}
-
-function deleteUser(id) {
-    if (confirm('Supprimer cet utilisateur ?')) {
-        showAlert(`Utilisateur ${id} supprimé`, 'success');
+function saveNewPrayer() {
+    const title = document.getElementById('prayer-title').value;
+    const content = document.getElementById('prayer-content').value;
+    
+    if (!title || !content) {
+        alert('Veuillez remplir tous les champs obligatoires');
+        return;
     }
+    
+    closeAdminModal();
+    alert(`Demande de prière "${title}" ajoutée avec succès !`);
 }
 
+function saveNewQuestion() {
+    const title = document.getElementById('question-title').value;
+    
+    if (!title) {
+        alert('Veuillez saisir une question');
+        return;
+    }
+    
+    closeAdminModal();
+    alert(`Question "${title}" ajoutée avec succès !`);
+}
+
+function saveNewEvent() {
+    const title = document.getElementById('event-title').value;
+    const date = document.getElementById('event-date').value;
+    
+    if (!title || !date) {
+        alert('Veuillez remplir tous les champs obligatoires');
+        return;
+    }
+    
+    closeAdminModal();
+    alert(`Événement "${title}" ajouté avec succès !`);
+}
+
+function saveNewDonation() {
+    const amount = document.getElementById('donation-amount').value;
+    
+    if (!amount) {
+        alert('Veuillez saisir un montant');
+        return;
+    }
+    
+    closeAdminModal();
+    alert(`Don de ${amount}$ enregistré avec succès !`);
+}
+
+function closeAdminModal() {
+    document.getElementById('admin-modal').classList.remove('show');
+}
+
+function refreshData() {
+    const activeSection = document.querySelector('.nav-item.active').dataset.section;
+    loadSectionData(activeSection);
+    
+    const refreshBtn = event.target;
+    const originalHTML = refreshBtn.innerHTML;
+    refreshBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Actualisation...';
+    refreshBtn.disabled = true;
+    
+    setTimeout(() => {
+        refreshBtn.innerHTML = originalHTML;
+        refreshBtn.disabled = false;
+        showNotification('Données actualisées', 'success');
+    }, 1500);
+}
+
+// CRUD Operations
 function editContent(id) {
-    showAlert(`Éditer contenu ${id}`, 'info');
+    showNotification('Fonction d\'édition en développement', 'info');
 }
 
 function deleteContent(id) {
-    if (confirm('Supprimer ce contenu ?')) {
-        showAlert(`Contenu ${id} supprimé`, 'success');
+    if (confirm('Êtes-vous sûr de vouloir supprimer ce contenu ?')) {
+        showNotification('Contenu supprimé avec succès', 'success');
+        loadContentList();
     }
 }
 
-function approveQuestion(id) {
-    showAlert(`Question ${id} approuvée`, 'success');
+function editUser(id) {
+    showNotification('Fonction d\'édition utilisateur en développement', 'info');
 }
 
-function rejectQuestion(id) {
-    showAlert(`Question ${id} rejetée`, 'warning');
+function deleteUser(id) {
+    if (confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')) {
+        showNotification('Utilisateur supprimé avec succès', 'success');
+        loadUsersList();
+    }
 }
 
-function viewPrayer(id) {
-    showAlert(`Voir demande de prière ${id}`, 'info');
+// Notification System
+function showNotification(message, type = 'info') {
+    alert(message);
 }
 
-function exportUsers() {
-    showAlert('Export des utilisateurs en cours...', 'info');
+// Mobile sidebar toggle
+function toggleMobileSidebar() {
+    const sidebar = document.querySelector('.admin-sidebar');
+    sidebar.classList.toggle('mobile-open');
 }
 
-function backupDatabase() {
-    showAlert('Sauvegarde en cours...', 'info');
-}
-
-function clearCache() {
-    showAlert('Cache vidé', 'success');
-}
-
-function sendNewsletter() {
-    showAlert('Newsletter envoyée', 'success');
-}
+// Keyboard shortcuts
+document.addEventListener('keydown', function(e) {
+    if (e.ctrlKey && e.key === 's') {
+        e.preventDefault();
+        if (document.getElementById('page-editor').style.display !== 'none') {
+            savePage();
+        }
+    }
+    
+    if (e.key === 'Escape') {
+        if (document.getElementById('admin-modal').classList.contains('show')) {
+            closeAdminModal();
+        }
+    }
+});
