@@ -1,28 +1,340 @@
 {% extends "base.html" %}
 
-{% block title %}Prière - Croire & Penser{% endblock %}
+{% block title %}Prière & Méditation - Croire & Penser{% endblock %}
+
+{% block extra_head %}
+<link href="{{ url_for('static', filename='css/prayers.css') }}" rel="stylesheet">
+{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <div class="text-center animate-fade-up">
-        <h1 class="mb-5">Prière</h1>
-    </div>
-    
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="preparation-card text-center animate-fade-right delay-1">
-                <div class="animate-float mb-4">
-                    <i class="fas fa-praying-hands fa-4x mb-3"></i>
+<div class="prayers-page">
+    <!-- Hero spirituel avec animations -->
+    <section class="prayers-hero">
+        <div class="hero-light-rays"></div>
+        <div class="hero-particles"></div>
+        <div class="container">
+            <div class="hero-content animate-divine-in">
+                <div class="hero-icon">
+                    <i class="fas fa-praying-hands divine-glow"></i>
                 </div>
-                <h3 class="mb-3">Contenu en cours de préparation</h3>
-                <p class="mb-4">Notre équipe prépare des contenus adaptés pour vous<span class="loading-dots"></span></p>
-                <div class="d-flex justify-content-center">
-                    <div class="spinner-grow text-light animate-pulse" role="status">
-                        <span class="visually-hidden">Chargement...</span>
+                <h1 class="hero-title">Espace de Prière & Méditation</h1>
+                <p class="hero-subtitle">"Priez sans cesse" - 1 Thessaloniciens 5:17</p>
+                <p class="hero-description">Un lieu de communion avec Dieu, de méditation de Sa Parole et de partage de nos prières</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <!-- Verset du jour -->
+        <section class="daily-verse animate-slide-up">
+            <div class="verse-card">
+                <div class="verse-header">
+                    <div class="verse-icon">
+                        <i class="fas fa-bible"></i>
+                    </div>
+                    <h2>Verset du jour</h2>
+                    <div class="verse-date" id="currentDate"></div>
+                </div>
+                <div class="verse-content" id="dailyVerse">
+                    <blockquote class="verse-text">
+                        "Que ce livre de la loi ne s'éloigne point de ta bouche; médite-le jour et nuit, pour agir fidèlement selon tout ce qui y est écrit; car c'est alors que tu auras du succès dans tes entreprises, c'est alors que tu réussiras."
+                    </blockquote>
+                    <cite class="verse-reference">Josué 1:8</cite>
+                </div>
+                <div class="verse-actions">
+                    <button class="btn-verse-action" onclick="shareVerse()">
+                        <i class="fas fa-share-alt"></i> Partager
+                    </button>
+                    <button class="btn-verse-action" onclick="meditateVerse()">
+                        <i class="fas fa-heart"></i> Méditer
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Types de prières -->
+        <section class="prayer-types animate-slide-up delay-1">
+            <h2 class="section-title">Types de Prières</h2>
+            <div class="prayer-grid">
+                <div class="prayer-type-card" data-type="adoration">
+                    <div class="prayer-icon">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <h3>Adoration</h3>
+                    <p>Louer et glorifier Dieu pour qui Il est</p>
+                    <div class="prayer-examples">
+                        <span>Louange</span>
+                        <span>Gloire</span>
+                        <span>Magnificat</span>
+                    </div>
+                </div>
+                <div class="prayer-type-card" data-type="confession">
+                    <div class="prayer-icon">
+                        <i class="fas fa-dove"></i>
+                    </div>
+                    <h3>Confession</h3>
+                    <p>Reconnaître nos péchés et demander pardon</p>
+                    <div class="prayer-examples">
+                        <span>Repentance</span>
+                        <span>Pardon</span>
+                        <span>Purification</span>
+                    </div>
+                </div>
+                <div class="prayer-type-card" data-type="gratitude">
+                    <div class="prayer-icon">
+                        <i class="fas fa-hands"></i>
+                    </div>
+                    <h3>Gratitude</h3>
+                    <p>Remercier Dieu pour Ses bienfaits</p>
+                    <div class="prayer-examples">
+                        <span>Reconnaissance</span>
+                        <span>Bénédictions</span>
+                        <span>Grâces</span>
+                    </div>
+                </div>
+                <div class="prayer-type-card" data-type="supplication">
+                    <div class="prayer-icon">
+                        <i class="fas fa-hands-helping"></i>
+                    </div>
+                    <h3>Supplication</h3>
+                    <p>Présenter nos demandes à Dieu</p>
+                    <div class="prayer-examples">
+                        <span>Intercession</span>
+                        <span>Demandes</span>
+                        <span>Besoins</span>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
+
+        <!-- Demande de prière -->
+        <section class="prayer-request animate-slide-up delay-2">
+            <div class="prayer-request-card">
+                <h2>Demander une prière</h2>
+                <p class="mb-4">Partagez votre situation avec notre communauté de prière</p>
+                <form class="prayer-form" id="prayerRequestForm">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" placeholder="Votre prénom" required>
+                        </div>
+                        <div class="col-md-6">
+                            <select class="form-select" required>
+                                <option value="">Type de prière</option>
+                                <option value="sante">Santé</option>
+                                <option value="famille">Famille</option>
+                                <option value="travail">Travail</option>
+                                <option value="finances">Finances</option>
+                                <option value="spirituel">Croissance spirituelle</option>
+                                <option value="autre">Autre</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <textarea class="form-control" rows="4" placeholder="Décrivez votre situation (optionnel - vous pouvez rester anonyme)" maxlength="500"></textarea>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="anonymous">
+                                <label class="form-check-label" for="anonymous">
+                                    Demande anonyme
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="urgent">
+                                <label class="form-check-label" for="urgent">
+                                    Prière urgente
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-prayer-submit">
+                        <i class="fas fa-praying-hands me-2"></i>
+                        Envoyer ma demande
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Espace méditation -->
+        <section class="meditation-space animate-slide-up delay-3">
+            <h2 class="section-title">Espace Méditation</h2>
+            <div class="meditation-container">
+                <div class="meditation-card active" id="meditationCard">
+                    <div class="meditation-header">
+                        <h3>Méditation guidée - Josué 1:8</h3>
+                        <div class="meditation-timer" id="meditationTimer">00:00</div>
+                    </div>
+                    <div class="meditation-content">
+                        <div class="meditation-verse">
+                            <p class="verse-focus">"Que ce livre de la loi ne s'éloigne point de ta bouche; médite-le jour et nuit..."</p>
+                        </div>
+                        <div class="meditation-guide" id="meditationGuide">
+                            <div class="guide-step active" data-step="1">
+                                <h4>Préparation (2 min)</h4>
+                                <p>Trouvez un endroit calme. Fermez les yeux et respirez profondément. Demandez à Dieu de vous parler à travers Sa Parole.</p>
+                            </div>
+                            <div class="guide-step" data-step="2">
+                                <h4>Lecture méditative (5 min)</h4>
+                                <p>Lisez lentement Josué 1:8. Répétez le verset plusieurs fois. Laissez chaque mot pénétrer votre cœur.</p>
+                            </div>
+                            <div class="guide-step" data-step="3">
+                                <h4>Réflexion (8 min)</h4>
+                                <p>Que signifie "méditer jour et nuit" ? Comment appliquer cette Parole dans votre vie quotidienne ?</p>
+                            </div>
+                            <div class="guide-step" data-step="4">
+                                <h4>Prière (5 min)</h4>
+                                <p>Priez pour que Dieu vous aide à méditer Sa Parole régulièrement et à la mettre en pratique.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="meditation-controls">
+                        <button class="btn-meditation" onclick="startMeditation()">
+                            <i class="fas fa-play"></i> Commencer
+                        </button>
+                        <button class="btn-meditation" onclick="pauseMeditation()" style="display:none;">
+                            <i class="fas fa-pause"></i> Pause
+                        </button>
+                        <button class="btn-meditation" onclick="resetMeditation()">
+                            <i class="fas fa-redo"></i> Recommencer
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="meditation-ambiance">
+                    <h4>Ambiance sonore</h4>
+                    <div class="ambiance-controls">
+                        <button class="ambiance-btn" data-sound="nature">
+                            <i class="fas fa-leaf"></i> Nature
+                        </button>
+                        <button class="ambiance-btn" data-sound="rain">
+                            <i class="fas fa-cloud-rain"></i> Pluie
+                        </button>
+                        <button class="ambiance-btn" data-sound="silence">
+                            <i class="fas fa-volume-mute"></i> Silence
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Prières communautaires -->
+        <section class="community-prayers animate-slide-up delay-4">
+            <h2 class="section-title">Prières de la communauté</h2>
+            <div class="prayers-feed" id="prayersFeed">
+                <div class="prayer-item">
+                    <div class="prayer-header">
+                        <div class="prayer-avatar">M</div>
+                        <div class="prayer-info">
+                            <div class="prayer-name">Marie</div>
+                            <div class="prayer-time">Il y a 2 heures</div>
+                        </div>
+                        <div class="prayer-type-badge health">Santé</div>
+                    </div>
+                    <div class="prayer-content">
+                        <p>Prions pour la guérison de mon père qui traverse une période difficile. Merci pour vos prières.</p>
+                    </div>
+                    <div class="prayer-actions">
+                        <button class="prayer-action-btn" onclick="prayFor(this)">
+                            <i class="fas fa-praying-hands"></i>
+                            <span class="pray-count">12</span> Je prie
+                        </button>
+                        <button class="prayer-action-btn" onclick="encouragePrayer(this)">
+                            <i class="fas fa-heart"></i>
+                            <span class="encourage-count">5</span> Encourager
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="prayer-item">
+                    <div class="prayer-header">
+                        <div class="prayer-avatar">J</div>
+                        <div class="prayer-info">
+                            <div class="prayer-name">Jean</div>
+                            <div class="prayer-time">Il y a 5 heures</div>
+                        </div>
+                        <div class="prayer-type-badge work">Travail</div>
+                    </div>
+                    <div class="prayer-content">
+                        <p>Demande de prière pour un entretien d'embauche important demain. Que la volonté de Dieu soit faite.</p>
+                    </div>
+                    <div class="prayer-actions">
+                        <button class="prayer-action-btn" onclick="prayFor(this)">
+                            <i class="fas fa-praying-hands"></i>
+                            <span class="pray-count">8</span> Je prie
+                        </button>
+                        <button class="prayer-action-btn" onclick="encouragePrayer(this)">
+                            <i class="fas fa-heart"></i>
+                            <span class="encourage-count">3</span> Encourager
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="prayer-item urgent">
+                    <div class="urgent-badge">Urgent</div>
+                    <div class="prayer-header">
+                        <div class="prayer-avatar">A</div>
+                        <div class="prayer-info">
+                            <div class="prayer-name">Anonyme</div>
+                            <div class="prayer-time">Il y a 1 heure</div>
+                        </div>
+                        <div class="prayer-type-badge family">Famille</div>
+                    </div>
+                    <div class="prayer-content">
+                        <p>Prière urgente pour une réconciliation familiale. Merci de prier pour la paix et l'amour.</p>
+                    </div>
+                    <div class="prayer-actions">
+                        <button class="prayer-action-btn" onclick="prayFor(this)">
+                            <i class="fas fa-praying-hands"></i>
+                            <span class="pray-count">25</span> Je prie
+                        </button>
+                        <button class="prayer-action-btn" onclick="encouragePrayer(this)">
+                            <i class="fas fa-heart"></i>
+                            <span class="encourage-count">15</span> Encourager
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="load-more-prayers">
+                <button class="btn-load-more" onclick="loadMorePrayers()">
+                    Voir plus de prières
+                </button>
+            </div>
+        </section>
+
+        <!-- Ressources spirituelles -->
+        <section class="spiritual-resources animate-slide-up delay-5">
+            <h2 class="section-title">Ressources pour la prière</h2>
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <div class="resource-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <h4>Guide de prière</h4>
+                    <p>Apprenez différentes méthodes de prière et de méditation biblique</p>
+                    <button class="btn-resource">Découvrir</button>
+                </div>
+                <div class="resource-card">
+                    <div class="resource-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h4>Plan de lecture</h4>
+                    <p>Suivez un plan de lecture biblique pour nourrir votre méditation</p>
+                    <button class="btn-resource">Commencer</button>
+                </div>
+                <div class="resource-card">
+                    <div class="resource-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h4>Groupes de prière</h4>
+                    <p>Rejoignez des groupes de prière locaux ou en ligne</p>
+                    <button class="btn-resource">Rejoindre</button>
+                </div>
+            </div>
+        </section>
     </div>
 </div>
+
+<script src="{{ url_for('static', filename='js/prayers.js') }}"></script>
 {% endblock %}

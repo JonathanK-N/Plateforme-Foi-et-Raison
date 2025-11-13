@@ -1,0 +1,213 @@
+/* Brand Color Overrides */
+
+/* Bootstrap Primary Color Override */
+:root {
+    --bs-primary: #1e3a8a;
+    --bs-primary-rgb: 30, 58, 138;
+    --bs-secondary: #3b82f6;
+    --bs-secondary-rgb: 59, 130, 246;
+    --bs-success: #059669;
+    --bs-info: #0ea5e9;
+    --bs-warning: #d97706;
+    --bs-danger: #dc2626;
+    --bs-light: #f8fafc;
+    --bs-dark: #0f172a;
+}
+
+/* Navbar Styling */
+.navbar {
+    background: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(30, 58, 138, 0.1);
+}
+
+.navbar-brand {
+    color: var(--primary-blue) !important;
+}
+
+/* Background Classes */
+.bg-primary {
+    background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue)) !important;
+}
+
+.bg-light {
+    background-color: var(--light-gray) !important;
+}
+
+.section-soft-blue {
+    background: linear-gradient(135deg, #f0f7ff 0%, #e0f2fe 100%);
+}
+
+/* Text Colors */
+.text-primary {
+    color: var(--primary-blue) !important;
+}
+
+.text-muted {
+    color: var(--warm-gray) !important;
+}
+
+/* Footer */
+.footer-brand {
+    background: linear-gradient(135deg, var(--dark-navy) 0%, var(--primary-blue) 100%);
+}
+
+/* Newsletter Section */
+.newsletter-section {
+    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-navy) 100%);
+}
+
+/* Feature Cards */
+.feature-card {
+    background: var(--white);
+    border: 1px solid rgba(30, 58, 138, 0.08);
+    box-shadow: 0 4px 20px rgba(30, 58, 138, 0.08);
+}
+
+.feature-card:hover {
+    box-shadow: 0 8px 40px rgba(30, 58, 138, 0.15);
+}
+
+.feature-card::before {
+    background: linear-gradient(45deg, var(--primary-blue), var(--accent-gold));
+}
+
+.feature-icon {
+    background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+}
+
+/* Resource Cards */
+.resource-card {
+    background: var(--white);
+    border: 1px solid rgba(30, 58, 138, 0.08);
+    box-shadow: 0 4px 20px rgba(30, 58, 138, 0.08);
+    border-radius: 16px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+}
+
+.resource-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(30, 58, 138, 0.15);
+}
+
+.resource-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--accent-gold), #f59e0b);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    color: white;
+    font-size: 1.5rem;
+}
+
+/* Insight Cards */
+.insight-card {
+    background: var(--white);
+    border: 1px solid rgba(30, 58, 138, 0.08);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.insight-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(30, 58, 138, 0.1);
+}
+
+.insight-icon {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, var(--secondary-blue), var(--primary-blue));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    color: white;
+    font-size: 1.25rem;
+}
+
+/* Stats Cards */
+.stat-card {
+    background: var(--white);
+    border: 1px solid rgba(30, 58, 138, 0.08);
+    border-radius: 16px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(30, 58, 138, 0.08);
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(30, 58, 138, 0.15);
+}
+
+/* Badges */
+.badge {
+    font-family: var(--font-secondary);
+    font-weight: 600;
+    letter-spacing: 0.025em;
+}
+
+.bg-white {
+    background-color: var(--white) !important;
+}
+
+/* Form Elements */
+.newsletter-input {
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    backdrop-filter: blur(10px);
+}
+
+.newsletter-input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.newsletter-btn {
+    background: var(--white);
+    color: var(--primary-blue);
+    font-weight: 600;
+}
+
+.newsletter-btn:hover {
+    background: var(--light-gray);
+    color: var(--primary-blue);
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+    border: none;
+    box-shadow: 0 10px 40px rgba(30, 58, 138, 0.15);
+    border-radius: 12px;
+    padding: 0.5rem 0;
+    margin-top: 0.5rem;
+}
+
+.dropdown-item {
+    font-family: var(--font-secondary);
+    font-weight: 500;
+    color: var(--primary-blue);
+    padding: 0.75rem 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.dropdown-item:hover {
+    background: linear-gradient(135deg, var(--light-blue), rgba(59, 130, 246, 0.1));
+    color: var(--primary-blue);
+}
+
+.dropdown-item i {
+    color: var(--accent-gold);
+}
+
+.dropdown-divider {
+    border-color: rgba(30, 58, 138, 0.1);
+    margin: 0.5rem 0;
+}

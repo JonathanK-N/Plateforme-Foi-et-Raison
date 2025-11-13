@@ -435,10 +435,206 @@ def create_thematic_content():
     
     return jsonify({'message': 'Contenu créé avec succès', 'id': content.id}), 201
 
+# Route pour sauvegarder les modifications de page
+@app.route('/api/admin/save-page-edits', methods=['POST'])
+def save_page_edits():
+    try:
+        data = request.get_json()
+        page = data.get('page')
+        modifications = data.get('modifications')
+        
+        print(f"Sauvegarde page: {page}")
+        print(f"Modifications: {modifications}")
+        
+        return jsonify({'success': True, 'message': 'Modifications sauvegardées'})
+    except Exception as e:
+        print(f"Erreur sauvegarde: {e}")
+        return jsonify({'success': False, 'error': str(e)})
+
+@app.route('/api/save-page-change', methods=['POST'])
+def save_page_change():
+    try:
+        data = request.get_json()
+        page = data.get('page', '/')
+        selector = data.get('selector')
+        content_type = data.get('type')
+        value = data.get('value')
+        
+        # Sauvegarder dans un fichier JSON simple
+        import json
+        import os
+        
+        changes_file = 'page_changes.json'
+        changes = {}
+        
+        if os.path.exists(changes_file):
+            with open(changes_file, 'r', encoding='utf-8') as f:
+                changes = json.load(f)
+        
+        if page not in changes:
+            changes[page] = {}
+        
+        changes[page][selector] = {
+            'type': content_type,
+            'value': value,
+            'timestamp': datetime.utcnow().isoformat()
+        }
+        
+        with open(changes_file, 'w', encoding='utf-8') as f:
+            json.dump(changes, f, ensure_ascii=False, indent=2)
+        
+        return jsonify({'success': True, 'message': 'Modification sauvegardée'})
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)}), 500
+
+@app.route('/api/get-page-changes/<path:page_path>')
+def get_page_changes(page_path):
+    try:
+        import json
+        import os
+        
+        changes_file = 'page_changes.json'
+        if not os.path.exists(changes_file):
+            return jsonify({})
+        
+        with open(changes_file, 'r', encoding='utf-8') as f:
+            changes = json.load(f)
+        
+        page_key = '/' if page_path == 'home' else f'/{page_path}'
+        return jsonify(changes.get(page_key, {}))
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+# Routes API Admin
+@app.route('/api/admin/dashboard/stats', methods=['GET'])
+@jwt_required()
+def get_admin_stats():
+    user_id = get_jwt_identity()
+    user = User.query.get(user_id)
+    
+    if user.role != 'admin':
+        return jsonify({'message': 'Accès refusé'}), 403
+    
+    stats = {
+        'total_users': User.query.count(),
+        'total_content': Content.query.count() + ThematicContent.query.count(),
+        'total_prayers': 156,  # Simulate prayer count
+        'total_questions': Question.query.count(),
+        'total_donations': '12,450$',
+        'monthly_donations': '2,340$'
+    }
+    
+    return jsonify(stats)
+
+@app.route('/api/admin/content', methods=['GET', 'POST', 'PUT', 'DELETE'])
+@jwt_required()
+def admin_content():
+    user_id = get_jwt_identity()
+    user = User.query.get(user_id)
+    
+    if user.role != 'admin':
+        return jsonify({'message': 'Accès refusé'}), 403
+    
+    if request.method == 'GET':
+        contents = Content.query.all()
+        return jsonify([{
+            'id': c.id,
+            'title': c.title,
+            'type': c.content_type,
+            'status': 'published' if c.is_published else 'draft',
+            'created_at': c.created_at.isoformat()
+        } for c in contents])
+    
+    elif request.method == 'POST':
+        data = request.get_json()
+        content = Content(
+            title=data['title'],
+            description=data.get('description', ''),
+            content_type=data['type'],
+            author_id=user_id,
+            is_published=data.get('published', False)
+        )
+        db.session.add(content)
+        db.session.commit()
+        return jsonify({'message': 'Contenu créé', 'id': content.id}), 201
+    
+    elif request.method == 'DELETE':
+        content_id = request.args.get('id')
+        content = Content.query.get_or_404(content_id)
+        db.session.delete(content)
+        db.session.commit()
+        return jsonify({'message': 'Contenu supprimé'})
+
+@app.route('/api/admin/users', methods=['GET', 'POST', 'PUT', 'DELETE'])
+@jwt_required()
+def admin_users():
+    user_id = get_jwt_identity()
+    user = User.query.get(user_id)
+    
+    if user.role != 'admin':
+        return jsonify({'message': 'Accès refusé'}), 403
+    
+    if request.method == 'GET':
+        users = User.query.all()
+        return jsonify([{
+            'id': u.id,
+            'name': f"{u.prenom} {u.nom}",
+            'email': u.email,
+            'role': u.role,
+            'status': 'active' if u.is_active else 'inactive',
+            'created_at': u.created_at.isoformat()
+        } for u in users])
+    
+    elif request.method == 'DELETE':
+        user_id_to_delete = request.args.get('id')
+        user_to_delete = User.query.get_or_404(user_id_to_delete)
+        db.session.delete(user_to_delete)
+        db.session.commit()
+        return jsonify({'message': 'Utilisateur supprimé'})
+
+@app.route('/api/admin/questions', methods=['GET', 'POST', 'PUT', 'DELETE'])
+@jwt_required()
+def admin_questions():
+    user_id = get_jwt_identity()
+    user = User.query.get(user_id)
+    
+    if user.role != 'admin':
+        return jsonify({'message': 'Accès refusé'}), 403
+    
+    if request.method == 'GET':
+        questions = Question.query.all()
+        return jsonify([{
+            'id': q.id,
+            'title': q.title,
+            'content': q.content,
+            'status': 'approved' if q.is_approved else 'pending',
+            'created_at': q.created_at.isoformat()
+        } for q in questions])
+    
+    elif request.method == 'PUT':
+        question_id = request.args.get('id')
+        question = Question.query.get_or_404(question_id)
+        question.is_approved = True
+        db.session.commit()
+        return jsonify({'message': 'Question approuvée'})
+    
+    elif request.method == 'DELETE':
+        question_id = request.args.get('id')
+        question = Question.query.get_or_404(question_id)
+        db.session.delete(question)
+        db.session.commit()
+        return jsonify({'message': 'Question supprimée'})
+
 @app.route('/')
+@app.route('/home')
 def home():
     return render_template('home.html')
 
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+@app.route('/contents')
 @app.route('/contenus')
 def contents():
     return render_template('contents.html')
@@ -447,36 +643,229 @@ def contents():
 def qa():
     return render_template('qa.html')
 
+@app.route('/prayers')
 @app.route('/priere')
 def prayers():
     return render_template('prayers.html')
-
-@app.route('/a-propos')
-def about():
-    return render_template('about.html')
 
 @app.route('/contact')
 def contact():
     return render_template('contact.html')
 
+@app.route('/donation')
 @app.route('/don')
 def donation():
     return render_template('donation.html')
+
+@app.route('/events')
+@app.route('/evenements')
+def events():
+    return render_template('events.html')
+
+@app.route('/partnerships')
+@app.route('/partenariats')
+def partnerships():
+    return render_template('partnerships.html')
+
+@app.route('/admin')
+@app.route('/admin/')
+def admin():
+    return render_template('admin.html')
+
+@app.route('/cms')
+def cms():
+    return render_template('cms.html')
+
+# API endpoints pour le CMS
+@app.route('/api/cms/contents', methods=['GET', 'POST'])
+def cms_contents():
+    if request.method == 'GET':
+        contents = ThematicContent.query.order_by(ThematicContent.updated_at.desc()).all()
+        print(f"📦 Envoi de {len(contents)} contenus CMS")
+        return jsonify([{
+            'id': c.id,
+            'title': c.title,
+            'type': c.content_type,
+            'category': c.category_id,
+            'banner': c.featured_image,
+            'excerpt': c.excerpt,
+            'body': c.content,
+            'tags': c.tags.split(',') if c.tags else [],
+            'featured': c.is_featured,
+            'published': c.is_published,
+            'videoUrl': '',
+            'audioUrl': '',
+            'created_at': c.created_at.isoformat(),
+            'updated_at': c.updated_at.isoformat()
+        } for c in contents])
+    
+    elif request.method == 'POST':
+        data = request.get_json()
+        
+        # Générer un slug unique
+        import re
+        slug = re.sub(r'[^a-zA-Z0-9\s-]', '', data['title'].lower())
+        slug = re.sub(r'\s+', '-', slug)
+        
+        # Trouver la catégorie par nom
+        category_map = {
+            'dieu': 1, 'bible': 2, 'jesus-christ': 3, 'saint-esprit': 4,
+            'salut': 5, 'eglise': 6, 'etre-humain': 7, 'le-mal': 8,
+            'monde-invisible': 9, 'la-fin': 10, 'ethique': 11
+        }
+        
+        content = ThematicContent(
+            title=data['title'],
+            slug=slug,
+            content=data['body'],
+            excerpt=data.get('excerpt', ''),
+            category_id=category_map.get(data['category'], 1),
+            content_type=data['type'],
+            author_id=1,  # Admin par défaut
+            featured_image=data.get('banner', ''),
+            is_featured=data.get('featured', False),
+            is_published=data.get('published', False),
+            tags=','.join(data.get('tags', [])),
+            publication_date=datetime.utcnow() if data.get('published') else None
+        )
+        
+        db.session.add(content)
+        db.session.commit()
+        print(f"✅ Nouveau contenu créé: {content.title}")
+        
+        return jsonify({'success': True, 'id': content.id}), 201
+
+@app.route('/api/cms/contents/<int:content_id>', methods=['PUT', 'DELETE'])
+def cms_content_detail(content_id):
+    content = ThematicContent.query.get_or_404(content_id)
+    
+    if request.method == 'PUT':
+        data = request.get_json()
+        
+        content.title = data['title']
+        content.content = data['body']
+        content.excerpt = data.get('excerpt', '')
+        content.content_type = data['type']
+        content.featured_image = data.get('banner', '')
+        content.is_featured = data.get('featured', False)
+        content.is_published = data.get('published', False)
+        content.tags = ','.join(data.get('tags', []))
+        content.updated_at = datetime.utcnow()
+        
+        if data.get('published') and not content.publication_date:
+            content.publication_date = datetime.utcnow()
+        
+        db.session.commit()
+        return jsonify({'success': True})
+    
+    elif request.method == 'DELETE':
+        db.session.delete(content)
+        db.session.commit()
+        return jsonify({'success': True})
+
+@app.route('/api/cms/users', methods=['GET', 'POST'])
+def cms_users():
+    if request.method == 'GET':
+        users = User.query.all()
+        return jsonify([{
+            'id': u.id,
+            'name': f"{u.prenom} {u.nom}",
+            'email': u.email,
+            'role': u.role,
+            'created_at': u.created_at.isoformat()
+        } for u in users])
+    
+    elif request.method == 'POST':
+        data = request.get_json()
+        
+        user = User(
+            nom=data['name'].split()[-1],
+            prenom=' '.join(data['name'].split()[:-1]),
+            sexe='M',
+            telephone='0000000000',
+            email=data['email'],
+            date_naissance=datetime(1990, 1, 1).date(),
+            accepte_jesus='oui',
+            baptise='oui',
+            password_hash=generate_password_hash('password123'),
+            role=data['role']
+        )
+        
+        db.session.add(user)
+        db.session.commit()
+        
+        return jsonify({'success': True, 'id': user.id}), 201
+
+
 
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
+@app.route('/api/cms/prayers', methods=['GET', 'POST'])
+def cms_prayers():
+    # Simulation pour les prières (à implémenter avec un vrai modèle)
+    if request.method == 'GET':
+        return jsonify([])
+    elif request.method == 'POST':
+        return jsonify({'success': True, 'id': 1}), 201
+
+@app.route('/api/cms/questions', methods=['GET', 'POST'])
+def cms_questions():
+    if request.method == 'GET':
+        questions = Question.query.all()
+        return jsonify([{
+            'id': q.id,
+            'title': q.title,
+            'content': q.content,
+            'created_at': q.created_at.isoformat()
+        } for q in questions])
+    elif request.method == 'POST':
+        data = request.get_json()
+        question = Question(
+            title=data['title'],
+            content=data['answer'],
+            author_id=1,
+            is_approved=True
+        )
+        db.session.add(question)
+        db.session.commit()
+        return jsonify({'success': True, 'id': question.id}), 201
+
+@app.route('/api/cms/events', methods=['GET', 'POST'])
+def cms_events():
+    # Simulation pour les événements (à implémenter avec un vrai modèle)
+    if request.method == 'GET':
+        return jsonify([])
+    elif request.method == 'POST':
+        return jsonify({'success': True, 'id': 1}), 201
+
+@app.route('/api/cms/partnerships', methods=['GET', 'POST'])
+def cms_partnerships():
+    # Simulation pour les partenariats (à implémenter avec un vrai modèle)
+    if request.method == 'GET':
+        return jsonify([])
+    elif request.method == 'POST':
+        return jsonify({'success': True, 'id': 1}), 201
+
+@app.route('/api/cms/donations', methods=['GET', 'POST'])
+def cms_donations():
+    # Simulation pour les dons (à implémenter avec un vrai modèle)
+    if request.method == 'GET':
+        return jsonify([])
+    elif request.method == 'POST':
+        return jsonify({'success': True, 'id': 1}), 201
+
 def create_admin_user():
     try:
-        if not User.query.filter_by(email='admin@foietraison.ca').first():
+        if not User.query.filter_by(email='admin@croireetpenser.ca').first():
             from datetime import date
             admin = User(
                 nom='Admin',
                 prenom='Système',
                 sexe='M',
                 telephone='0000000000',
-                email='admin@foietraison.ca',
+                email='admin@croireetpenser.ca',
                 date_naissance=date(1990, 1, 1),
                 accepte_jesus='oui',
                 baptise='oui',
