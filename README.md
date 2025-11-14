@@ -1014,8 +1014,8 @@ gantt
   </div>
   
   <p><strong>🔗 Contact Professionnel</strong><br>
-  📧 jonathan.kakesa@cognito-inc.com<br>
-  🌐 <a href="https://cognito-inc.com">cognito-inc.com</a></p>
+  📧 jonathan.kakesa@cognito-inc.ca<br>
+  🌐 <a href="https://cognito-inc.com">cognito-inc.ca</a></p>
 </div>
 
 ---
