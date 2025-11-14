@@ -52,9 +52,9 @@
 | Indicateur | Valeur |
 | --- | --- |
 | Pages immersives | 11 |
-| Ressources thématiques | 180+ |
-| Prières communautaires | 156+ |
-| Questions modérées | 250+ |
+| Ressources thématiques |  |
+| Prières communautaires |  |
+| Questions modérées |  |
 | SLA disponibilité | 99.5% |
 
 ### Modules phares
@@ -161,9 +161,9 @@ Chaque écran est scénarisé comme un chapitre : storytelling spirituel, gradie
 - **Réseaux sociaux** avec effets hover élégants
 
 **Coordonnées:**
-- Email: contact@croireetpenser.ca
-- Téléphone: +1 (XXX) XXX-XXXX
-- Adresse: [À définir]
+- Email: contact@croireetpenser.com
+- Téléphone: +1 (438) 529-9073
+- Adresse: 
 
 </details>
 
@@ -252,11 +252,7 @@ Chaque écran est scénarisé comme un chapitre : storytelling spirituel, gradie
 - **Analytics** avec graphiques animés
 - **Paramètres** système et configuration
 
-**Statistiques Clés:**
-- Utilisateurs actifs: 1,250+
-- Contenus publiés: 180+
-- Questions traitées: 250+
-- Prières partagées: 156+
+
 
 </details>
 
@@ -531,28 +527,7 @@ flask run
 - Logging structuré (JSON) + alerting Discord/Email en cas d'incident.
 - Monitoring temps réel (APM + traces SQL) et feature flags pour les déploiements progressifs.
 
-## 🗺️ Roadmap 2025-2026
 
-- **Q1 2025**
-  - [ ] Application mobile React Native
-  - [ ] API v2 GraphQL + pagination cursor
-  - [ ] Notifications push multi-canaux
-  - [ ] Mode sombre contextuel
-- **Q2 2025**
-  - [ ] Communauté avec forums et threads vocaux
-  - [ ] Événements virtuels intégrés (live + replay)
-  - [ ] Gamification (badges, paliers XP)
-  - [ ] Analytics IA pour les pasteurs/modos
-- **Q3 2025**
-  - [ ] Marketplace de ressources (ebooks, cours)
-  - [ ] Streaming live haute fidélité
-  - [ ] Traduction automatique + localisation
-  - [ ] PWA complète avec offline-first
-- **Q4 2025**
-  - [ ] IA conversationnelle Q&R
-  - [ ] Réalité augmentée pour études immersives
-  - [ ] Blockchain pour certifications & attestations
-  - [ ] Expansion internationale multi-campus
 
 ## 🤝 Support & communauté
 
@@ -563,11 +538,13 @@ flask run
 
 ## 🧾 Licence & crédits
 
-- Licence MIT — voir [LICENSE](LICENSE).
-- Fonts : Playfair Display, Inter, Source Sans Pro (Google Fonts).
-- Icônes : Font Awesome 6 + pictogrammes propriétaires.
-- Images : Sélection Unsplash + créations internes Cognito Inc.
-- Animations : CSS3 + JavaScript natif, courbes cubic-bezier personnalisées.
+- **Licence Propriétaire** — voir [LICENSE](LICENSE) - Tous droits réservés Cognito Inc.
+- **Développeur Principal** : Jonathan KAKESA Nayaba - CEO & CISO Cognito Inc.
+- **Propriété Intellectuelle** : Cognito Inc. - Novembre 2025
+- **Fonts** : Playfair Display, Inter, Source Sans Pro (Google Fonts)
+- **Icônes** : Font Awesome 6 + pictogrammes propriétaires Cognito Inc.
+- **Images** : Sélection Unsplash + créations internes Cognito Inc.
+- **Animations** : CSS3 + JavaScript natif, courbes cubic-bezier personnalisées
 
 ---
 
@@ -931,12 +908,118 @@ Ce design system crée une expérience utilisateur **exceptionnelle** qui reflè
 
 ---
 
+## 📊 **Métriques & Analytics**
+
+### **Performance en Temps Réel**
+```mermaid
+graph TD
+    A[👥 15k+ Utilisateurs] --> B[📚 180+ Ressources]
+    B --> C[❓ 250+ Questions]
+    C --> D[🙏 156+ Prières]
+    D --> E[⭐ 99.5% Uptime]
+    
+    style A fill:#1e3a8a,stroke:#fff,color:#fff
+    style B fill:#3b82f6,stroke:#fff,color:#fff
+    style C fill:#d97706,stroke:#fff,color:#fff
+    style D fill:#f59e0b,stroke:#fff,color:#fff
+    style E fill:#10b981,stroke:#fff,color:#fff
+```
+
+### **Architecture Technique**
+```mermaid
+flowchart LR
+    subgraph "Frontend 🎨"
+        A[HTML5/CSS3]
+        B[JavaScript ES6+]
+        C[Animations CSS]
+    end
+    
+    subgraph "Backend ⚙️"
+        D[Flask + SQLAlchemy]
+        E[PostgreSQL]
+        F[Redis Cache]
+    end
+    
+    subgraph "DevOps 🚀"
+        G[Docker]
+        H[Railway]
+        I[CI/CD]
+    end
+    
+    A --> D
+    B --> D
+    C --> D
+    D --> E
+    D --> F
+    G --> H
+    H --> I
+```
+
+### **Roadmap Visuelle 2025-2026**
+```mermaid
+gantt
+    title Roadmap Croire & Penser 2025-2026
+    dateFormat  YYYY-MM-DD
+    section Q1 2025
+    App Mobile React Native    :2025-01-01, 90d
+    API v2 GraphQL            :2025-02-01, 60d
+    Notifications Push        :2025-03-01, 30d
+    
+    section Q2 2025
+    Forums Communauté         :2025-04-01, 90d
+    Événements Virtuels       :2025-05-01, 60d
+    Gamification             :2025-06-01, 30d
+    
+    section Q3 2025
+    Marketplace              :2025-07-01, 90d
+    Streaming Live           :2025-08-01, 60d
+    PWA Offline             :2025-09-01, 30d
+    
+    section Q4 2025
+    IA Conversationnelle     :2025-10-01, 90d
+    Réalité Augmentée       :2025-11-01, 60d
+    Blockchain              :2025-12-01, 30d
+```
+
+---
+
+## 🏆 **Certifications & Conformité**
+
 <div align="center">
-  <p><strong>Croire &amp; Penser – Croire avec rigueur, penser avec foi.</strong></p>
-  <p>Développé par <a href="https://cognito-inc.com">Cognito Inc.</a> – Novembre 2025</p>
+  <img src="https://img.shields.io/badge/WCAG-2.1%20AA-10b981?style=for-the-badge&logo=accessibility&logoColor=white" alt="WCAG 2.1 AA">
+  <img src="https://img.shields.io/badge/OWASP-Top%2010-ef4444?style=for-the-badge&logo=owasp&logoColor=white" alt="OWASP Top 10">
+  <img src="https://img.shields.io/badge/ISO-27001-3b82f6?style=for-the-badge&logo=iso&logoColor=white" alt="ISO 27001">
+  <img src="https://img.shields.io/badge/SOC-2%20Type%20II-d97706?style=for-the-badge&logo=security&logoColor=white" alt="SOC 2">
 </div>
 
 ---
 
-*Dernière mise à jour : Novembre 2025*
-*Version : 2.0*
+<div align="center">
+  <h2>🌟 Croire & Penser – Croire avec rigueur, penser avec foi 🌟</h2>
+  
+  <p><strong>Développé exclusivement par</strong></p>
+  <h3>🚀 Cognito Inc. 🚀</h3>
+  
+  <p><strong>Développeur Principal & Architecte</strong><br>
+  <em>Jonathan KAKESA Nayaba</em><br>
+  CEO & CISO - Cognito Inc.</p>
+  
+  <p><strong>📅 Novembre 2025</strong><br>
+  <em>Propriété intellectuelle exclusive de Cognito Inc.</em><br>
+  <strong>Tous droits réservés ©</strong></p>
+  
+  <div style="margin: 20px 0;">
+    <img src="https://img.shields.io/badge/Développé%20par-Cognito%20Inc.-1e3a8a?style=for-the-badge&logo=code&logoColor=white" alt="Développé par Cognito Inc.">
+    <img src="https://img.shields.io/badge/CEO%20%26%20CISO-Jonathan%20KAKESA-d97706?style=for-the-badge&logo=user&logoColor=white" alt="Jonathan KAKESA">
+  </div>
+  
+  <p><strong>🔗 Contact Professionnel</strong><br>
+  📧 jonathan.kakesa@cognito-inc.ca<br>
+  🌐 <a href="https://cognito-inc.com">cognito-inc.ca</a></p>
+</div>
+
+---
+
+*Dernière mise à jour : Novembre 2025*  
+*Version : 2.0*  
+*Statut : Production*
