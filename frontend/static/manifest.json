@@ -1,109 +1,50 @@
 {
-  "name": "Croire & Penser - Foi et réflexion biblique",
+  "name": "Croire & Penser - Plateforme Spirituelle",
   "short_name": "Croire & Penser",
-  "description": "Plateforme Croire & Penser : ressources bibliques, sciences et questions de société pour une foi réfléchie.",
+  "description": "Amener les croyants à penser, et les penseurs à croire",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#3f2a6d",
+  "background_color": "#1e3a8a",
+  "theme_color": "#d97706",
   "orientation": "portrait-primary",
   "scope": "/",
-  "lang": "fr-FR",
-  "categories": [
-    "education",
-    "lifestyle",
-    "social"
-  ],
+  "lang": "fr",
+  "categories": ["education", "lifestyle", "books"],
   "icons": [
     {
-      "src": "icons/icon-72x72.png",
-      "sizes": "72x72",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "icons/icon-96x96.png",
-      "sizes": "96x96",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "icons/icon-128x128.png",
-      "sizes": "128x128",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "icons/icon-144x144.png",
-      "sizes": "144x144",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "icons/icon-152x152.png",
-      "sizes": "152x152",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "icons/icon-192x192.png",
+      "src": "/static/img/logo-croire-penser.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "maskable any"
     },
     {
-      "src": "icons/icon-384x384.png",
-      "sizes": "384x384",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "icons/icon-512x512.png",
+      "src": "/static/img/logo-croire-penser.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "maskable any"
     }
   ],
   "shortcuts": [
     {
       "name": "Contenus",
       "short_name": "Contenus",
-      "description": "Accéder aux contenus multimédia",
-      "url": "/#contents",
-      "icons": [
-        {
-          "src": "icons/icon-96x96.png",
-          "sizes": "96x96"
-        }
-      ]
+      "description": "Accéder aux contenus spirituels",
+      "url": "/contents",
+      "icons": [{ "src": "/static/img/logo-croire-penser.png", "sizes": "96x96" }]
     },
     {
-      "name": "Questions & Réponses",
+      "name": "Prières",
+      "short_name": "Prières",
+      "description": "Méditations et prières",
+      "url": "/prayers",
+      "icons": [{ "src": "/static/img/logo-croire-penser.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Questions",
       "short_name": "Q&A",
-      "description": "Poser une question ou consulter les réponses",
-      "url": "/#questions",
-      "icons": [
-        {
-          "src": "icons/icon-96x96.png",
-          "sizes": "96x96"
-        }
-      ]
-    }
-  ],
-  "screenshots": [
-    {
-      "src": "screenshots/desktop-home.png",
-      "sizes": "1280x720",
-      "type": "image/png",
-      "form_factor": "wide",
-      "label": "Page d'accueil sur desktop"
-    },
-    {
-      "src": "screenshots/mobile-home.png",
-      "sizes": "375x667",
-      "type": "image/png",
-      "form_factor": "narrow",
-      "label": "Page d'accueil sur mobile"
+      "description": "Poser une question",
+      "url": "/qa",
+      "icons": [{ "src": "/static/img/logo-croire-penser.png", "sizes": "96x96" }]
     }
   ]
 }

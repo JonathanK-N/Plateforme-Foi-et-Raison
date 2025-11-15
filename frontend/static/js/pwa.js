@@ -1,232 +1,260 @@
-// Progressive Web App (PWA) - Service Worker et fonctionnalités
+// PWA Installation et Service Worker
+console.log('🚀 PWA Script chargé');
 
 // Enregistrement du Service Worker
 if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
+    window.addEventListener('load', () => {
         navigator.serviceWorker.register('/static/sw.js')
-            .then(function(registration) {
-                console.log('Service Worker enregistré avec succès:', registration.scope);
+            .then(registration => {
+                console.log('✅ Service Worker enregistré:', registration.scope);
             })
-            .catch(function(error) {
-                console.log('Échec de l\'enregistrement du Service Worker:', error);
+            .catch(error => {
+                console.log('❌ Erreur Service Worker:', error);
             });
     });
 }
 
-// Gestion des notifications push
-function requestNotificationPermission() {
-    if ('Notification' in window) {
-        Notification.requestPermission().then(function(permission) {
-            if (permission === 'granted') {
-                console.log('Permission de notification accordée');
-                showAlert('Notifications activées!', 'success');
-            } else {
-                console.log('Permission de notification refusée');
-            }
-        });
+// Installation PWA
+let deferredPrompt;
+const installButton = document.createElement('button');
+
+// Écouter l'événement beforeinstallprompt
+window.addEventListener('beforeinstallprompt', (e) => {
+    console.log('💾 PWA installable détectée');
+    e.preventDefault();
+    deferredPrompt = e;
+    showInstallButton();
+});
+
+// Créer et afficher le bouton d'installation
+function showInstallButton() {
+    installButton.innerHTML = '<i class="fas fa-download"></i> Installer l\'app';
+    installButton.className = 'btn btn-outline-primary btn-sm position-fixed';
+    installButton.style.cssText = `
+        bottom: 20px;
+        right: 20px;
+        z-index: 1000;
+        border-radius: 25px;
+        padding: 10px 20px;
+        font-weight: 600;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        backdrop-filter: blur(10px);
+        background: rgba(255,255,255,0.9);
+        border: 2px solid var(--accent-gold);
+        color: var(--accent-gold);
+        transition: all 0.3s ease;
+    `;
+    
+    installButton.addEventListener('click', installPWA);
+    document.body.appendChild(installButton);
+    
+    // Animation d'apparition
+    setTimeout(() => {
+        installButton.style.transform = 'translateY(0)';
+        installButton.style.opacity = '1';
+    }, 100);
+}
+
+// Fonction d'installation
+async function installPWA() {
+    if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        
+        if (outcome === 'accepted') {
+            console.log('✅ PWA installée');
+            hideInstallButton();
+        } else {
+            console.log('❌ Installation refusée');
+        }
+        
+        deferredPrompt = null;
     }
 }
 
-// Envoi de notification
-function sendNotification(title, options = {}) {
+// Masquer le bouton d'installation
+function hideInstallButton() {
+    if (installButton && installButton.parentNode) {
+        installButton.style.transform = 'translateY(100px)';
+        installButton.style.opacity = '0';
+        setTimeout(() => {
+            installButton.remove();
+        }, 300);
+    }
+}
+
+// Détecter si l'app est déjà installée
+window.addEventListener('appinstalled', () => {
+    console.log('✅ PWA installée avec succès');
+    hideInstallButton();
+    
+    // Notification de succès
+    showNotification('Application installée !', 'Vous pouvez maintenant utiliser Croire & Penser hors ligne.');
+});
+
+// Gestion du mode standalone (app installée)
+if (window.matchMedia('(display-mode: standalone)').matches) {
+    console.log('📱 Mode PWA standalone actif');
+    document.body.classList.add('pwa-mode');
+}
+
+// Notifications push (si supportées)
+if ('Notification' in window && 'serviceWorker' in navigator) {
+    // Demander permission pour les notifications
+    if (Notification.permission === 'default') {
+        setTimeout(() => {
+            Notification.requestPermission().then(permission => {
+                if (permission === 'granted') {
+                    console.log('✅ Notifications autorisées');
+                }
+            });
+        }, 5000); // Attendre 5 secondes avant de demander
+    }
+}
+
+// Fonction pour afficher des notifications
+function showNotification(title, body, options = {}) {
     if ('Notification' in window && Notification.permission === 'granted') {
         const notification = new Notification(title, {
-            icon: '/static/icons/icon-192x192.png',
-            badge: '/static/icons/icon-72x72.png',
+            body: body,
+            icon: '/static/img/logo-croire-penser.png',
+            badge: '/static/img/logo-croire-penser.png',
+            vibrate: [200, 100, 200],
             ...options
         });
         
-        notification.onclick = function() {
+        notification.onclick = () => {
             window.focus();
             notification.close();
         };
         
-        // Fermer automatiquement après 5 secondes
-        setTimeout(() => notification.close(), 5000);
+        // Auto-fermer après 5 secondes
+        setTimeout(() => {
+            notification.close();
+        }, 5000);
     }
 }
 
-// Détection de l'installation PWA
-let deferredPrompt;
-
-window.addEventListener('beforeinstallprompt', (e) => {
-    // Empêcher l'affichage automatique
-    e.preventDefault();
-    deferredPrompt = e;
-    
-    // Afficher un bouton d'installation personnalisé
-    showInstallButton();
+// Gestion de la connectivité
+window.addEventListener('online', () => {
+    console.log('🌐 Connexion rétablie');
+    showNotification('Connexion rétablie', 'Vous êtes de nouveau en ligne.');
+    document.body.classList.remove('offline');
 });
 
-function showInstallButton() {
-    const installButton = document.createElement('button');
-    installButton.className = 'btn btn-outline-primary position-fixed';
-    installButton.style.cssText = 'bottom: 20px; left: 20px; z-index: 1000;';
-    installButton.innerHTML = '📱 Installer l\'app';
-    installButton.onclick = installApp;
-    
-    document.body.appendChild(installButton);
-    
-    // Masquer après 10 secondes si pas cliqué
-    setTimeout(() => {
-        if (installButton.parentNode) {
-            installButton.remove();
-        }
-    }, 10000);
-}
-
-async function installApp() {
-    if (deferredPrompt) {
-        deferredPrompt.prompt();
-        
-        const { outcome } = await deferredPrompt.userChoice;
-        
-        if (outcome === 'accepted') {
-            showAlert('Application installée avec succès!', 'success');
-        }
-        
-        deferredPrompt = null;
-        
-        // Supprimer le bouton d'installation
-        const installButton = document.querySelector('button[onclick="installApp()"]');
-        if (installButton) {
-            installButton.remove();
-        }
-    }
-}
-
-// Détection du mode hors ligne
-window.addEventListener('online', function() {
-    showAlert('Connexion rétablie', 'success');
-    // Synchroniser les données en attente
-    syncPendingData();
+window.addEventListener('offline', () => {
+    console.log('📴 Mode hors ligne');
+    showNotification('Mode hors ligne', 'Vous pouvez continuer à naviguer grâce au cache.');
+    document.body.classList.add('offline');
 });
 
-window.addEventListener('offline', function() {
-    showAlert('Mode hors ligne activé', 'warning');
-});
-
-// Synchronisation des données hors ligne
-function syncPendingData() {
-    const pendingData = localStorage.getItem('pendingSync');
-    
-    if (pendingData) {
-        try {
-            const data = JSON.parse(pendingData);
-            // Traiter les données en attente
-            console.log('Synchronisation des données:', data);
-            localStorage.removeItem('pendingSync');
-        } catch (error) {
-            console.error('Erreur lors de la synchronisation:', error);
-        }
-    }
-}
-
-// Mise en cache des contenus pour l'accès hors ligne
-function cacheContent(contentId, contentData) {
-    if ('caches' in window) {
-        caches.open('foi-raison-content-v1').then(cache => {
-            const request = new Request(`/api/contents/${contentId}`);
-            const response = new Response(JSON.stringify(contentData), {
-                headers: { 'Content-Type': 'application/json' }
-            });
-            cache.put(request, response);
-        });
-    }
-}
-
-// Récupération de contenu depuis le cache
-async function getCachedContent(contentId) {
-    if ('caches' in window) {
-        const cache = await caches.open('foi-raison-content-v1');
-        const response = await cache.match(`/api/contents/${contentId}`);
-        
-        if (response) {
-            return await response.json();
-        }
-    }
-    return null;
-}
-
-// Gestion des mises à jour de l'application
-function checkForUpdates() {
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.ready.then(registration => {
-            registration.update();
-        });
-    }
-}
-
-// Vérifier les mises à jour toutes les heures
-setInterval(checkForUpdates, 60 * 60 * 1000);
-
-// Initialisation des fonctionnalités PWA
-document.addEventListener('DOMContentLoaded', function() {
-    // Demander la permission pour les notifications après 5 secondes
-    setTimeout(() => {
-        if ('Notification' in window && Notification.permission === 'default') {
-            const notifBanner = document.createElement('div');
-            notifBanner.className = 'alert alert-info alert-dismissible fade show position-fixed';
-            notifBanner.style.cssText = 'top: 80px; right: 20px; z-index: 1000; max-width: 300px;';
-            notifBanner.innerHTML = `
-                Activez les notifications pour recevoir les dernières actualités!
-                <button type="button" class="btn btn-sm btn-outline-primary ms-2" onclick="requestNotificationPermission(); this.parentElement.remove();">
-                    Activer
-                </button>
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            `;
-            
-            document.body.appendChild(notifBanner);
-        }
-    }, 5000);
-});
-
-// Partage natif (si supporté)
-async function nativeShare(title, text, url) {
-    if (navigator.share) {
-        try {
-            await navigator.share({
-                title: title,
-                text: text,
-                url: url
-            });
-        } catch (error) {
-            console.log('Erreur lors du partage:', error);
-            // Fallback vers les boutons de partage classiques
-            return false;
-        }
-        return true;
-    }
-    return false;
-}
-
-// Détection des capacités de l'appareil
-function getDeviceCapabilities() {
-    return {
-        isOnline: navigator.onLine,
-        hasNotifications: 'Notification' in window,
-        hasServiceWorker: 'serviceWorker' in navigator,
-        hasShare: 'share' in navigator,
-        isStandalone: window.matchMedia('(display-mode: standalone)').matches,
-        isMobile: /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
-    };
-}
-
-// Optimisation pour les appareils mobiles
-if (getDeviceCapabilities().isMobile) {
-    // Désactiver le zoom sur les inputs
-    document.addEventListener('DOMContentLoaded', function() {
-        const inputs = document.querySelectorAll('input, textarea, select');
-        inputs.forEach(input => {
-            input.addEventListener('focus', function() {
-                const viewport = document.querySelector('meta[name="viewport"]');
-                viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
-            });
-            
-            input.addEventListener('blur', function() {
-                const viewport = document.querySelector('meta[name="viewport"]');
-                viewport.setAttribute('content', 'width=device-width, initial-scale=1.0');
-            });
-        });
+// Mise à jour de l'app
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+        console.log('🔄 Nouvelle version disponible');
+        showUpdateNotification();
     });
 }
+
+// Notification de mise à jour
+function showUpdateNotification() {
+    const updateBanner = document.createElement('div');
+    updateBanner.innerHTML = `
+        <div style="background: var(--accent-gold); color: white; padding: 1rem; text-align: center; position: fixed; top: 0; left: 0; right: 0; z-index: 9999; box-shadow: 0 2px 10px rgba(0,0,0,0.2);">
+            <span>🔄 Nouvelle version disponible !</span>
+            <button onclick="window.location.reload()" style="background: white; color: var(--accent-gold); border: none; padding: 0.5rem 1rem; border-radius: 15px; margin-left: 1rem; font-weight: 600; cursor: pointer;">
+                Actualiser
+            </button>
+            <button onclick="this.parentElement.parentElement.remove()" style="background: transparent; color: white; border: 1px solid white; padding: 0.5rem 1rem; border-radius: 15px; margin-left: 0.5rem; cursor: pointer;">
+                Plus tard
+            </button>
+        </div>
+    `;
+    document.body.appendChild(updateBanner);
+}
+
+// Partage natif (si supporté)
+function shareContent(title, text, url) {
+    if (navigator.share) {
+        navigator.share({
+            title: title,
+            text: text,
+            url: url
+        }).then(() => {
+            console.log('✅ Contenu partagé');
+        }).catch(err => {
+            console.log('❌ Erreur partage:', err);
+        });
+    } else {
+        // Fallback: copier dans le presse-papier
+        navigator.clipboard.writeText(url).then(() => {
+            showNotification('Lien copié !', 'Le lien a été copié dans votre presse-papier.');
+        });
+    }
+}
+
+// Ajouter les boutons de partage
+document.addEventListener('DOMContentLoaded', () => {
+    // Ajouter un bouton de partage sur chaque page
+    const shareButton = document.createElement('button');
+    shareButton.innerHTML = '<i class="fas fa-share-alt"></i>';
+    shareButton.className = 'btn btn-outline-secondary btn-sm position-fixed';
+    shareButton.style.cssText = `
+        bottom: 80px;
+        right: 20px;
+        z-index: 1000;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        backdrop-filter: blur(10px);
+        background: rgba(255,255,255,0.9);
+    `;
+    
+    shareButton.addEventListener('click', () => {
+        shareContent(
+            document.title,
+            'Découvrez cette plateforme spirituelle exceptionnelle !',
+            window.location.href
+        );
+    });
+    
+    document.body.appendChild(shareButton);
+});
+
+// Styles PWA additionnels
+const pwaStyles = document.createElement('style');
+pwaStyles.textContent = `
+    .pwa-mode .navbar {
+        padding-top: env(safe-area-inset-top);
+    }
+    
+    .offline {
+        filter: grayscale(0.3);
+    }
+    
+    .offline::before {
+        content: '📴 Mode hors ligne';
+        position: fixed;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0,0,0,0.8);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 15px;
+        z-index: 1000;
+        font-size: 0.8rem;
+    }
+    
+    @media (display-mode: standalone) {
+        .navbar {
+            padding-top: env(safe-area-inset-top, 20px);
+        }
+        
+        body {
+            padding-bottom: env(safe-area-inset-bottom, 0);
+        }
+    }
+`;
+document.head.appendChild(pwaStyles);
