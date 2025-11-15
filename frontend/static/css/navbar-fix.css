@@ -1,0 +1,48 @@
+/* Fix Navigation - Priorité maximale */
+
+/* Assurer la visibilité de la navbar */
+.site-header,
+.navbar {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: relative !important;
+    z-index: 1030 !important;
+}
+
+/* Préserver la taille du logo */
+.navbar-brand img.brand-logo {
+    width: auto !important;
+    height: auto !important;
+    /* Le transform: scale(2.5) du template sera préservé */
+}
+
+/* Navigation responsive sans casser l'existant */
+@media (max-width: 767px) {
+    .navbar-brand img.brand-logo {
+        transform: scale(1.8) !important; /* Plus petit sur mobile mais visible */
+    }
+    
+    .navbar-toggler {
+        display: block !important;
+    }
+    
+    .navbar-collapse {
+        background: white;
+        border-radius: 10px;
+        margin-top: 10px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+}
+
+@media (min-width: 768px) {
+    .navbar-brand img.brand-logo {
+        transform: scale(2.2) !important; /* Taille intermédiaire tablette */
+    }
+}
+
+@media (min-width: 1024px) {
+    .navbar-brand img.brand-logo {
+        transform: scale(2.5) !important; /* Taille originale desktop */
+    }
+}

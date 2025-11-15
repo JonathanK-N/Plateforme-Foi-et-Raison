@@ -18,11 +18,11 @@ body {
     padding: 0 1rem;
 }
 
-/* Navigation Mobile */
+/* Navigation Mobile - Préserver les styles existants */
 .navbar-brand img {
-    width: 30px !important;
-    height: 30px !important;
-    transform: scale(1) !important;
+    width: auto;
+    height: auto;
+    /* Préserver le transform existant */
 }
 
 .navbar-nav .nav-link {
@@ -33,6 +33,13 @@ body {
 .dropdown-menu {
     border: none;
     box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+/* Assurer que la navbar reste visible */
+.navbar {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
 }
 
 /* Hero Section Mobile */
@@ -125,11 +132,9 @@ body {
         padding: 0 2rem;
     }
     
-    /* Navigation Tablet */
+    /* Navigation Tablet - Préserver les styles */
     .navbar-brand img {
-        width: 35px !important;
-        height: 35px !important;
-        transform: scale(1.2) !important;
+        /* Laisser les styles existants */
     }
     
     .navbar-nav .nav-link {
@@ -206,11 +211,9 @@ body {
         padding: 0 2rem;
     }
     
-    /* Navigation Desktop */
+    /* Navigation Desktop - Préserver les styles */
     .navbar-brand img {
-        width: 40px !important;
-        height: 40px !important;
-        transform: scale(1.5) !important;
+        /* Laisser les styles existants du template */
     }
     
     .navbar-nav {
